@@ -5,10 +5,10 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
 import "./index.css";
+import BaseLayout from "./layouts/base";
 import HomePage from "./pages/home";
 import NewGamePage from "./pages/new-game";
 import { ThemeProvider } from "./providers/theme";
-import BaseLayout from "./layouts/base";
 
 const queryClient = new QueryClient();
 
