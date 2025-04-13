@@ -6,14 +6,23 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 
 import "./index.css";
 import HomePage from "./pages/home";
+import NewGamePage from "./pages/new-game";
 import { ThemeProvider } from "./providers/theme";
+import BaseLayout from "./layouts/base";
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    Component: BaseLayout,
+    children: [
+      { index: true, Component: HomePage },
+      {
+        path: "new-game",
+        Component: NewGamePage,
+      },
+    ],
   },
 ]);
 
