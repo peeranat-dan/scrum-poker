@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "predeploy:web": "pnpm build",
+    "deploy:web": "firebase deploy --only hosting"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
