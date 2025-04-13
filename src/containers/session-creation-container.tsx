@@ -1,7 +1,7 @@
 import SessionCreationForm from "@/components/form/session-creation-form";
-import { useAnonymousLogin } from "@/hooks/auth/use-anonymous-login";
 import { useCreateParticipant } from "@/hooks/participant/use-create-participant";
 import { useCreateSession } from "@/hooks/session/use-create-session";
+import { useAuth } from "@/providers/auth";
 import {
   type CreateSessionInput,
   CreateSessionSchema,
@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
 export default function SessionCreationContainer() {
+  const navigate = useNavigate();
   const form = useForm<CreateSessionInput>({
     resolver: zodResolver(CreateSessionSchema),
     defaultValues: {
@@ -18,15 +19,14 @@ export default function SessionCreationContainer() {
       votingSystem: "fibonacci",
     },
   });
-  const navigate = useNavigate();
+  const { signInAnonymously } = useAuth();
 
-  const anonymousLoginMutation = useAnonymousLogin();
   const createSessionMutation = useCreateSession();
   const createParticipantMutation = useCreateParticipant();
 
   const onSubmit = async (data: CreateSessionInput) => {
     // STEP 1: Handle anonymous login
-    const user = await anonymousLoginMutation.mutateAsync();
+    const user = await signInAnonymously();
     // STEP 2: Create session
     const session = await createSessionMutation.mutateAsync(data);
     // STEP 3: Create participant
