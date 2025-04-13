@@ -31,10 +31,7 @@ export default function SessionCreationForm({
   const { isSubmitting } = formState;
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 max-w-sm w-full"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
         <FormField
           control={form.control}
           name="name"
@@ -42,7 +39,7 @@ export default function SessionCreationForm({
             <FormItem>
               <FormLabel>Session's Name</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Planning Poker" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -70,7 +67,7 @@ export default function SessionCreationForm({
           )}
         />
         <Button className="w-full" type="submit" disabled={isSubmitting}>
-          Submit
+          Create Session
         </Button>
       </form>
     </Form>

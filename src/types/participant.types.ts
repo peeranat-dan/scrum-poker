@@ -19,3 +19,9 @@ export interface ParticipantDoc {
   isOwner: boolean;
   joinedAt: Timestamp;
 }
+
+export interface CreateParticipantInput {
+  sessionId: string;
+  uid: string;
+  isOwner: boolean;
+}

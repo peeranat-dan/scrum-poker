@@ -9,6 +9,7 @@ import BaseLayout from "./layouts/base";
 import HomePage from "./pages/home";
 import NewGamePage from "./pages/new-game";
 import { ThemeProvider } from "./providers/theme";
+import GamePage from "./pages/game/[gameId]";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "new-game",
         Component: NewGamePage,
+      },
+      {
+        path: "game/:id",
+        Component: GamePage,
       },
     ],
   },
