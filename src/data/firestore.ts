@@ -1,4 +1,5 @@
 import { type ParticipantDoc } from "@/types/participant.types";
+import { type RoundDoc } from "@/types/round.types";
 import { type SessionDoc } from "@/types/session.types";
 import { type VoteDoc } from "@/types/vote.types";
 import {
@@ -15,8 +16,14 @@ function createCollection<T = DocumentData>(collectionName: string) {
   return collection(db, collectionName) as CollectionReference<T>;
 }
 
-const sessionsCollection = createCollection<SessionDoc>("sessions");
 const participantsCollection = createCollection<ParticipantDoc>("participants");
+const roundsCollection = createCollection<RoundDoc>("rounds");
+const sessionsCollection = createCollection<SessionDoc>("sessions");
 const votesCollection = createCollection<VoteDoc>("votes");
 
-export { participantsCollection, sessionsCollection, votesCollection };
+export {
+  participantsCollection,
+  roundsCollection,
+  sessionsCollection,
+  votesCollection,
+};
