@@ -15,7 +15,8 @@ function createCollection<T = DocumentData>(collectionName: string) {
   return collection(db, collectionName) as CollectionReference<T>;
 }
 
-export const sessionsCollection = createCollection<SessionDoc>("sessions");
-export const participantsCollection =
-  createCollection<ParticipantDoc>("participants");
-export const votesCollection = createCollection<VoteDoc>("votes");
+const sessionsCollection = createCollection<SessionDoc>("sessions");
+const participantsCollection = createCollection<ParticipantDoc>("participants");
+const votesCollection = createCollection<VoteDoc>("votes");
+
+export { participantsCollection, sessionsCollection, votesCollection };
