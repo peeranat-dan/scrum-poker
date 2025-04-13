@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import { type PropsWithChildren } from "react";
 import { Outlet } from "react-router";
 
@@ -13,6 +14,7 @@ export default function BaseLayout({ children }: Readonly<BaseLayoutProps>) {
           {children ?? <Outlet />}
         </main>
       </div>
+      <Toaster />
     </div>
   );
 }
