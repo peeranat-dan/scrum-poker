@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 
 import "./index.css";
 import { HomePage } from "./pages/home";
+import { ThemeProvider } from "./providers/theme";
 
 const queryClient = new QueryClient();
 
@@ -18,9 +19,11 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </ThemeProvider>
   </StrictMode>
 );
