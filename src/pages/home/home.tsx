@@ -1,11 +1,9 @@
 import { Button } from "@/components/ui/button";
 
-function App() {
+export default function HomePage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-svh">
       <Button onClick={() => console.log("aaa")}>Click me</Button>
     </div>
   );
 }
-
-export default App;
