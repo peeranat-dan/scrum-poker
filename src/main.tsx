@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
 import "./index.css";
-import { HomePage } from "./pages/home";
+import HomePage from "./pages/home";
 import { ThemeProvider } from "./providers/theme";
 
 const queryClient = new QueryClient();
