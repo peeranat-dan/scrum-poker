@@ -10,4 +10,4 @@ async function signInAnonymously() {
   return await firebaseSignInAnonymously(auth);
 }
 
-export { signInAnonymously };
+export { auth, signInAnonymously };

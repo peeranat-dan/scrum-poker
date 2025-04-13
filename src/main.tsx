@@ -6,10 +6,11 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 
 import "./index.css";
 import BaseLayout from "./layouts/base";
+import GamePage from "./pages/game/[gameId]";
 import HomePage from "./pages/home";
 import NewGamePage from "./pages/new-game";
+import { AuthProvider } from "./providers/auth";
 import { ThemeProvider } from "./providers/theme";
-import GamePage from "./pages/game/[gameId]";
 
 const queryClient = new QueryClient();
 
@@ -35,8 +36,10 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
   </StrictMode>
