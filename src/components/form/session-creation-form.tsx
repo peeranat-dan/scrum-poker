@@ -39,7 +39,7 @@ export default function SessionCreationForm({
             <FormItem>
               <FormLabel>Session's Name</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Planning Poker" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -67,7 +67,7 @@ export default function SessionCreationForm({
           )}
         />
         <Button className="w-full" type="submit" disabled={isSubmitting}>
-          Submit
+          Create Session
         </Button>
       </form>
     </Form>
