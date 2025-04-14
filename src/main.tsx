@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     Component: GameLayout,
     children: [
       {
-        path: "game/:sessionId",
+        path: "game/:gameId",
         Component: GamePage,
       },
     ],

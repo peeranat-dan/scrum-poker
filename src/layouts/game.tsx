@@ -6,14 +6,14 @@ import { Outlet, useParams } from "react-router";
 type GameLayoutProps = PropsWithChildren;
 
 export default function GameLayout({ children }: Readonly<GameLayoutProps>) {
-  const { sessionId } = useParams<{ sessionId: string }>();
+  const { gameId } = useParams<{ gameId: string }>();
 
-  if (!sessionId) {
-    throw new Error("Session ID is required");
+  if (!gameId) {
+    throw new Error("Game ID is required");
   }
 
   return (
-    <GameProvider gameId={sessionId}>
+    <GameProvider gameId={gameId}>
       <div className="flex h-dvh w-screen flex-col">
         {/* <Header /> */}
         <div className="flex flex-1 overflow-hidden">
