@@ -12,7 +12,7 @@ export interface GameProviderProps {
 export interface GameProviderState {
   session: Session | undefined;
   cards: Card[];
-  participants: Participant[];
+  participants: (Participant & { vote: Vote["value"] })[];
   round: Round | undefined;
   vote: Vote | null | undefined;
   castVote: (value: number) => void;

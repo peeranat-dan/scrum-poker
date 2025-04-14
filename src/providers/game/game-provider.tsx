@@ -1,15 +1,17 @@
+import { useStreamParticipants } from "@/hooks/participant/use-stream-participants";
+import { useGetActiveRound } from "@/hooks/round/use-get-active-round";
+import { useCastVote } from "@/hooks/vote/use-cast-vote";
+import { useGetVoteByRoundId } from "@/hooks/vote/use-get-vote-by-round-id";
+import { useStreamVotes } from "@/hooks/vote/use-stream-votes";
+import { useUpdateVote } from "@/hooks/vote/use-update-vote";
 import { getCards } from "@/lib/card";
+import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
+import { useParticipant } from "../participant";
 import { useSession } from "../session";
 import { GameContext } from "./game-context";
 import { type GameProviderProps } from "./types";
-import { useGetActiveRound } from "@/hooks/round/use-get-active-round";
-import { useGetVoteByRoundId } from "@/hooks/vote/use-get-vote-by-round-id";
-import { useParticipant } from "../participant";
-import { useCastVote } from "@/hooks/vote/use-cast-vote";
-import { useUpdateVote } from "@/hooks/vote/use-update-vote";
-import { useQueryClient } from "@tanstack/react-query";
-import { useStreamParticipants } from "@/hooks/participant/use-stream-participants";
+import { mapParticipantsToVotes } from "./utils";
 
 export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const queryClient = useQueryClient();
@@ -23,6 +25,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     participant?.id ?? ""
   );
   const { participants } = useStreamParticipants(session.id);
+  const { votes } = useStreamVotes(activeRoundData?.id ?? "");
 
   const castVoteMutation = useCastVote();
   const updateVoteMutation = useUpdateVote();
@@ -74,19 +77,17 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     () => ({
       session,
       cards: getCards(session.votingSystem),
-      participants: participants ?? [],
+      participants: mapParticipantsToVotes(participants, votes) ?? [],
       round: activeRoundData,
       vote: voteData,
       castVote: castVote,
     }),
-    [session, activeRoundData, voteData, castVote, participants]
+    [session, activeRoundData, voteData, castVote, participants, votes]
   );
 
   if (isActiveRoundLoading || isVoteLoading) {
     return <div>Loading...</div>;
   }
-
-  console.log({ activeRoundData, participants });
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 }
