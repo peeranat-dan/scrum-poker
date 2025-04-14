@@ -16,7 +16,8 @@ export function mapParticipantsToVotes(
     const vote = votesByParticipantId[participant.id];
     return {
       ...participant,
-      vote: vote ? vote.value : 0,
+      // NOTE: -2 is the value for a participant who has not voted yet or who has voted no
+      vote: vote ? vote.value : -2,
     };
   });
 
