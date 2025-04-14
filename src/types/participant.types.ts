@@ -25,3 +25,8 @@ export interface CreateParticipantInput {
   uid: string;
   isOwner: boolean;
 }
+
+export interface UpdateParticipantNameInput {
+  participantId: string;
+  name: string;
+}
