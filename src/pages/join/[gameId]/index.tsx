@@ -12,9 +12,14 @@ export default function JoinPage() {
             <div className="flex flex-col gap-6 p-6 md:p-8">
               <div className="space-y-2">
                 <h2>
-                  Join <span className="italic">{name}</span>
+                  Joining{" "}
+                  <span className="font-mono py-1 px-2 rounded-sm border border-accent">
+                    {name}
+                  </span>
                 </h2>
-                <p className="text-muted-foreground">Join {name} session</p>
+                <p className="text-muted-foreground">
+                  Introduce yourself to jump into this game session.
+                </p>
               </div>
               <SessionJoinContainer />
             </div>
