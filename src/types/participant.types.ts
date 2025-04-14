@@ -24,6 +24,7 @@ export interface CreateParticipantInput {
   sessionId: string;
   uid: string;
   isOwner: boolean;
+  displayName?: string;
 }
 
 export interface UpdateParticipantNameInput {
