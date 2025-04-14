@@ -12,4 +12,5 @@ export interface GameProviderState {
   loading: boolean;
   cards: Card[];
   playerInfo: Participant | undefined;
+  updatePlayerName: (name: string) => void;
 }
