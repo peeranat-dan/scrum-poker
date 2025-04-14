@@ -14,5 +14,6 @@ export interface GameProviderState {
   cards: Card[];
   participants: Participant[];
   round: Round | undefined;
-  vote: Vote | undefined;
+  vote: Vote | null | undefined;
+  castVote: (value: number) => void;
 }
