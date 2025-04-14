@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import GameCards from "@/containers/game-cards";
+import UserProfileModal from "@/containers/user-profile-modal";
 import { useGame } from "@/providers/game";
 import { toast } from "sonner";
 
@@ -12,6 +13,7 @@ export default function GamePage() {
       <div className="absolute flex justify-center py-4 overflow-x-scroll bottom-0 w-full px-4 lg:px-0">
         <GameCards />
       </div>
+      <UserProfileModal />
     </div>
   );
 }
