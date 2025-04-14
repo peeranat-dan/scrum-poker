@@ -8,6 +8,7 @@ export async function createSession(input: CreateSessionInput) {
     createdAt: Timestamp.now(),
     name: input.name,
     votingSystem: input.votingSystem,
+    status: "active",
   });
 
   return session;

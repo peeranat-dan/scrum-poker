@@ -15,5 +15,6 @@ export function sessionConverter(
     createdAt: data.createdAt.toDate(),
     name: data.name,
     votingSystem: data.votingSystem,
+    status: data.status,
   };
 }
