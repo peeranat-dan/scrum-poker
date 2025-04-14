@@ -1,3 +1,4 @@
+import { type Card } from "@/types/card.types";
 import { type Session } from "@/types/session.types";
 
 export interface GameProviderProps {
@@ -8,4 +9,5 @@ export interface GameProviderProps {
 export interface GameProviderState {
   session: Session | undefined;
   loading: boolean;
+  cards: Card[];
 }

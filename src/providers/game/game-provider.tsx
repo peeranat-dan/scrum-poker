@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { GameContext } from "./game-context";
 import { type GameProviderProps } from "./types";
 import { useGetSessionById } from "@/hooks/session/use-get-session-by-id";
+import { getCards } from "@/lib/card";
 
 export function GameProvider({
   gameId,
@@ -13,11 +14,13 @@ export function GameProvider({
     () => ({
       session: data,
       loading: isLoading,
+      cards: data?.votingSystem ? getCards(data.votingSystem) : [],
     }),
     [data, isLoading]
   );
 
   if (error) {
+    // TODO: Handle error
     throw error;
   }
 
