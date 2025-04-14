@@ -9,6 +9,7 @@ import BaseLayout from "./layouts/base";
 import GameLayout from "./layouts/game";
 import GamePage from "./pages/game/[gameId]";
 import HomePage from "./pages/home";
+import JoinPage from "./pages/join/[gameId]";
 import NewGamePage from "./pages/new-game";
 import { AuthProvider } from "./providers/auth";
 import { ThemeProvider } from "./providers/theme";
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "game/:gameId",
         Component: GamePage,
+      },
+      {
+        path: "join/:gameId",
+        Component: JoinPage,
       },
     ],
   },
