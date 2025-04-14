@@ -9,8 +9,6 @@ export interface GameProviderProps {
 
 export interface GameProviderState {
   session: Session | undefined;
-  loading: boolean;
   cards: Card[];
-  playerInfo: Participant | undefined;
-  updatePlayerName: (name: string) => void;
+  participants: Participant[];
 }

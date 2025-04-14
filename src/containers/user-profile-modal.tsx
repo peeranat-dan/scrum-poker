@@ -6,19 +6,19 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useGame } from "@/providers/game";
+import { useParticipant } from "@/providers/participant";
 import { type UserProfileInput, UserProfileSchema } from "@/types/schema.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function UserProfileModal() {
-  const { playerInfo, updatePlayerName } = useGame();
+  const { participant, updateParticipantName } = useParticipant();
   const form = useForm<UserProfileInput>({
     resolver: zodResolver(UserProfileSchema),
     defaultValues: {
       displayName:
-        playerInfo?.displayName ??
+        participant?.displayName ??
         import.meta.env.VITE_GAME_DEFAULT_PARTICIPANT_NAME,
     },
   });
@@ -26,15 +26,15 @@ export default function UserProfileModal() {
 
   useEffect(() => {
     if (
-      playerInfo?.displayName ===
+      participant?.displayName ===
       import.meta.env.VITE_GAME_DEFAULT_PARTICIPANT_NAME
     ) {
       setIsOpen(true);
     }
-  }, [playerInfo]);
+  }, [participant]);
 
   const onSubmit = (data: UserProfileInput) => {
-    updatePlayerName(data.displayName);
+    updateParticipantName(data.displayName);
     setIsOpen(false);
   };
 
