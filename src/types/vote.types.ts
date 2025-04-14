@@ -2,7 +2,6 @@ import { type Timestamp } from "firebase/firestore";
 
 export interface Vote {
   id: string;
-  sessionId: string;
   roundId: string;
   participantId: string;
   value: number;
@@ -10,9 +9,19 @@ export interface Vote {
 }
 
 export interface VoteDoc {
-  sessionId: string;
   roundId: string;
   participantId: string;
   value: number;
   castAt: Timestamp;
+}
+
+export interface CastVoteInput {
+  roundId: string;
+  participantId: string;
+  value: number;
+}
+
+export interface UpdateVoteInput {
+  voteId: string;
+  value: number;
 }

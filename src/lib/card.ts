@@ -1,5 +1,4 @@
 import { type Card } from "@/types/card.types";
-import { randomEmoji } from "./utils";
 
 const FIBONACCI_CARDS: Card[] = [
   {
@@ -48,12 +47,12 @@ const FIBONACCI_CARDS: Card[] = [
   },
   {
     displayValue: "?",
-    value: 0,
+    value: -1,
     shouldIncludeInAverage: false,
   },
   {
-    displayValue: "emoji",
-    value: 0,
+    displayValue: "😇",
+    value: -2,
     shouldIncludeInAverage: false,
   },
 ];
@@ -85,12 +84,12 @@ const T_SHIRT_CARDS: Card[] = [
   },
   {
     displayValue: "?",
-    value: 0,
+    value: -1,
     shouldIncludeInAverage: false,
   },
   {
-    displayValue: "emoji",
-    value: 0,
+    displayValue: "😇",
+    value: -2,
     shouldIncludeInAverage: false,
   },
 ];
@@ -99,8 +98,6 @@ export function getCards(votingSystem: "fibonacci" | "t-shirt") {
   if (votingSystem === "fibonacci") {
     return FIBONACCI_CARDS.map((card) => ({
       ...card,
-      displayValue:
-        card.displayValue === "emoji" ? randomEmoji() : card.displayValue,
       shouldIncludeInAverage:
         typeof card.shouldIncludeInAverage === "undefined"
           ? true
@@ -109,8 +106,10 @@ export function getCards(votingSystem: "fibonacci" | "t-shirt") {
   } else if (votingSystem === "t-shirt") {
     return T_SHIRT_CARDS.map((card) => ({
       ...card,
-      displayValue:
-        card.displayValue === "emoji" ? randomEmoji() : card.displayValue,
+      shouldIncludeInAverage:
+        typeof card.shouldIncludeInAverage === "undefined"
+          ? true
+          : card.shouldIncludeInAverage,
     }));
   }
 
