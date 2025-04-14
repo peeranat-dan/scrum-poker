@@ -32,7 +32,8 @@ export default function GameParticipants() {
           <div
             className={cn(
               "flex w-24 aspect-[2/3] shrink-0 items-center rounded-md justify-center border border-accent bg-background text-center text-2xl font-semibold font-mono text-foreground shadow-md transition-colors",
-              !participant.vote && "bg-accent text-accent-foreground"
+              typeof participant.vote === "undefined" &&
+                "bg-accent text-accent-foreground"
             )}
           >
             {getVoteValue(cards, participant.vote, round?.status)}
