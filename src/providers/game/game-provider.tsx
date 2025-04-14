@@ -100,7 +100,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     ]
   );
 
-  if (isVoteLoading || !round || !participant || participants.length === 0) {
+  if (isVoteLoading || !round || participants.length === 0) {
     return <div>Loading...</div>;
   }
 
