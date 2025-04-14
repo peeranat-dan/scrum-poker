@@ -1,6 +1,6 @@
 import { type Timestamp } from "firebase/firestore";
 
-export type RoundStatus = "in-progress" | "revealed";
+export type RoundStatus = "in-progress" | "revealed" | "completed";
 
 export interface Round {
   id: string;

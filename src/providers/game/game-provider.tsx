@@ -12,11 +12,13 @@ import { useSession } from "../session";
 import { GameContext } from "./game-context";
 import { type GameProviderProps } from "./types";
 import { mapParticipantsToVotes } from "./utils";
+import { useRevealRound } from "@/hooks/round/use-reveal-round";
 
 export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const queryClient = useQueryClient();
   const session = useSession();
   const { participant } = useParticipant();
+  const revealRoundMutation = useRevealRound();
 
   const { round } = useStreamActiveRound(session.id);
   const { data: voteData, isLoading: isVoteLoading } = useGetVoteByRoundId(
@@ -72,6 +74,12 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     ]
   );
 
+  const revealRound = useCallback(async () => {
+    if (round) {
+      revealRoundMutation.mutateAsync(round.id);
+    }
+  }, [revealRoundMutation, round]);
+
   const value = useMemo(
     () => ({
       cards: getCards(session.votingSystem),
@@ -79,8 +87,17 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       round: round,
       vote: voteData,
       castVote: castVote,
+      revealRound: revealRound,
     }),
-    [session, round, voteData, castVote, participants, votes]
+    [
+      session.votingSystem,
+      participants,
+      votes,
+      round,
+      voteData,
+      castVote,
+      revealRound,
+    ]
   );
 
   if (isVoteLoading || !round || !participant || participants.length === 0) {
