@@ -13,7 +13,7 @@ export async function getVoteByRoundId(roundId: string, participantId: string) {
   );
 
   if (voteSnapshot.empty) {
-    return undefined;
+    return null;
   }
 
   return voteConverter(voteSnapshot.docs[0]);
