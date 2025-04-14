@@ -7,7 +7,7 @@ export async function createParticipant(input: CreateParticipantInput) {
   const participant = await addDoc(participantsCollection, {
     sessionId: input.sessionId,
     uid: input.uid,
-    displayName: "John Doe",
+    displayName: import.meta.env.VITE_GAME_DEFAULT_PARTICIPANT_NAME,
     isOwner: input.isOwner,
     joinedAt: Timestamp.now(),
   });
