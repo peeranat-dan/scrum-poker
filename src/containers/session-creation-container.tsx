@@ -8,7 +8,7 @@ import {
 } from "@/types/schema.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { generatePath, useNavigate } from "react-router";
 
 export default function SessionCreationContainer() {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export default function SessionCreationContainer() {
     });
 
     if (session && user && participants) {
-      navigate(`/game/${session.id}`);
+      navigate(generatePath("/game/:gameId", { gameId: session.id }));
     }
   };
 
