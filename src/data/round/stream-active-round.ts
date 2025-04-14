@@ -1,5 +1,5 @@
 import { type Round } from "@/types/round.types";
-import { limit, onSnapshot, query, where } from "firebase/firestore";
+import { and, limit, onSnapshot, or, query, where } from "firebase/firestore";
 import { roundsCollection } from "../firestore";
 import { roundConverter } from "./firestore-converter";
 
@@ -9,8 +9,13 @@ export function streamActiveRound(
 ) {
   const q = query(
     roundsCollection,
-    where("sessionId", "==", sessionId),
-    where("status", "==", "in-progress"),
+    and(
+      where("sessionId", "==", sessionId),
+      or(
+        where("status", "==", "in-progress"),
+        where("status", "==", "revealed")
+      )
+    ),
     limit(1)
   );
 
