@@ -20,3 +20,13 @@ export const UserProfileSchema = z.object({
 });
 
 export type UserProfileInput = z.infer<typeof UserProfileSchema>;
+
+export const JoinSessionSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "Session name is required")
+    .max(20, "Session name is too long"),
+});
+
+export type JoinSessionInput = z.infer<typeof JoinSessionSchema>;
