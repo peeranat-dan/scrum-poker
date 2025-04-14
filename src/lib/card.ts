@@ -51,7 +51,7 @@ const FIBONACCI_CARDS: Card[] = [
     shouldIncludeInAverage: false,
   },
   {
-    displayValue: "😇",
+    displayValue: "🙅🏼",
     value: -2,
     shouldIncludeInAverage: false,
   },
@@ -88,7 +88,7 @@ const T_SHIRT_CARDS: Card[] = [
     shouldIncludeInAverage: false,
   },
   {
-    displayValue: "😇",
+    displayValue: "🙅🏼",
     value: -2,
     shouldIncludeInAverage: false,
   },
