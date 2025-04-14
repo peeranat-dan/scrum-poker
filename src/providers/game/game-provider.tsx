@@ -6,14 +6,21 @@ import { GameContext } from "./game-context";
 import { type GameProviderProps } from "./types";
 import { useCreateRound } from "@/hooks/round/use-create-round";
 import { useGetActiveRound } from "@/hooks/round/use-get-active-round";
+import { useGetVoteByRoundId } from "@/hooks/vote/use-get-vote-by-round-id";
+import { useParticipant } from "../participant";
 
 export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const session = useSession();
+  const { participant } = useParticipant();
   const createRoundMutation = useCreateRound(session.id);
   const { data: activeRoundData, isLoading: isActiveRoundLoading } =
     useGetActiveRound(session.id);
   const { data: participantsData, isLoading: isParticipantsLoading } =
     useGetParticipantsBySessionId(session.id);
+  const { data: voteData, isLoading: isVoteLoading } = useGetVoteByRoundId(
+    activeRoundData?.id ?? "",
+    participant?.id ?? ""
+  );
 
   const value = useMemo(
     () => ({
@@ -21,17 +28,18 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       cards: getCards(session.votingSystem),
       participants: participantsData ?? [],
       round: activeRoundData,
+      vote: voteData,
     }),
-    [session, participantsData, activeRoundData]
+    [session, participantsData, activeRoundData, voteData]
   );
 
   useEffect(() => {
-    if (participantsData && participantsData.length > 0) {
+    if (participantsData && participantsData.length > 0 && !activeRoundData) {
       createRoundMutation.mutate();
     }
   }, []);
 
-  if (isParticipantsLoading || isActiveRoundLoading) {
+  if (isParticipantsLoading || isActiveRoundLoading || isVoteLoading) {
     return <div>Loading...</div>;
   }
 
