@@ -5,5 +5,6 @@ export function useGetSessionById(id: string) {
   return useQuery({
     queryKey: ["session", id],
     queryFn: () => getSessionById(id),
+    enabled: !!id,
   });
 }
