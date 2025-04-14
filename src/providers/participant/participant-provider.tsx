@@ -1,8 +1,7 @@
 import { useGetParticipant } from "@/hooks/participant/use-get-participant";
 import { useUpdateParticipantName } from "@/hooks/participant/use-update-participant-name";
-import { type Participant } from "@/types/participant.types";
 import { useQueryClient } from "@tanstack/react-query";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { ParticipantContext } from "./participant-context";
 import { type ParticipantProviderProps } from "./types";
 
@@ -13,22 +12,16 @@ export function ParticipantProvider({
 }: Readonly<ParticipantProviderProps>) {
   const queryClient = useQueryClient();
 
-  const [participant, setParticipant] = useState<Participant | null>(null);
-
-  const { isLoading, error } = useGetParticipant(sessionId, uid, {
-    onSuccess: (result) => {
-      setParticipant(result);
-    },
-  });
+  const { data, isLoading, error } = useGetParticipant(sessionId, uid, {});
 
   const updateParticipantNameMutation = useUpdateParticipantName();
 
   const updateParticipantName = useCallback(
     async (name: string) => {
-      if (!participant) return;
+      if (!data) return;
       await updateParticipantNameMutation.mutateAsync(
         {
-          participantId: participant.id,
+          participantId: data.id,
           name,
         },
         {
@@ -40,15 +33,15 @@ export function ParticipantProvider({
         }
       );
     },
-    [participant, queryClient, sessionId, uid, updateParticipantNameMutation]
+    [data, queryClient, sessionId, uid, updateParticipantNameMutation]
   );
 
   const value = useMemo(
     () => ({
-      participant: participant,
+      participant: data,
       updateParticipantName: updateParticipantName,
     }),
-    [participant, updateParticipantName]
+    [data, updateParticipantName]
   );
 
   if (isLoading) {

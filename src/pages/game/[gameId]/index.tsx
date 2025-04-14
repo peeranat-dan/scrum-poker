@@ -2,11 +2,13 @@ import { Button } from "@/components/ui/button";
 import GameCards from "@/containers/game-cards";
 import UserProfileModal from "@/containers/user-profile-modal";
 import { useGame } from "@/providers/game";
+import { useParticipant } from "@/providers/participant";
 import { toast } from "sonner";
 
 export default function GamePage() {
-  const { cards, playerInfo } = useGame();
-  console.log(cards, playerInfo);
+  const { cards } = useGame();
+  const { participant } = useParticipant();
+  console.log(cards, participant);
   return (
     <div className="flex flex-col items-center justify-center min-h-svh w-full relative px-4 lg:px-0">
       <Button onClick={() => toast("Hello World")}>Click me</Button>
