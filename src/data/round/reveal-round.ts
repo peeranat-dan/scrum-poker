@@ -1,7 +1,7 @@
 import { getVotesByRoundId } from "../vote/get-votes-by-round-id";
 import { updateRound } from "./update-round";
 
-export async function finishRound(roundId: string) {
+export async function revealRound(roundId: string) {
   const votes = await getVotesByRoundId(roundId);
 
   // Filter out votes that have value of -1 and -2
@@ -16,8 +16,8 @@ export async function finishRound(roundId: string) {
 
   await updateRound({
     id: roundId,
-    status: "revealed",
     averageVote,
+    status: "revealed",
     revealedAt: new Date(),
   });
 }
