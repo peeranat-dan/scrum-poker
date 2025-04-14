@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 
 import "./index.css";
 import BaseLayout from "./layouts/base";
+import GameLayout from "./layouts/game";
 import GamePage from "./pages/game/[gameId]";
 import HomePage from "./pages/home";
 import NewGamePage from "./pages/new-game";
@@ -24,8 +25,13 @@ const router = createBrowserRouter([
         path: "new-game",
         Component: NewGamePage,
       },
+    ],
+  },
+  {
+    Component: GameLayout,
+    children: [
       {
-        path: "game/:id",
+        path: "game/:sessionId",
         Component: GamePage,
       },
     ],
