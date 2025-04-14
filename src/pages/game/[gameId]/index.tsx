@@ -1,4 +1,5 @@
 import GameCards from "@/containers/game-cards";
+import GameController from "@/containers/game-controller";
 import GameParticipants from "@/containers/game-participants";
 import UserProfileModal from "@/containers/user-profile-modal";
 
@@ -8,6 +9,7 @@ export default function GamePage() {
       <div className="absolute flex justify-center py-4 overflow-x-scroll top-0 w-full px-4 lg:px-0">
         <GameParticipants />
       </div>
+      <GameController />
       <div className="absolute flex justify-center py-4 overflow-x-scroll bottom-0 w-full px-4 lg:px-0">
         <GameCards />
       </div>

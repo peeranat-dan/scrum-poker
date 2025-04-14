@@ -1,5 +1,5 @@
 import { useStreamParticipants } from "@/hooks/participant/use-stream-participants";
-import { useGetActiveRound } from "@/hooks/round/use-get-active-round";
+import { useStreamActiveRound } from "@/hooks/round/use-stream-active-round";
 import { useCastVote } from "@/hooks/vote/use-cast-vote";
 import { useGetVoteByRoundId } from "@/hooks/vote/use-get-vote-by-round-id";
 import { useStreamVotes } from "@/hooks/vote/use-stream-votes";
@@ -12,20 +12,21 @@ import { useSession } from "../session";
 import { GameContext } from "./game-context";
 import { type GameProviderProps } from "./types";
 import { mapParticipantsToVotes } from "./utils";
+import { useRevealRound } from "@/hooks/round/use-reveal-round";
 
 export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const queryClient = useQueryClient();
   const session = useSession();
   const { participant } = useParticipant();
+  const revealRoundMutation = useRevealRound();
 
-  const { data: activeRoundData, isLoading: isActiveRoundLoading } =
-    useGetActiveRound(session.id);
+  const { round } = useStreamActiveRound(session.id);
   const { data: voteData, isLoading: isVoteLoading } = useGetVoteByRoundId(
-    activeRoundData?.id ?? "",
+    round?.id ?? "",
     participant?.id ?? ""
   );
   const { participants } = useStreamParticipants(session.id);
-  const { votes } = useStreamVotes(activeRoundData?.id ?? "");
+  const { votes } = useStreamVotes(round?.id ?? "");
 
   const castVoteMutation = useCastVote();
   const updateVoteMutation = useUpdateVote();
@@ -36,13 +37,13 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
         castVoteMutation.mutate(
           {
             participantId: participant?.id ?? "",
-            roundId: activeRoundData?.id ?? "",
+            roundId: round?.id ?? "",
             value,
           },
           {
             onSuccess: () => {
               queryClient.refetchQueries({
-                queryKey: ["vote", activeRoundData?.id, participant?.id],
+                queryKey: ["vote", round?.id, participant?.id],
               });
             },
           }
@@ -56,7 +57,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
           {
             onSuccess: () => {
               queryClient.refetchQueries({
-                queryKey: ["vote", activeRoundData?.id, participant?.id],
+                queryKey: ["vote", round?.id, participant?.id],
               });
             },
           }
@@ -64,7 +65,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       }
     },
     [
-      activeRoundData?.id,
+      round?.id,
       castVoteMutation,
       participant?.id,
       queryClient,
@@ -73,19 +74,33 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     ]
   );
 
+  const revealRound = useCallback(async () => {
+    if (round) {
+      revealRoundMutation.mutateAsync(round.id);
+    }
+  }, [revealRoundMutation, round]);
+
   const value = useMemo(
     () => ({
-      session,
       cards: getCards(session.votingSystem),
       participants: mapParticipantsToVotes(participants, votes) ?? [],
-      round: activeRoundData,
+      round: round,
       vote: voteData,
       castVote: castVote,
+      revealRound: revealRound,
     }),
-    [session, activeRoundData, voteData, castVote, participants, votes]
+    [
+      session.votingSystem,
+      participants,
+      votes,
+      round,
+      voteData,
+      castVote,
+      revealRound,
+    ]
   );
 
-  if (isActiveRoundLoading || isVoteLoading) {
+  if (isVoteLoading || !round || !participant || participants.length === 0) {
     return <div>Loading...</div>;
   }
 
