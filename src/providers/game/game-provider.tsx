@@ -75,7 +75,6 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
 
   const value = useMemo(
     () => ({
-      session,
       cards: getCards(session.votingSystem),
       participants: mapParticipantsToVotes(participants, votes) ?? [],
       round: activeRoundData,
