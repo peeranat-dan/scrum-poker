@@ -1,5 +1,6 @@
 import SessionCreationForm from "@/components/form/session-creation-form";
 import { useCreateParticipant } from "@/hooks/participant/use-create-participant";
+import { useCreateRound } from "@/hooks/round/use-create-round";
 import { useCreateSession } from "@/hooks/session/use-create-session";
 import { useAuth } from "@/providers/auth";
 import {
@@ -23,7 +24,7 @@ export default function SessionCreationContainer() {
 
   const createSessionMutation = useCreateSession();
   const createParticipantMutation = useCreateParticipant();
-
+  const createRoundMutation = useCreateRound();
   const onSubmit = async (data: CreateSessionInput) => {
     // STEP 1: Handle anonymous login
     const user = await signInAnonymously();
@@ -35,8 +36,10 @@ export default function SessionCreationContainer() {
       uid: user.user.uid,
       isOwner: true,
     });
+    // STEP 4: Create round
+    const round = await createRoundMutation.mutateAsync(session.id);
 
-    if (session && user && participants) {
+    if (session && user && participants && round) {
       navigate(generatePath("/game/:gameId", { gameId: session.id }));
     }
   };

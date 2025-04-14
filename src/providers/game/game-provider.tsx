@@ -1,10 +1,9 @@
 import { useGetParticipantsBySessionId } from "@/hooks/participant/use-get-participants-by-session-id";
 import { getCards } from "@/lib/card";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useSession } from "../session";
 import { GameContext } from "./game-context";
 import { type GameProviderProps } from "./types";
-import { useCreateRound } from "@/hooks/round/use-create-round";
 import { useGetActiveRound } from "@/hooks/round/use-get-active-round";
 import { useGetVoteByRoundId } from "@/hooks/vote/use-get-vote-by-round-id";
 import { useParticipant } from "../participant";
@@ -16,7 +15,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const queryClient = useQueryClient();
   const session = useSession();
   const { participant } = useParticipant();
-  const createRoundMutation = useCreateRound(session.id);
+
   const { data: activeRoundData, isLoading: isActiveRoundLoading } =
     useGetActiveRound(session.id);
   const { data: participantsData, isLoading: isParticipantsLoading } =
@@ -83,18 +82,6 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     }),
     [session, participantsData, activeRoundData, voteData, castVote]
   );
-
-  useEffect(() => {
-    if (
-      participantsData &&
-      participantsData.length > 0 &&
-      !activeRoundData &&
-      participant?.isOwner
-    ) {
-      createRoundMutation.mutate();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [participant?.isOwner]);
 
   if (isParticipantsLoading || isActiveRoundLoading || isVoteLoading) {
     return <div>Loading...</div>;
