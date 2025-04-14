@@ -31,7 +31,7 @@ export default function SessionCreationContainer() {
     // STEP 2: Create session
     const session = await createSessionMutation.mutateAsync(data);
     // STEP 3: Create participant
-    const participants = await createParticipantMutation.mutateAsync({
+    const participant = await createParticipantMutation.mutateAsync({
       sessionId: session.id,
       uid: user.user.uid,
       isOwner: true,
@@ -39,7 +39,7 @@ export default function SessionCreationContainer() {
     // STEP 4: Create round
     const round = await createRoundMutation.mutateAsync(session.id);
 
-    if (session && user && participants && round) {
+    if (session && user && participant && round) {
       navigate(generatePath("/game/:gameId", { gameId: session.id }));
     }
   };
