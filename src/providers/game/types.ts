@@ -1,0 +1,11 @@
+import { type Session } from "@/types/session.types";
+
+export interface GameProviderProps {
+  children: React.ReactNode;
+  gameId: string;
+}
+
+export interface GameProviderState {
+  session: Session | undefined;
+  loading: boolean;
+}
