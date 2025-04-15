@@ -16,7 +16,6 @@ export default function GameArea() {
 
   const votes = Object.entries(voteCounts)
     .map(([vote, count]) => {
-      console.log(cards.find((card) => card.value === parseInt(vote)));
       return {
         label:
           cards.find((card) => card.value === parseInt(vote))?.displayValue ??
