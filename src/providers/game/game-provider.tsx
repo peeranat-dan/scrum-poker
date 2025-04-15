@@ -13,6 +13,7 @@ import { GameContext } from "./game-context";
 import { type GameProviderProps } from "./types";
 import { mapParticipantsToVotes } from "./utils";
 import { useRevealRound } from "@/hooks/round/use-reveal-round";
+import { useStartNewRound } from "@/hooks/round/use-start-new-round";
 
 export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const queryClient = useQueryClient();
@@ -30,6 +31,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
 
   const castVoteMutation = useCastVote();
   const updateVoteMutation = useUpdateVote();
+  const startNewRoundMutation = useStartNewRound();
 
   const castVote = useCallback(
     (value: number) => {
@@ -80,6 +82,15 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     }
   }, [revealRoundMutation, round]);
 
+  const startNewRound = useCallback(async () => {
+    if (round) {
+      startNewRoundMutation.mutateAsync({
+        roundId: round.id,
+        sessionId: session.id,
+      });
+    }
+  }, [round, session.id, startNewRoundMutation]);
+
   const value = useMemo(
     () => ({
       cards: getCards(session.votingSystem),
@@ -88,6 +99,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       vote: voteData,
       castVote: castVote,
       revealRound: revealRound,
+      startNewRound: startNewRound,
     }),
     [
       session.votingSystem,
@@ -97,6 +109,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       voteData,
       castVote,
       revealRound,
+      startNewRound,
     ]
   );
 

@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 export default function GameActions() {
   const { participant } = useParticipant();
-  const { round, revealRound } = useGame();
+  const { round, revealRound, startNewRound } = useGame();
 
   const handleCopyJoinLink = () => {
     if (participant?.sessionId) {
@@ -21,8 +21,7 @@ export default function GameActions() {
         {round?.status === "in-progress" ? (
           <Button onClick={revealRound}>Reveal Vote</Button>
         ) : (
-          // TODO: Implement start new session
-          <Button>Start New Session</Button>
+          <Button onClick={startNewRound}>Start New Session</Button>
         )}
       </div>
     );

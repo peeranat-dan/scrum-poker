@@ -19,5 +19,6 @@ export async function revealRound(roundId: string) {
     averageVote,
     status: "revealed",
     revealedAt: new Date(),
+    finishedAt: null,
   });
 }

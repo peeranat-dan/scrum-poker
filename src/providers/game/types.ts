@@ -15,4 +15,5 @@ export interface GameProviderState {
   vote: Vote | null | undefined;
   castVote: (value: number) => void;
   revealRound: () => void;
+  startNewRound: () => void;
 }

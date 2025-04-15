@@ -14,6 +14,7 @@ export async function createRound(sessionId: string) {
     status: "in-progress",
     revealedAt: null,
     averageVote: null,
+    finishedAt: null,
   });
   return round;
 }
