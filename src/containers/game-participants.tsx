@@ -16,7 +16,7 @@ function getVoteValue(
     return cards.find((card) => card.value === voteValue)?.displayValue ?? "❓";
   }
 
-  return voteValue ? "👍🏼" : "🤔";
+  return typeof voteValue !== "undefined" ? "👍🏼" : "🤔";
 }
 
 export default function GameParticipants() {
