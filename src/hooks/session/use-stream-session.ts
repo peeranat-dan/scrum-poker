@@ -4,11 +4,16 @@ import { useEffect, useState } from "react";
 
 export function useStreamSession(sessionId: string) {
   const [session, setSession] = useState<Session | undefined>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = streamSession(sessionId, setSession);
+    setLoading(true);
+    const unsubscribe = streamSession(sessionId, (data) => {
+      setSession(data);
+      setLoading(false);
+    });
     return () => unsubscribe();
   }, [sessionId]);
 
-  return session;
+  return { session, loading };
 }
