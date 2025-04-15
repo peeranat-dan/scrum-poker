@@ -16,8 +16,7 @@ export function mapParticipantsToVotes(
     const vote = votesByParticipantId[participant.id];
     return {
       ...participant,
-      // NOTE: -2 is the value for a participant who has not voted yet or who has voted no
-      vote: vote ? vote.value : -2,
+      vote: vote ? vote.value : undefined, // Default to undefined if no vote exists
     };
   });
 

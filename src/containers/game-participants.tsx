@@ -16,16 +16,16 @@ function getVoteValue(
     return cards.find((card) => card.value === voteValue)?.displayValue ?? "❓";
   }
 
-  return voteValue ? "👍🏼" : "🤔";
+  return typeof voteValue !== "undefined" ? "👍🏼" : "🤔";
 }
 
 export default function GameParticipants() {
   const { participants, round, cards } = useGame();
 
   return (
-    <div className="flex flex-wrap gap-4">
+    <ul className="mx-auto flex gap-2 w-full lg:w-fit my-0 p-4 overflow-x-auto overflow-y-hidden">
       {participants.map((participant) => (
-        <div key={participant.id} className="flex flex-col items-center gap-2">
+        <li key={participant.id} className="flex flex-col items-center gap-2">
           <div className="text-center text-sm font-semibold truncate max-w-[96px]">
             {participant.displayName}
           </div>
@@ -38,8 +38,8 @@ export default function GameParticipants() {
           >
             {getVoteValue(cards, participant.vote, round?.status)}
           </div>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

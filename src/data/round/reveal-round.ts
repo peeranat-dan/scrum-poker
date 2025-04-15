@@ -5,9 +5,9 @@ import { updateRound } from "./update-round";
 export async function revealRound(roundId: string) {
   const votes = await getVotesByRoundId(roundId);
 
-  // Filter out votes that have value of -1 and -2
+  // Filter out votes that have value of 0, -1 and -2
   const filteredVotes = votes.filter(
-    (vote) => vote.value !== -1 && vote.value !== -2
+    (vote) => vote.value !== -1 && vote.value !== -2 && vote.value !== 0
   );
 
   const averageVote = filteredVotes.length
@@ -17,7 +17,7 @@ export async function revealRound(roundId: string) {
           .div(filteredVotes.length)
           .toFixed(2)
       )
-    : null;
+    : 0;
 
   await updateRound({
     id: roundId,
