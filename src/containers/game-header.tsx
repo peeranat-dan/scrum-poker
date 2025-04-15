@@ -9,7 +9,7 @@ import {
 import { copyJoinLink } from "@/lib/utils";
 import { useParticipant } from "@/providers/participant";
 import { useSession } from "@/providers/session";
-import { Link } from "lucide-react";
+import { Bomb, Link, User2 } from "lucide-react";
 import { toast } from "sonner";
 
 export default function GameHeader() {
@@ -32,7 +32,7 @@ export default function GameHeader() {
             <TooltipTrigger onClick={handleCopyJoinLink}>
               <div className="bg-primary/30 dark:bg-accent rounded-full px-4 py-2 cursor-pointer hidden md:flex gap-2 items-center">
                 <Link className="w-4 h-4" />
-                <span className="text-sm font-mono">Session ID: {id}</span>
+                <span className="text-sm font-mono">{id}</span>
               </div>
             </TooltipTrigger>
             <TooltipContent>
@@ -44,7 +44,16 @@ export default function GameHeader() {
         <div className="flex items-center gap-2 shrink-0">
           <ThemeToggle />
           {participant?.isOwner ? (
-            <Button variant="secondary">Manage players</Button>
+            <Button variant="secondary">
+              <User2 />
+              <span className="hidden md:block">Manage players</span>
+            </Button>
+          ) : null}
+          {participant?.isOwner ? (
+            <Button variant="destructive">
+              <Bomb />
+              <span className="hidden md:block">Terminate session</span>
+            </Button>
           ) : null}
         </div>
       </div>
