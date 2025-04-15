@@ -16,7 +16,7 @@ export async function getParticipantBySessionIdAndUserId(
   );
 
   if (participantDoc.empty) {
-    return undefined;
+    return null;
   }
 
   // NOTE: We are assuming that there is only one participant with the same sessionId and userId

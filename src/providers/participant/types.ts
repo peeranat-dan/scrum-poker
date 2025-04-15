@@ -7,6 +7,6 @@ export interface ParticipantProviderProps {
 }
 
 export interface ParticipantProviderState {
-  participant: Participant | undefined;
+  participant: Participant | null | undefined;
   updateParticipantName: (name: string) => Promise<void>;
 }
