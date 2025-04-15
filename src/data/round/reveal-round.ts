@@ -1,3 +1,4 @@
+import Big from "big.js";
 import { getVotesByRoundId } from "../vote/get-votes-by-round-id";
 import { updateRound } from "./update-round";
 
@@ -10,8 +11,12 @@ export async function revealRound(roundId: string) {
   );
 
   const averageVote = filteredVotes.length
-    ? filteredVotes.reduce((acc, vote) => acc + vote.value, 0) /
-      filteredVotes.length
+    ? parseFloat(
+        filteredVotes
+          .reduce((acc, vote) => acc.plus(vote.value), new Big(0))
+          .div(filteredVotes.length)
+          .toFixed(2)
+      )
     : null;
 
   await updateRound({
