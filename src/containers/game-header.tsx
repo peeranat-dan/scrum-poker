@@ -27,13 +27,10 @@ export default function GameHeader() {
         <h1 className="text-2xl font-mono">S-Poker</h1>
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
-              <button
-                onClick={handleCopyJoinLink}
-                className="bg-accent rounded-full px-4 py-2 cursor-pointer"
-              >
+            <TooltipTrigger onClick={handleCopyJoinLink}>
+              <div className="bg-accent rounded-full px-4 py-2 cursor-pointer">
                 <span className="text-sm font-mono">{id}</span>
-              </button>
+              </div>
             </TooltipTrigger>
             <TooltipContent>
               <p>Copy join link to clipboard</p>
