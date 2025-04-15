@@ -9,8 +9,10 @@ import {
 import { copyJoinLink } from "@/lib/utils";
 import { useParticipant } from "@/providers/participant";
 import { useSession } from "@/providers/session";
-import { Bomb, Link, User2 } from "lucide-react";
+import { Link, User2 } from "lucide-react";
 import { toast } from "sonner";
+
+import SessionTerminationButton from "./session-termination-button";
 
 export default function GameHeader() {
   const { id } = useSession();
@@ -49,12 +51,7 @@ export default function GameHeader() {
               <span className="hidden md:block">Manage players</span>
             </Button>
           ) : null}
-          {participant?.isOwner ? (
-            <Button variant="destructive">
-              <Bomb />
-              <span className="hidden md:block">Terminate session</span>
-            </Button>
-          ) : null}
+          {participant?.isOwner ? <SessionTerminationButton /> : null}
         </div>
       </div>
     </header>
