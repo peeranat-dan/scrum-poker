@@ -64,7 +64,7 @@ export default function UserAvatarMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="rounded-md" size="icon" variant="outline">
+        <Button className="rounded-md" size="icon" variant="secondary">
           {participant?.displayName?.charAt(0)?.toUpperCase()}
         </Button>
       </DropdownMenuTrigger>
@@ -72,9 +72,9 @@ export default function UserAvatarMenu() {
         {filteredMenus.map((menu) => (
           <DropdownMenuItem key={menu.label} onClick={menu.onClick}>
             {menu.label}
-            {menu.shortcut && (
+            {menu.shortcut ? (
               <DropdownMenuShortcut>{menu.shortcut}</DropdownMenuShortcut>
-            )}
+            ) : null}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
