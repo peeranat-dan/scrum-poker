@@ -7,13 +7,13 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import "./index.css";
 import BaseLayout from "./layouts/base";
 import GameLayout from "./layouts/game";
+import NotFoundPage from "./pages/404";
 import GamePage from "./pages/game/[gameId]";
 import HomePage from "./pages/home";
 import JoinPage from "./pages/join/[gameId]";
 import NewGamePage from "./pages/new-game";
 import { AuthProvider } from "./providers/auth";
 import { ThemeProvider } from "./providers/theme";
-import NotFoundPage from "./pages/404";
 
 const queryClient = new QueryClient();
 
