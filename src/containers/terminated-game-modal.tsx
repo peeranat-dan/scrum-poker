@@ -9,22 +9,26 @@ import {
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { useSession } from "@/providers/session";
+import { useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useNavigate } from "react-router";
 
 export default function TerminatedGameModal() {
   const navigate = useNavigate();
   const { status } = useSession();
+  const queryClient = useQueryClient();
 
   const shouldOpenModal = useMemo(() => {
     return status === "finished";
   }, [status]);
 
   const handleBackToHome = () => {
+    queryClient.resetQueries();
     navigate("/");
   };
 
   const handleCreateAnotherGame = () => {
+    queryClient.resetQueries();
     navigate("/new-game");
   };
 
