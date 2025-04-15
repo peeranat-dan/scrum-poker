@@ -12,7 +12,7 @@ export function voteConverter(
 
   return {
     id: doc.id,
-    castAt: data.castAt.toDate(),
+    castAt: data.castAt?.toDate(),
     roundId: data.roundId,
     participantId: data.participantId,
     value: data.value,
