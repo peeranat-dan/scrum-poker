@@ -16,5 +16,6 @@ export function roundConverter(
     status: data.status,
     revealedAt: data.revealedAt?.toDate() ?? null,
     averageVote: data.averageVote,
+    finishedAt: data.finishedAt?.toDate() ?? null,
   };
 }
