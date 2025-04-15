@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
+import GameHeader from "@/containers/game-header";
 import { useAuth } from "@/providers/auth";
 import { GameProvider } from "@/providers/game";
 import { ParticipantProvider } from "@/providers/participant";
@@ -23,7 +24,7 @@ export default function GameLayout({ children }: Readonly<GameLayoutProps>) {
       <ParticipantProvider sessionId={sessionId} uid={user?.uid ?? ""}>
         <GameProvider gameId={gameId}>
           <div className="flex h-dvh w-screen flex-col">
-            {/* <Header /> */}
+            <GameHeader />
             <div className="flex flex-1 overflow-hidden">
               {/* <Sidebar /> */}
               <main className="flex flex-1 overflow-y-auto">
