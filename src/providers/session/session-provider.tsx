@@ -8,7 +8,7 @@ export function SessionProvider({
 }: Readonly<SessionProviderProps>) {
   const session = useStreamSession(sessionId);
 
-  if (!session) return <div>Session not found</div>;
+  if (!session) return <div>Loading...</div>;
 
   return (
     <SessionContext.Provider value={session}>
