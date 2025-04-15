@@ -10,6 +10,7 @@ import {
 import { copyJoinLink } from "@/lib/utils";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Link } from "lucide-react";
 
 export default function GameHeader() {
   const { id } = useSession();
@@ -29,7 +30,8 @@ export default function GameHeader() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger onClick={handleCopyJoinLink}>
-              <div className="bg-primary/30 dark:bg-accent rounded-full px-4 py-2 cursor-pointer hidden md:block">
+              <div className="bg-primary/30 dark:bg-accent rounded-full px-4 py-2 cursor-pointer hidden md:flex gap-2 items-center">
+                <Link className="w-4 h-4" />
                 <span className="text-sm font-mono">Session ID: {id}</span>
               </div>
             </TooltipTrigger>
