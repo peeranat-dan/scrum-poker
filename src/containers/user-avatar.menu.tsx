@@ -64,7 +64,7 @@ export default function UserAvatarMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="rounded-full" size="icon" variant="outline">
+        <Button className="rounded-md" size="icon" variant="outline">
           {participant?.displayName?.charAt(0)?.toUpperCase()}
         </Button>
       </DropdownMenuTrigger>
