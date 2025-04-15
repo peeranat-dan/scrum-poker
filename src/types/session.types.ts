@@ -9,6 +9,7 @@ export interface Session {
   name: string;
   votingSystem: VotingSystem;
   status: SessionStatus;
+  finishedAt?: Date;
 }
 
 export interface SessionDoc {
@@ -16,4 +17,13 @@ export interface SessionDoc {
   name: string;
   votingSystem: VotingSystem;
   status: SessionStatus;
+  finishedAt?: Timestamp;
+}
+
+export interface UpdateSessionInput {
+  id: string;
+  name?: string;
+  votingSystem?: VotingSystem;
+  status?: SessionStatus;
+  finishedAt?: Date;
 }
