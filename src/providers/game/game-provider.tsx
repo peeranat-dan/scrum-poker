@@ -35,6 +35,9 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
 
   const castVote = useCallback(
     (value: number) => {
+      if (round?.status !== "in-progress") {
+        return;
+      }
       if (!voteData) {
         castVoteMutation.mutate(
           {
@@ -67,12 +70,13 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       }
     },
     [
+      round?.status,
       round?.id,
+      voteData,
       castVoteMutation,
       participant?.id,
       queryClient,
       updateVoteMutation,
-      voteData,
     ]
   );
 
