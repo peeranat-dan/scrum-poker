@@ -1,6 +1,5 @@
-import { useParticipant } from "@/providers/participant";
-import { useSession } from "@/providers/session";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -8,9 +7,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { copyJoinLink } from "@/lib/utils";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+import { useParticipant } from "@/providers/participant";
+import { useSession } from "@/providers/session";
 import { Link } from "lucide-react";
+import { toast } from "sonner";
 
 export default function GameHeader() {
   const { id } = useSession();
