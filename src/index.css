@@ -47,6 +47,8 @@
   --foreground: oklch(0.18 0.0043 264.46);
   --card: oklch(0.99 0 0);
   --card-foreground: oklch(18.2% 0.004 264.5);
+  --popover: oklch(0.99 0 0);
+  --popover-foreground: oklch(0.44 0.0152 271.06);
   --border: oklch(88.2% 0.003 264.5);
   --input: oklch(88.2% 0.003 264.5);
   --primary: oklch(73.4% 0.176 47.5);
@@ -150,5 +152,21 @@
 
   code {
     @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+  }
+}
+
+/*
+    https://github.com/tailwindlabs/tailwindcss/discussions/2394
+    https://github.com/tailwindlabs/tailwindcss/pull/5732
+*/
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
