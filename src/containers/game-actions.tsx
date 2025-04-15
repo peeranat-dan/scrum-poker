@@ -21,7 +21,7 @@ export default function GameActions() {
         {round?.status === "in-progress" ? (
           <Button onClick={revealRound}>Reveal Vote</Button>
         ) : (
-          <Button onClick={startNewRound}>Start New Session</Button>
+          <Button onClick={startNewRound}>Start New Round</Button>
         )}
         <Button onClick={handleCopyJoinLink} variant="ghost">
           Invite Players
