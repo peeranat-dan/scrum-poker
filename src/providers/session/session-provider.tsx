@@ -14,7 +14,7 @@ export function SessionProvider({
   }
 
   if (!session) {
-    return <Navigate to="/not-found" />;
+    return <Navigate to="/not-found" replace />;
   }
 
   return (
