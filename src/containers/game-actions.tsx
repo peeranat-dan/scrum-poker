@@ -23,6 +23,9 @@ export default function GameActions() {
         ) : (
           <Button onClick={startNewRound}>Start New Session</Button>
         )}
+        <Button onClick={handleCopyJoinLink} variant="ghost">
+          Invite Players
+        </Button>
       </div>
     );
   }
