@@ -1,6 +1,6 @@
 import { useParticipant } from "@/providers/participant";
 import { useSession } from "@/providers/session";
-import UserAvatarMenu from "./user-avatar.menu";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   Tooltip,
   TooltipContent,
@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/tooltip";
 import { copyJoinLink } from "@/lib/utils";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 export default function GameHeader() {
   const { id } = useSession();
@@ -28,7 +29,7 @@ export default function GameHeader() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger onClick={handleCopyJoinLink}>
-              <div className="bg-primary/30 dark:bg-accent rounded-full px-4 py-2 cursor-pointer">
+              <div className="bg-primary/30 dark:bg-accent rounded-full px-4 py-2 cursor-pointer hidden md:block">
                 <span className="text-sm font-mono">Session ID: {id}</span>
               </div>
             </TooltipTrigger>
@@ -39,7 +40,10 @@ export default function GameHeader() {
         </TooltipProvider>
 
         <div className="flex items-center gap-2 shrink-0">
-          {participant ? <UserAvatarMenu /> : null}
+          <ThemeToggle />
+          {participant?.isOwner ? (
+            <Button variant="secondary">Manage players</Button>
+          ) : null}
         </div>
       </div>
     </header>
