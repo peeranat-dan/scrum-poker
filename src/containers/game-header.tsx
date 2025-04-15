@@ -28,8 +28,8 @@ export default function GameHeader() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger onClick={handleCopyJoinLink}>
-              <div className="bg-accent rounded-full px-4 py-2 cursor-pointer">
-                <span className="text-sm font-mono">{id}</span>
+              <div className="bg-primary/30 dark:bg-accent rounded-full px-4 py-2 cursor-pointer">
+                <span className="text-sm font-mono">Session ID: {id}</span>
               </div>
             </TooltipTrigger>
             <TooltipContent>
