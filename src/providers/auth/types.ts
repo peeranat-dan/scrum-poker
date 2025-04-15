@@ -8,4 +8,5 @@ export interface AuthProviderState {
   user: User | null;
   loading: boolean;
   signInAnonymously: () => Promise<UserCredential>;
+  signOut: () => Promise<void>;
 }

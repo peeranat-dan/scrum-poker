@@ -5,7 +5,7 @@ import UserProfileModal from "@/containers/user-profile-modal";
 
 export default function GamePage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-svh w-full relative px-4 lg:px-0">
+    <div className="flex flex-col items-center justify-center w-full relative px-4 lg:px-0">
       <div className="absolute flex justify-center py-4 overflow-x-scroll top-0 w-full px-4 lg:px-0">
         <GameParticipants />
       </div>

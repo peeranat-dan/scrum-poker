@@ -1,0 +1,50 @@
+import { useParticipant } from "@/providers/participant";
+import { useSession } from "@/providers/session";
+import UserAvatarMenu from "./user-avatar.menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { copyJoinLink } from "@/lib/utils";
+import { toast } from "sonner";
+
+export default function GameHeader() {
+  const { id } = useSession();
+  const { participant } = useParticipant();
+
+  const handleCopyJoinLink = () => {
+    if (participant) {
+      copyJoinLink(participant.sessionId);
+    }
+    toast.success("Join link copied to clipboard");
+  };
+
+  return (
+    <header className="flex items-center justify-between p-4 h-[var(--header-height)]">
+      <div className="max-w-3xl mx-auto w-full flex items-center justify-between">
+        <h1 className="text-2xl font-mono">S-Poker</h1>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <button
+                onClick={handleCopyJoinLink}
+                className="bg-accent rounded-full px-4 py-2 cursor-pointer"
+              >
+                <span className="text-sm font-mono">{id}</span>
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Copy join link to clipboard</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
+        <div className="flex items-center gap-2 shrink-0">
+          {participant ? <UserAvatarMenu /> : null}
+        </div>
+      </div>
+    </header>
+  );
+}

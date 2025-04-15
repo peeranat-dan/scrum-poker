@@ -1,5 +1,6 @@
 import {
   signInAnonymously as firebaseSignInAnonymously,
+  signOut as firebaseSignOut,
   getAuth,
 } from "firebase/auth";
 import { app } from "./firebase";
@@ -10,4 +11,8 @@ async function signInAnonymously() {
   return await firebaseSignInAnonymously(auth);
 }
 
-export { auth, signInAnonymously };
+async function signOut() {
+  return await firebaseSignOut(auth);
+}
+
+export { auth, signInAnonymously, signOut };
