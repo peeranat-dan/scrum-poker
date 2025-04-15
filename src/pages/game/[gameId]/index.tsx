@@ -10,7 +10,7 @@ export default function GamePage() {
         <GameParticipants />
       </div>
       <GameController />
-      <div className="absolute flex justify-center py-4 overflow-x-scroll bottom-0 w-full px-4 lg:px-0">
+      <div className="fixed lg:absolute flex justify-center items-center overflow-x-scroll bottom-0 w-full">
         <GameArea />
       </div>
       <UserProfileModal />

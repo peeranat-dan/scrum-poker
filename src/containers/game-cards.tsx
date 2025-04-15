@@ -5,9 +5,9 @@ export default function GameCards() {
   const { cards, castVote, vote } = useGame();
 
   return (
-    <div className="flex gap-2">
+    <ul className="mx-auto flex gap-2 w-full lg:w-fit my-0 p-4 overflow-x-auto overflow-y-hidden">
       {cards.map((card) => (
-        <button
+        <li
           key={card.displayValue + card.value}
           onClick={() => castVote(card.value)}
           className={cn(
@@ -17,8 +17,8 @@ export default function GameCards() {
           )}
         >
           {card.displayValue}
-        </button>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
