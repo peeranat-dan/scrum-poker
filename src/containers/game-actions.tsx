@@ -49,8 +49,11 @@ export default function GameActions() {
               <TooltipContent side="bottom">
                 <p>Person who hasn't vote</p>
                 <ul className="m-0 px-4 py-1">
-                  {participantsWithNoVotes.map((participant) => (
-                    <li key={participant.id}>{participant.displayName}</li>
+                  {participantsWithNoVotes.map((p) => (
+                    <li key={p.id}>
+                      <span>{p.displayName}</span>
+                      <span> {p.id === participant.id ? "(You)" : ""}</span>
+                    </li>
                   ))}
                 </ul>
               </TooltipContent>
