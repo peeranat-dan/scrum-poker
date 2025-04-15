@@ -3,6 +3,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
+import "@fontsource-variable/jetbrains-mono/index.css";
+import "@fontsource-variable/noto-sans-thai/index.css";
 
 import "./index.css";
 import BaseLayout from "./layouts/base";

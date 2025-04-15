@@ -9,7 +9,7 @@ export default function NewGamePage() {
           <CardContent className="grid p-0 md:grid-cols-2">
             <div className="flex flex-col gap-6 p-6 md:p-8">
               <div className="space-y-2">
-                <h2>Create your session</h2>
+                <h3>Create your session</h3>
                 <p className="text-muted-foreground">
                   Skip the hands up session and let the computer do the work.
                 </p>

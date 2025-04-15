@@ -9,7 +9,7 @@ export function SessionProvider({
 }: Readonly<SessionProviderProps>) {
   const { session, loading: isLoading } = useStreamSession(sessionId);
 
-  if (!isLoading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
