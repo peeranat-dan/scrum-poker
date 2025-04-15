@@ -5,7 +5,7 @@ import { roundConverter } from "./firestore-converter";
 
 export function streamActiveRound(
   sessionId: string,
-  callback: (round: Round) => void
+  callback: (round: Round | undefined) => void
 ) {
   const q = query(
     roundsCollection,
@@ -20,7 +20,9 @@ export function streamActiveRound(
   );
 
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    const round = roundConverter(querySnapshot.docs[0]);
+    const round = querySnapshot.docs.length
+      ? roundConverter(querySnapshot.docs[0])
+      : undefined;
     callback(round);
   });
 
