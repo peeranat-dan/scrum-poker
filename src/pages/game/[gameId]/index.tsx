@@ -1,6 +1,7 @@
 import GameArea from "@/containers/game-area";
 import GameController from "@/containers/game-controller";
 import GameParticipants from "@/containers/game-participants";
+import TerminatedGameModal from "@/containers/terminated-game-modal";
 import UserProfileModal from "@/containers/user-profile-modal";
 
 export default function GamePage() {
@@ -14,6 +15,7 @@ export default function GamePage() {
         <GameArea />
       </div>
       <UserProfileModal />
+      <TerminatedGameModal />
     </div>
   );
 }

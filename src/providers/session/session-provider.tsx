@@ -1,18 +1,18 @@
-import { useGetSessionById } from "@/hooks/session/use-get-session-by-id";
 import { SessionContext } from "./session-context";
 import { type SessionProviderProps } from "./types";
+import { useStreamSession } from "@/hooks/session/use-stream-session";
 
 export function SessionProvider({
   sessionId,
   children,
 }: Readonly<SessionProviderProps>) {
-  const { data, isLoading, error } = useGetSessionById(sessionId);
+  const session = useStreamSession(sessionId);
 
-  if (isLoading) return <div>Loading...</div>;
-
-  if (error) return <div>Error</div>;
+  if (!session) return <div>Loading...</div>;
 
   return (
-    <SessionContext.Provider value={data}>{children}</SessionContext.Provider>
+    <SessionContext.Provider value={session}>
+      {children}
+    </SessionContext.Provider>
   );
 }

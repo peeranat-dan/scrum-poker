@@ -1,6 +1,5 @@
-import { useParticipant } from "@/providers/participant";
-import { useSession } from "@/providers/session";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -8,8 +7,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { copyJoinLink } from "@/lib/utils";
+import { useParticipant } from "@/providers/participant";
+import { useSession } from "@/providers/session";
+import { Link, User2 } from "lucide-react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+
+import SessionTerminationButton from "./session-termination-button";
 
 export default function GameHeader() {
   const { id } = useSession();
@@ -29,8 +32,9 @@ export default function GameHeader() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger onClick={handleCopyJoinLink}>
-              <div className="bg-primary/30 dark:bg-accent rounded-full px-4 py-2 cursor-pointer hidden md:block">
-                <span className="text-sm font-mono">Session ID: {id}</span>
+              <div className="bg-primary/30 dark:bg-accent rounded-full px-4 py-2 cursor-pointer hidden md:flex gap-2 items-center">
+                <Link className="w-4 h-4" />
+                <span className="text-sm font-mono">{id}</span>
               </div>
             </TooltipTrigger>
             <TooltipContent>
@@ -42,8 +46,12 @@ export default function GameHeader() {
         <div className="flex items-center gap-2 shrink-0">
           <ThemeToggle />
           {participant?.isOwner ? (
-            <Button variant="secondary">Manage players</Button>
+            <Button variant="secondary">
+              <User2 />
+              <span className="hidden md:block">Manage players</span>
+            </Button>
           ) : null}
+          {participant?.isOwner ? <SessionTerminationButton /> : null}
         </div>
       </div>
     </header>
