@@ -5,11 +5,19 @@ import { Button } from "../ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import { Input } from "../ui/input";
 
 interface SessionInformationFormProps {
@@ -39,7 +47,34 @@ export default function SessionInformationForm({
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isSubmitting}>
+        <FormField
+          control={form.control}
+          name="votingSystem"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Voting System</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a voting system" />
+                  </SelectTrigger>
+                </FormControl>
+                <FormDescription>
+                  The voting system cannot be changed once voting begins.
+                </FormDescription>
+                <SelectContent>
+                  <SelectItem value="fibonacci">Fibonacci</SelectItem>
+                  <SelectItem value="t-shirt">T-Shirt</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button
+          type="submit"
+          disabled={isSubmitting || !form.formState.isDirty}
+        >
           {isSubmitting ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           ) : null}
