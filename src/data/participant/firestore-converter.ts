@@ -20,6 +20,6 @@ export function participantConverter(
     joinedAt: data.joinedAt.toDate(),
     sessionId: data.sessionId,
     uid: data.uid,
-    deletedAt: data.deletedAt?.toDate(),
+    deletedAt: data.deletedAt ? data.deletedAt.toDate() : null,
   };
 }
