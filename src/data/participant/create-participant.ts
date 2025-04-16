@@ -12,6 +12,7 @@ export async function createParticipant(input: CreateParticipantInput) {
     isOwner: input.isOwner,
     joinedAt: Timestamp.now(),
     deletedAt: null,
+    leftAt: null,
   });
 
   return participant;

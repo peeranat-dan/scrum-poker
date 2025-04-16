@@ -21,5 +21,6 @@ export function participantConverter(
     sessionId: data.sessionId,
     uid: data.uid,
     deletedAt: data.deletedAt ? data.deletedAt.toDate() : null,
+    leftAt: data.leftAt ? data.leftAt.toDate() : null,
   };
 }
