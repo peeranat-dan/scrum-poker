@@ -1,5 +1,5 @@
 import { type Participant } from "@/types/participant.types";
-import { onSnapshot, query, where } from "firebase/firestore";
+import { onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { participantsCollection } from "../firestore";
 import { participantConverter } from "./firestore-converter";
 
@@ -7,7 +7,12 @@ export function streamParticipants(
   sessionId: string,
   callback: (participants: Participant[]) => void
 ) {
-  const q = query(participantsCollection, where("sessionId", "==", sessionId));
+  const q = query(
+    participantsCollection,
+    where("sessionId", "==", sessionId),
+    where("deletedAt", "==", null),
+    orderBy("joinedAt")
+  );
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     const participants: Participant[] = [];
 
