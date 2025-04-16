@@ -10,12 +10,19 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useGame } from "@/providers/game";
+import { useLeaveSession } from "@/hooks/participant/use-leave-session";
 import { useParticipant } from "@/providers/participant";
+import { useCallback } from "react";
 
 export default function SessionLeaveButton() {
   const { participant } = useParticipant();
-  const { leaveSession } = useGame();
+  const leaveSessionMutation = useLeaveSession();
+
+  const leaveSession = useCallback(async () => {
+    if (participant) {
+      await leaveSessionMutation.mutateAsync(participant.id);
+    }
+  }, [participant, leaveSessionMutation]);
 
   if (!participant) {
     return null;
