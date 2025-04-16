@@ -2,19 +2,19 @@ import { streamParticipant } from "@/data/participant/stream-participant";
 import { type Participant } from "@/types/participant.types";
 import { useEffect, useState } from "react";
 
-export function useStreamParticipant(participantId: string) {
+export function useStreamParticipant(sessionId: string, uid: string) {
   const [participant, setParticipant] = useState<Participant | undefined>(
     undefined
   );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!participantId) {
+    if (!sessionId || !uid) {
       return;
     }
 
     setLoading(true);
-    const unsubscribe = streamParticipant(participantId, (data) => {
+    const unsubscribe = streamParticipant(sessionId, uid, (data) => {
       setParticipant(data);
       setLoading(false);
     });
@@ -22,7 +22,7 @@ export function useStreamParticipant(participantId: string) {
     return () => {
       unsubscribe();
     };
-  }, [participantId]);
+  }, [sessionId, uid]);
 
   return { participant, loading };
 }
