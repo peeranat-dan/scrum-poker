@@ -16,4 +16,5 @@ export interface GameProviderState {
   castVote: (value: number) => void;
   revealRound: () => void;
   startNewRound: () => void;
+  leaveSession: () => void;
 }

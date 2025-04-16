@@ -1,4 +1,7 @@
+import { useLeaveSession } from "@/hooks/participant/use-leave-session";
 import { useStreamParticipants } from "@/hooks/participant/use-stream-participants";
+import { useRevealRound } from "@/hooks/round/use-reveal-round";
+import { useStartNewRound } from "@/hooks/round/use-start-new-round";
 import { useStreamActiveRound } from "@/hooks/round/use-stream-active-round";
 import { useCastVote } from "@/hooks/vote/use-cast-vote";
 import { useGetVoteByRoundId } from "@/hooks/vote/use-get-vote-by-round-id";
@@ -12,8 +15,6 @@ import { useSession } from "../session";
 import { GameContext } from "./game-context";
 import { type GameProviderProps } from "./types";
 import { mapParticipantsToVotes } from "./utils";
-import { useRevealRound } from "@/hooks/round/use-reveal-round";
-import { useStartNewRound } from "@/hooks/round/use-start-new-round";
 
 export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const queryClient = useQueryClient();
@@ -32,6 +33,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const castVoteMutation = useCastVote();
   const updateVoteMutation = useUpdateVote();
   const startNewRoundMutation = useStartNewRound();
+  const leaveSessionMutation = useLeaveSession();
 
   const castVote = useCallback(
     (value: number) => {
@@ -95,6 +97,12 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     }
   }, [round, session.id, startNewRoundMutation]);
 
+  const leaveSession = useCallback(async () => {
+    if (participant) {
+      await leaveSessionMutation.mutateAsync(participant.id);
+    }
+  }, [participant, leaveSessionMutation]);
+
   const value = useMemo(
     () => ({
       cards: getCards(session.votingSystem),
@@ -104,6 +112,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       castVote: castVote,
       revealRound: revealRound,
       startNewRound: startNewRound,
+      leaveSession: leaveSession,
     }),
     [
       session.votingSystem,
@@ -114,6 +123,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       castVote,
       revealRound,
       startNewRound,
+      leaveSession,
     ]
   );
 
