@@ -14,6 +14,9 @@ jobs:
     steps:
       - run: |
           echo "${{ secrets.CLIENT_ENV }}" > .env
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.14.2
       - uses: actions/checkout@v4
       - run: pnpm build
       - uses: FirebaseExtended/action-hosting-deploy@v0
