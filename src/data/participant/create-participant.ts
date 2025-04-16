@@ -11,6 +11,7 @@ export async function createParticipant(input: CreateParticipantInput) {
       input?.displayName ?? import.meta.env.VITE_GAME_DEFAULT_PARTICIPANT_NAME,
     isOwner: input.isOwner,
     joinedAt: Timestamp.now(),
+    deletedAt: null,
   });
 
   return participant;

@@ -23,7 +23,7 @@ export default function GameParticipants() {
   const { participants, round, cards } = useGame();
 
   return (
-    <ul className="mx-auto flex gap-2 w-full lg:w-fit my-0 p-4 overflow-x-auto overflow-y-hidden">
+    <ul className="mx-auto flex gap-2 w-full lg:w-fit my-0 p-4 overflow-x-auto overflow-y-hidden no-scrollbar">
       {participants.map((participant) => (
         <li key={participant.id} className="flex flex-col items-center gap-2">
           <div className="text-center text-sm font-semibold truncate max-w-[96px]">
