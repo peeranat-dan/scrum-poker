@@ -11,6 +11,7 @@ export function streamParticipants(
     participantsCollection,
     where("sessionId", "==", sessionId),
     where("deletedAt", "==", null),
+    where("leavedAt", "==", null),
     orderBy("joinedAt")
   );
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
