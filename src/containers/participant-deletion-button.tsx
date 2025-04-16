@@ -31,8 +31,8 @@ export default function ParticipantDeletionButton({
       onSuccess: () => {
         toast.success("Participant deleted");
       },
-      onError: () => {
-        toast.error("Failed to delete participant");
+      onError: (error) => {
+        toast.error(`Failed to delete participant: ${error.message}`);
       },
     });
   }, [deleteParticipantMutation, id]);
