@@ -8,6 +8,7 @@ export function mapper(
     id: participant.id,
     name: participant.displayName,
     joinedAt: participant.joinedAt.toLocaleString(),
+    isOwner: participant.isOwner,
     voted: typeof participant.vote === "number",
   }));
 }
