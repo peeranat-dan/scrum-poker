@@ -2,6 +2,7 @@ import { Navigate } from "react-router";
 import { SessionContext } from "./session-context";
 import { type SessionProviderProps } from "./types";
 import { useStreamSession } from "@/hooks/session/use-stream-session";
+import Loading from "@/components/loading";
 
 export function SessionProvider({
   sessionId,
@@ -10,7 +11,7 @@ export function SessionProvider({
   const { session, loading: isLoading, error } = useStreamSession(sessionId);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading fullscreen />;
   }
 
   if (error) {

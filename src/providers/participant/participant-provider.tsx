@@ -4,6 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
 import { ParticipantContext } from "./participant-context";
 import { type ParticipantProviderProps } from "./types";
+import Loading from "@/components/loading";
 
 export function ParticipantProvider({
   children,
@@ -48,7 +49,7 @@ export function ParticipantProvider({
   );
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading fullscreen />;
   }
 
   return (

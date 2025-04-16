@@ -14,6 +14,7 @@ import { useSession } from "../session";
 import { GameContext } from "./game-context";
 import { type GameProviderProps } from "./types";
 import { mapParticipantsToVotes } from "./utils";
+import Loading from "@/components/loading";
 
 export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const queryClient = useQueryClient();
@@ -122,7 +123,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
   );
 
   if (isVoteLoading || !round || participants.length === 0) {
-    return <div>Loading...</div>;
+    return <Loading fullscreen />;
   }
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
