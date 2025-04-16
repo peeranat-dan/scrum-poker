@@ -30,3 +30,14 @@ export const JoinSessionSchema = z.object({
 });
 
 export type JoinSessionInput = z.infer<typeof JoinSessionSchema>;
+
+export const SessionInformationSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "Session name is required")
+    .max(20, "Session name is too long"),
+  votingSystem: z.enum(["fibonacci", "t-shirt"]),
+});
+
+export type SessionInformationInput = z.infer<typeof SessionInformationSchema>;
