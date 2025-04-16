@@ -2,8 +2,19 @@ import GameArea from "@/containers/game-area";
 import GameController from "@/containers/game-controller";
 import GameParticipants from "@/containers/game-participants";
 import UserProfileModal from "@/containers/user-profile-modal";
+import { useParticipant } from "@/providers/participant";
+import { generatePath, Navigate, useParams } from "react-router";
 
 export default function GamePage() {
+  const { gameId } = useParams<{ gameId: string }>();
+  const { participant } = useParticipant();
+
+  if (!participant) {
+    return (
+      <Navigate to={generatePath("/join/:gameId", { gameId: gameId ?? "" })} />
+    );
+  }
+
   return (
     <div className="flex flex-col items-center justify-center w-full relative px-4 lg:px-0">
       <div className="absolute flex justify-center items-center py-4 overflow-x-scroll no-scrollbar top-0 w-full">

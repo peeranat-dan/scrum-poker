@@ -7,22 +7,31 @@ export function useStreamParticipant(sessionId: string, uid: string) {
     undefined
   );
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | undefined>(undefined);
 
   useEffect(() => {
+    setLoading(true);
     if (!sessionId || !uid) {
+      setLoading(false);
       return;
     }
-
-    setLoading(true);
-    const unsubscribe = streamParticipant(sessionId, uid, (data) => {
-      setParticipant(data);
-      setLoading(false);
-    });
+    const unsubscribe = streamParticipant(
+      sessionId,
+      uid,
+      (data) => {
+        setParticipant(data);
+        setLoading(false);
+      },
+      (error) => {
+        setError(error);
+        setLoading(false);
+      }
+    );
 
     return () => {
       unsubscribe();
     };
   }, [sessionId, uid]);
 
-  return { participant, loading };
+  return { participant, loading, error };
 }

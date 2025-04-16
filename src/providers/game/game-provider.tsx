@@ -1,4 +1,3 @@
-import { useLeaveSession } from "@/hooks/participant/use-leave-session";
 import { useStreamParticipants } from "@/hooks/participant/use-stream-participants";
 import { useRevealRound } from "@/hooks/round/use-reveal-round";
 import { useStartNewRound } from "@/hooks/round/use-start-new-round";
@@ -33,7 +32,6 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const castVoteMutation = useCastVote();
   const updateVoteMutation = useUpdateVote();
   const startNewRoundMutation = useStartNewRound();
-  const leaveSessionMutation = useLeaveSession();
 
   const castVote = useCallback(
     (value: number) => {
@@ -97,12 +95,6 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     }
   }, [round, session.id, startNewRoundMutation]);
 
-  const leaveSession = useCallback(async () => {
-    if (participant) {
-      await leaveSessionMutation.mutateAsync(participant.id);
-    }
-  }, [participant, leaveSessionMutation]);
-
   const cards = useMemo(() => {
     return getCards(session.votingSystem);
   }, [session.votingSystem]);
@@ -116,7 +108,6 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       castVote: castVote,
       revealRound: revealRound,
       startNewRound: startNewRound,
-      leaveSession: leaveSession,
     }),
     [
       cards,
@@ -127,7 +118,6 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       castVote,
       revealRound,
       startNewRound,
-      leaveSession,
     ]
   );
 

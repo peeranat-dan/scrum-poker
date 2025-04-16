@@ -7,10 +7,14 @@ export function SessionProvider({
   sessionId,
   children,
 }: Readonly<SessionProviderProps>) {
-  const { session, loading: isLoading } = useStreamSession(sessionId);
+  const { session, loading: isLoading, error } = useStreamSession(sessionId);
 
   if (isLoading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <Navigate to="/not-found" replace />;
   }
 
   if (!session) {
