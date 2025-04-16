@@ -12,6 +12,7 @@ import GameLayout from "./layouts/game";
 import GameSettingsLayout from "./layouts/game-settings";
 import NotFoundPage from "./pages/404";
 import GamePage from "./pages/game/[gameId]";
+import GameSettingsGeneralPage from "./pages/game/[gameId]/settings/general";
 import GameSettingsPlayersListPage from "./pages/game/[gameId]/settings/players";
 import HomePage from "./pages/home";
 import JoinPage from "./pages/join/[gameId]";
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
         path: "game/:gameId/settings",
         Component: GameSettingsLayout,
         children: [
+          {
+            path: "general",
+            Component: GameSettingsGeneralPage,
+          },
           {
             path: "players",
             Component: GameSettingsPlayersListPage,
