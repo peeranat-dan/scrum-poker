@@ -1,4 +1,4 @@
-import { useGetParticipant } from "@/hooks/participant/use-get-participant";
+import { useStreamParticipant } from "@/hooks/participant/use-stream-participant";
 import { useUpdateParticipantName } from "@/hooks/participant/use-update-participant-name";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
@@ -12,16 +12,19 @@ export function ParticipantProvider({
 }: Readonly<ParticipantProviderProps>) {
   const queryClient = useQueryClient();
 
-  const { data, isLoading, error } = useGetParticipant(sessionId, uid, {});
+  const { participant, loading: isLoading } = useStreamParticipant(
+    sessionId,
+    uid
+  );
 
   const updateParticipantNameMutation = useUpdateParticipantName();
 
   const updateParticipantName = useCallback(
     async (name: string) => {
-      if (!data) return;
+      if (!participant) return;
       await updateParticipantNameMutation.mutateAsync(
         {
-          participantId: data.id,
+          participantId: participant.id,
           name,
         },
         {
@@ -33,23 +36,19 @@ export function ParticipantProvider({
         }
       );
     },
-    [data, queryClient, sessionId, uid, updateParticipantNameMutation]
+    [participant, queryClient, sessionId, uid, updateParticipantNameMutation]
   );
 
   const value = useMemo(
     () => ({
-      participant: data,
+      participant: participant,
       updateParticipantName: updateParticipantName,
     }),
-    [data, updateParticipantName]
+    [participant, updateParticipantName]
   );
 
   if (isLoading) {
     return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
   }
 
   return (
