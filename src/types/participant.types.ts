@@ -10,6 +10,7 @@ export interface Participant {
   displayName: string;
   isOwner: boolean;
   joinedAt: Date;
+  deletedAt?: Date;
 }
 
 export interface ParticipantDoc {
@@ -18,6 +19,7 @@ export interface ParticipantDoc {
   displayName: string;
   isOwner: boolean;
   joinedAt: Timestamp;
+  deletedAt?: Timestamp;
 }
 
 export interface CreateParticipantInput {
