@@ -1,19 +1,27 @@
 import { type Participant } from "@/types/participant.types";
-import { doc, onSnapshot } from "firebase/firestore";
+import { limit, onSnapshot, query, where } from "firebase/firestore";
 
-import { participantConverter } from "./firestore-converter";
 import { participantsCollection } from "../firestore";
+import { participantConverter } from "./firestore-converter";
 
 export function streamParticipant(
-  participantId: string,
+  sessionId: string,
+  uid: string,
   callback: (participant: Participant | undefined) => void
 ) {
-  const unsubscribe = onSnapshot(
-    doc(participantsCollection, participantId),
-    (doc) => {
-      callback(participantConverter(doc));
-    }
+  const q = query(
+    participantsCollection,
+    where("sessionId", "==", sessionId),
+    where("uid", "==", uid),
+    limit(1)
   );
+
+  const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const participant = querySnapshot.docs.length
+      ? participantConverter(querySnapshot.docs[0])
+      : undefined;
+    callback(participant);
+  });
 
   return unsubscribe;
 }
