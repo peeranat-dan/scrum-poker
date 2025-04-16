@@ -26,7 +26,7 @@ export default function GameHeader() {
   };
 
   const handleNavigateToSettings = () => {
-    navigate(generatePath("/game/:gameId/settings/players", { gameId: id }));
+    navigate(generatePath("/game/:gameId/settings", { gameId: id }));
   };
 
   const navigationLink = participant

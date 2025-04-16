@@ -27,3 +27,9 @@ export interface UpdateSessionInput {
   status?: SessionStatus;
   finishedAt?: Date;
 }
+
+export interface UpdateSesionInformationInput {
+  id: string;
+  name: string;
+  votingSystem: VotingSystem;
+}
