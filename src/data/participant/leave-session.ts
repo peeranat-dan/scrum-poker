@@ -1,6 +1,7 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { getParticipantById } from "./get-participant-by-id";
 import { participantsCollection } from "../firestore";
+import { getSessionById } from "../session/get-session-by-id";
 
 export async function leaveSession(participantId: string) {
   const participant = await getParticipantById(participantId);
@@ -13,6 +14,16 @@ export async function leaveSession(participantId: string) {
 
   if (!sessionId) {
     throw new Error("Session ID not found");
+  }
+
+  const session = await getSessionById(sessionId);
+
+  if (!session) {
+    throw new Error("Session not found");
+  }
+
+  if (session.status === "finished") {
+    throw new Error("Session is finished");
   }
 
   return await updateDoc(doc(participantsCollection, participantId), {
