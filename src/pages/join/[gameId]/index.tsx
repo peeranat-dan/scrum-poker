@@ -1,9 +1,19 @@
 import { Card, CardContent } from "@/components/ui/card";
 import SessionJoinContainer from "@/containers/session-join-container";
+import { useParticipant } from "@/providers/participant";
 import { useSession } from "@/providers/session";
+import { generatePath, Navigate } from "react-router";
 
 export default function JoinPage() {
   const { name } = useSession();
+  const { participant } = useParticipant();
+
+  if (participant && !participant.deletedAt && !participant.leftAt) {
+    return (
+      <Navigate to={generatePath("/game/:gameId", { gameId: name })} replace />
+    );
+  }
+
   return (
     <div className="flex flex-col items-center w-full justify-center min-h-svh bg-muted">
       <div className="flex flex-col gap-6 w-full max-w-sm md:max-w-3xl px-4 md:px-0">
