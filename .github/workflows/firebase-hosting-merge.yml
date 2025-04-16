@@ -11,19 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.14.2
+          run_install: false
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
           cache: "pnpm"
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9.14.2
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - run: |
           echo "${{ secrets.CLIENT_ENV }}" > .env
-      - uses: actions/checkout@v4
       - run: pnpm build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
