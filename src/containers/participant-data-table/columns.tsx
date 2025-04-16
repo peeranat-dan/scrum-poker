@@ -1,33 +1,23 @@
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 import { type ColumnDef } from "@tanstack/react-table";
-import { Trash2 } from "lucide-react";
+
+import ParticipantDeletionButton from "../participant-deletion-button";
 
 export type ParticipantRow = {
   id: string;
   name: string;
   joinedAt: string;
+  isOwner: boolean;
   voted: boolean;
 };
 
 export const columns: ColumnDef<ParticipantRow>[] = [
   {
     accessorKey: "name",
-    header: "name",
+    header: "Name",
   },
   {
     accessorKey: "joinedAt",
-    header: "joined at",
+    header: "Joined at",
   },
   {
     id: "actions",
@@ -37,30 +27,10 @@ export const columns: ColumnDef<ParticipantRow>[] = [
       const participant = row.original;
 
       return (
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant="destructive" size="icon">
-              <Trash2 />
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>
-                Are you sure you want to remove "{participant.name}"?
-              </AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently remove this
-                participant from the session.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction asChild>
-                <Button variant="destructive">Remove</Button>
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <ParticipantDeletionButton
+          disabled={participant.isOwner}
+          id={participant.id}
+        />
       );
     },
   },
