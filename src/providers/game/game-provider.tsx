@@ -103,9 +103,13 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     }
   }, [participant, leaveSessionMutation]);
 
+  const cards = useMemo(() => {
+    return getCards(session.votingSystem);
+  }, [session.votingSystem]);
+
   const value = useMemo(
     () => ({
-      cards: getCards(session.votingSystem),
+      cards: cards,
       participants: mapParticipantsToVotes(participants, votes) ?? [],
       round: round,
       vote: voteData,
@@ -115,7 +119,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       leaveSession: leaveSession,
     }),
     [
-      session.votingSystem,
+      cards,
       participants,
       votes,
       round,
