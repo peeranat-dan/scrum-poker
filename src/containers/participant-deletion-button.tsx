@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useDeleteParticipant } from "@/hooks/participant/use-delete-participant";
 import { Trash2 } from "lucide-react";
 import { useCallback } from "react";
+import { toast } from "sonner";
 
 interface ParticipantDeletionButtonProps {
   id: string;
@@ -26,7 +27,14 @@ export default function ParticipantDeletionButton({
   const deleteParticipantMutation = useDeleteParticipant();
 
   const handleDeleteParticipant = useCallback(async () => {
-    await deleteParticipantMutation.mutateAsync(id);
+    await deleteParticipantMutation.mutateAsync(id, {
+      onSuccess: () => {
+        toast.success("Participant deleted");
+      },
+      onError: () => {
+        toast.error("Failed to delete participant");
+      },
+    });
   }, [deleteParticipantMutation, id]);
 
   return (
