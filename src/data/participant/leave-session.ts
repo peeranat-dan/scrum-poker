@@ -16,6 +16,6 @@ export async function leaveSession(participantId: string) {
   }
 
   return await updateDoc(doc(participantsCollection, participantId), {
-    leavedAt: new Date(),
+    leftAt: new Date(),
   });
 }
