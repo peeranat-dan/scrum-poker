@@ -27,7 +27,7 @@ export default function SessionTerminationButton() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">
+        <Button variant="destructive" className="w-full md:w-fit">
           <Bomb />
           <span className="hidden md:block">Terminate session</span>
         </Button>
