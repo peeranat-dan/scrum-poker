@@ -10,6 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import SessionLeaveButton from "./session-leave-button";
 
 export default function GameActions() {
   const { participant } = useParticipant();
@@ -72,8 +73,7 @@ export default function GameActions() {
   return (
     <div className="flex gap-2">
       <Button onClick={handleCopyJoinLink}>Invite Players</Button>
-      {/* TODO: Implement leave session */}
-      <Button variant="ghost">Leave Session</Button>
+      <SessionLeaveButton />
     </div>
   );
 }
