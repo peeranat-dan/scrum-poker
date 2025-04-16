@@ -5,7 +5,7 @@ export default function GameCards() {
   const { cards, castVote, vote } = useGame();
 
   return (
-    <ul className="mx-auto flex gap-2 w-full lg:w-fit my-0 p-4 overflow-x-auto overflow-y-hidden">
+    <ul className="mx-auto flex gap-2 w-full lg:w-fit my-0 p-4 overflow-x-auto overflow-y-hidden no-scrollbar">
       {cards.map((card) => (
         <li
           key={card.displayValue + card.value}
