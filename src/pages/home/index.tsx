@@ -11,7 +11,7 @@ export default function HomePage() {
         <h1 className="bg-gradient-to-br dark:from-white from-black from-30% dark:to-white/40 to-black/40 bg-clip-text text-3xl font-bold tracking-tighter text-transparent text-balance sm:text-4xl md:text-5xl lg:text-6xl sm:leading-[1.1]">
           E-mate is a coffee mate
           <br className="hidden md:block" />
-          for planning poker.
+          for your planning poker.
         </h1>
         <p className="text-foreground/50">
           Create a session and invite your team to estimate their tasks
