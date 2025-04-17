@@ -12,7 +12,7 @@ export default function HeroParticles() {
 
   return (
     <Particles
-      className="absolute inset-0 z-0"
+      className="absolute inset-0 -z-10"
       quantity={80}
       refresh
       color={color}
