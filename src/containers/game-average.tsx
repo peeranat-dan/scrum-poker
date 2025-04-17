@@ -11,7 +11,7 @@ export default function GameAverage() {
     <div className="flex flex-col items-center justify-center">
       <p>Game Average</p>
       <p className="text-2xl font-bold">
-        {round.averageVote ? round.averageVote : "No votes yet"}
+        {round.averageVote ?? "No votes yet"}
       </p>
     </div>
   );
