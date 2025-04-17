@@ -1,19 +1,14 @@
+import Header from "@/components/layout/header";
 import { Toaster } from "@/components/ui/sonner";
-import { type PropsWithChildren } from "react";
 import { Outlet } from "react-router";
 
-type BaseLayoutProps = PropsWithChildren;
-
-export default function BaseLayout({ children }: Readonly<BaseLayoutProps>) {
+export default function BaseLayout() {
   return (
-    <div className="flex h-dvh w-screen flex-col">
-      {/* <Header /> */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* <Sidebar /> */}
-        <main className="flex flex-1 overflow-y-auto">
-          {children ?? <Outlet />}
-        </main>
-      </div>
+    <div className="flex h-dvh w-screen flex-col relative">
+      <Header />
+      <main className="flex flex-1">
+        <Outlet />
+      </main>
       <Toaster />
     </div>
   );
