@@ -5,12 +5,12 @@ import { useSession } from "@/providers/session";
 import { generatePath, Navigate } from "react-router";
 
 export default function JoinPage() {
-  const { name } = useSession();
+  const { id, name } = useSession();
   const { participant } = useParticipant();
 
   if (participant && !participant.deletedAt && !participant.leftAt) {
     return (
-      <Navigate to={generatePath("/game/:gameId", { gameId: name })} replace />
+      <Navigate to={generatePath("/game/:gameId", { gameId: id })} replace />
     );
   }
 
