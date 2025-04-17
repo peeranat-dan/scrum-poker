@@ -35,3 +35,8 @@ export interface UpdateParticipantNameInput {
   participantId: string;
   name: string;
 }
+
+export interface RejoinSessionInput {
+  sessionId: string;
+  participantId: string;
+}
