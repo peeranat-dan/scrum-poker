@@ -6,12 +6,9 @@ export default function BaseLayout() {
   return (
     <div className="flex h-dvh w-screen flex-col relative">
       <Header />
-      <div className="flex flex-1 overflow-hidden">
-        {/* <Sidebar /> */}
-        <main className="flex flex-1 overflow-y-auto">
-          <Outlet />
-        </main>
-      </div>
+      <main className="flex flex-1">
+        <Outlet />
+      </main>
       <Toaster />
     </div>
   );
