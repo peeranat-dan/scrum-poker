@@ -1,5 +1,6 @@
 import GameArea from "@/containers/game-area";
 import GameController from "@/containers/game-controller";
+import GameExitConfirmationModal from "@/containers/game-exit-confirmation-modal";
 import GameParticipants from "@/containers/game-participants";
 import UserProfileModal from "@/containers/user-profile-modal";
 import { useParticipant } from "@/providers/participant";
@@ -25,6 +26,7 @@ export default function GamePage() {
         <GameArea />
       </div>
       <UserProfileModal />
+      <GameExitConfirmationModal />
     </div>
   );
 }
