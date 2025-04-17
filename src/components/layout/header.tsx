@@ -4,7 +4,7 @@ import { ThemeToggle } from "../theme-toggle";
 
 export default function Header() {
   return (
-    <header className="w-full border-b px-6 md:px-8 bg-background/80 backdrop-blur">
+    <header className="fixed left-0 top-0 z-50 w-full border-b px-6 md:px-8 bg-background/80 backdrop-blur">
       <div className="container flex h-[3.5rem] items-center justify-between mx-auto">
         <Link to="/" className="flex items-center gap-2">
           <div className="text-2xl font-mono font-semibold">E-mate</div>
