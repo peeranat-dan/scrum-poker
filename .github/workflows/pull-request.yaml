@@ -20,16 +20,19 @@ jobs:
           output: trivy.txt
           severity: "CRITICAL"
 
-      - name: Publish Trivy Output to Summary
+      - name: Format Trivy Scan Result
         run: |
-          if [[ -s trivy.txt ]]; then
-            {
-              echo "### Security Output"
-              echo "<details><summary>Click to expand</summary>"
-              echo ""
-              echo '```terraform'
-              cat trivy.txt
-              echo '```'
-              echo "</details>"
-            } >> $GITHUB_STEP_SUMMARY
+          if [ -s trivy.txt ]; then
+            echo -e "## Vulnerability Scan Results\n<details><summary>Details</summary>\n\n\`\`\`\n$(cat trivy.txt)\n\`\`\`\n</details>" > formatted-trivy-result.md
+          else
+            echo -e "## Vulnerability Scan Results\nNo vulnerabilities were detected." > formatted-trivy-result.md
           fi
+
+      - name: Comment PR with Trivy scan results
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          recreate: true
+          path: formatted-trivy-result.md
+
+      - name: Clean up Trivy result file
+        run: rm -f trivy.txt formatted-trivy-result.md
