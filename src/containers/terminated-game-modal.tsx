@@ -1,13 +1,12 @@
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { buttonVariants } from "@/components/ui/button-variants";
+import { Button } from "@/components/ui/button";
 import { useSession } from "@/providers/session";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
@@ -42,15 +41,10 @@ export default function TerminatedGameModal() {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction
-            onClick={handleBackToHome}
-            className={buttonVariants({ variant: "outline" })}
-          >
+          <Button variant="outline" onClick={handleBackToHome}>
             Back to Home
-          </AlertDialogAction>
-          <AlertDialogAction onClick={handleCreateAnotherGame}>
-            Create another game
-          </AlertDialogAction>
+          </Button>
+          <Button onClick={handleCreateAnotherGame}>Create another game</Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
