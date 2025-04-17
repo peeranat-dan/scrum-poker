@@ -6,7 +6,7 @@ export default function BaseLayout() {
   return (
     <div className="flex h-dvh w-screen flex-col relative">
       <Header />
-      <main className="flex flex-1">
+      <main className="flex flex-1 overflow-x-hidden">
         <Outlet />
       </main>
       <Toaster />
