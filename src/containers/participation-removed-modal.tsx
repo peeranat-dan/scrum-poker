@@ -8,6 +8,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/providers/auth";
 import { useParticipant } from "@/providers/participant";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
@@ -18,18 +19,21 @@ export default function ParticipationRemovedModal() {
   const navigate = useNavigate();
   const { participant } = useParticipant();
   const queryClient = useQueryClient();
+  const { signOut } = useAuth();
 
   const shouldOpenModal = useMemo(() => {
-    return !!participant?.deletedAt || !!participant?.leftAt;
-  }, [participant?.deletedAt, participant?.leftAt]);
+    return !!participant?.deletedAt;
+  }, [participant?.deletedAt]);
 
-  const handleBackToHome = () => {
+  const handleBackToHome = async () => {
     queryClient.resetQueries();
+    await signOut();
     navigate("/");
   };
 
-  const handleJoinAgain = () => {
+  const handleJoinAgain = async () => {
     queryClient.resetQueries();
+    await signOut();
     navigate(
       generatePath("/join/:gameId", {
         gameId: participant?.sessionId ?? "",
@@ -37,32 +41,14 @@ export default function ParticipationRemovedModal() {
     );
   };
 
-  const alertTitle = useMemo(() => {
-    if (participant?.deletedAt) {
-      return "You've been removed";
-    }
-    if (participant?.leftAt) {
-      return "You've left";
-    }
-    return "";
-  }, [participant?.deletedAt, participant?.leftAt]);
-
-  const alertDescription = useMemo(() => {
-    if (participant?.deletedAt) {
-      return "You've been removed from the game.";
-    }
-    if (participant?.leftAt) {
-      return "You've left the game.";
-    }
-    return "";
-  }, [participant?.deletedAt, participant?.leftAt]);
-
   return (
     <AlertDialog open={shouldOpenModal}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>{alertTitle}</AlertDialogTitle>
-          <AlertDialogDescription>{alertDescription}</AlertDialogDescription>
+          <AlertDialogTitle>You've been removed</AlertDialogTitle>
+          <AlertDialogDescription>
+            You've been removed from the game.
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <Button onClick={handleBackToHome} variant="outline">
