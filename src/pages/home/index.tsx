@@ -6,11 +6,10 @@ import { Link } from "react-router";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col h-full w-full mt-[var(--header-height)] px-6 md:px-8">
+    <div className="flex flex-col md:h-full w-full mt-[var(--header-height)] px-6 md:px-8">
       <section className="text-center relative flex flex-col gap-6 py-12 items-center">
         <h1 className="bg-gradient-to-br dark:from-white from-black from-30% dark:to-white/40 to-black/40 bg-clip-text text-3xl font-bold tracking-tighter text-transparent text-balance sm:text-4xl md:text-5xl lg:text-6xl sm:leading-[1.1]">
-          E-mate is a coffee mate
-          <br className="hidden md:block" />
+          E-mate is a coffee mate <br className="hidden md:block" />
           for your planning poker.
         </h1>
         <p className="text-foreground/50">
