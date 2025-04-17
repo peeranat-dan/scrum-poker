@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
 import GameHeader from "@/containers/game-header";
+import ParticipantLeftModal from "@/containers/participant-left-modal";
 import ParticipationRemovedModal from "@/containers/participation-removed-modal";
 import TerminatedGameModal from "@/containers/terminated-game-modal";
 import { useAuth } from "@/providers/auth";
@@ -36,6 +37,7 @@ export default function GameLayout({ children }: Readonly<GameLayoutProps>) {
             <Toaster />
           </div>
           <TerminatedGameModal />
+          <ParticipantLeftModal />
           <ParticipationRemovedModal />
         </GameProvider>
       </ParticipantProvider>
