@@ -13,7 +13,7 @@ export default function HomePage() {
           for your planning poker.
         </h1>
         <p className="text-foreground/50">
-          Create a session and invite your team to estimate their tasks
+          Create a session and invite your team to estimate their tasks{" "}
           <br className="hidden md:block" />
           with ease. Built with React, Tailwind, and shadcn/ui.
         </p>
