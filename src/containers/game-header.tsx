@@ -1,3 +1,4 @@
+import Logo from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -37,7 +38,7 @@ export default function GameHeader() {
     <header className="flex items-center justify-between p-4 h-[var(--header-height)]">
       <div className="max-w-3xl mx-auto w-full flex items-center justify-between">
         <NavLink to={navigationLink}>
-          <h1 className="text-2xl font-mono">E-mate</h1>
+          <Logo />
         </NavLink>
         <TooltipProvider>
           <Tooltip>
