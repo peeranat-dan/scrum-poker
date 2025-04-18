@@ -69,7 +69,6 @@ const router = createBrowserRouter([
           },
         ],
       },
-
       {
         path: "join/:gameId",
         Component: JoinPage,

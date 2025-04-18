@@ -15,15 +15,15 @@ export default function JoinPage() {
   }
 
   return (
-    <div className="flex flex-col items-center w-full justify-center min-h-svh bg-muted">
+    <div className="flex flex-col items-center w-full justify-center bg-muted">
       <div className="flex flex-col gap-6 w-full max-w-sm md:max-w-3xl px-4 md:px-0">
         <Card className="overflow-hidden p-0">
           <CardContent className="grid p-0 md:grid-cols-2">
             <div className="flex flex-col gap-6 p-6 md:p-8">
               <div className="space-y-2">
+                <p className="text-sm text-foreground/70">Joining</p>
                 <h2>
-                  Joining{" "}
-                  <span className="font-mono py-1 px-2 rounded-sm border border-accent">
+                  <span className="font-mono py-1 px-2 rounded-sm border border-accent line-clamp-1 break-all">
                     {name}
                   </span>
                 </h2>
