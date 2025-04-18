@@ -1,3 +1,4 @@
+import { type ParticipantRole } from "@/types/participant.types";
 import { type ColumnDef } from "@tanstack/react-table";
 
 import ParticipantDeletionButton from "../participant-deletion-button";
@@ -6,7 +7,7 @@ export type ParticipantRow = {
   id: string;
   name: string;
   joinedAt: string;
-  isOwner: boolean;
+  role: ParticipantRole;
   voted: boolean;
 };
 
@@ -28,7 +29,7 @@ export const columns: ColumnDef<ParticipantRow>[] = [
 
       return (
         <ParticipantDeletionButton
-          disabled={participant.isOwner}
+          disabled={participant.role === "owner"}
           id={participant.id}
         />
       );

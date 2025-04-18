@@ -56,7 +56,7 @@ export default function GameHeader() {
 
         <div className="flex items-center gap-2 shrink-0">
           <ThemeToggle />
-          {participant?.isOwner ? (
+          {participant?.role === "owner" ? (
             <Button
               size="icon"
               variant="secondary"

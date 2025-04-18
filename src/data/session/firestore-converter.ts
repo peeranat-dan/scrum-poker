@@ -16,5 +16,6 @@ export function sessionConverter(
     name: data.name,
     votingSystem: data.votingSystem,
     status: data.status,
+    ownerId: data.ownerId,
   };
 }

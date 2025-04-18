@@ -9,7 +9,7 @@ export async function createParticipant(input: CreateParticipantInput) {
     uid: input.uid,
     displayName:
       input?.displayName ?? import.meta.env.VITE_GAME_DEFAULT_PARTICIPANT_NAME,
-    isOwner: input.isOwner,
+    role: input.role,
     joinedAt: Timestamp.now(),
     deletedAt: null,
     leftAt: null,

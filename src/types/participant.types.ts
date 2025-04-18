@@ -1,34 +1,38 @@
 import { type Timestamp } from "firebase/firestore";
+import { z } from "zod";
 
-export interface Participant {
-  id: string;
-  sessionId: string;
-  /**
-   * The user's Firebase UID
-   */
-  uid: string;
-  displayName: string;
-  isOwner: boolean;
-  joinedAt: Date;
-  deletedAt: Date | null;
-  leftAt: Date | null;
-}
+const participantRoles = ["owner", "admin", "player"] as const;
+
+export type ParticipantRole = (typeof participantRoles)[number];
+
+export const ParticipantSchema = z.object({
+  id: z.string(),
+  sessionId: z.string(),
+  uid: z.string(),
+  displayName: z.string(),
+  joinedAt: z.date(),
+  deletedAt: z.date().nullable(),
+  leftAt: z.date().nullable(),
+  role: z.enum(participantRoles),
+});
+
+export type Participant = z.infer<typeof ParticipantSchema>;
 
 export interface ParticipantDoc {
   sessionId: string;
   uid: string;
   displayName: string;
-  isOwner: boolean;
   joinedAt: Timestamp;
   deletedAt: Timestamp | null;
   leftAt: Timestamp | null;
+  role: ParticipantRole;
 }
 
 export interface CreateParticipantInput {
   sessionId: string;
   uid: string;
-  isOwner: boolean;
   displayName?: string;
+  role: ParticipantRole;
 }
 
 export interface UpdateParticipantNameInput {

@@ -1,4 +1,5 @@
 import {
+  ParticipantSchema,
   type Participant,
   type ParticipantDoc,
 } from "@/types/participant.types";
@@ -13,14 +14,14 @@ export function participantConverter(
     throw new Error("Participant not found");
   }
 
-  return {
+  return ParticipantSchema.parse({
     id: doc.id,
     displayName: data.displayName,
-    isOwner: data.isOwner,
+    role: data.role,
     joinedAt: data.joinedAt.toDate(),
     sessionId: data.sessionId,
     uid: data.uid,
     deletedAt: data.deletedAt ? data.deletedAt.toDate() : null,
     leftAt: data.leftAt ? data.leftAt.toDate() : null,
-  };
+  });
 }
