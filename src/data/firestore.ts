@@ -5,12 +5,16 @@ import { type VoteDoc } from "@/types/vote.types";
 import {
   collection,
   type CollectionReference,
+  // connectFirestoreEmulator,
   type DocumentData,
   getFirestore,
 } from "firebase/firestore";
 import { app } from "./firebase";
 
 const db = getFirestore(app);
+
+// NOTE: This is only for development purposes
+// connectFirestoreEmulator(db, "127.0.0.1", 8080);
 
 function createCollection<T = DocumentData>(collectionName: string) {
   return collection(db, collectionName) as CollectionReference<T>;
