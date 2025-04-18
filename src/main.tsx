@@ -17,6 +17,7 @@ import GameSettingsGeneralPage from "./pages/game/[gameId]/settings/general";
 import GameSettingsPlayersListPage from "./pages/game/[gameId]/settings/players";
 import HomePage from "./pages/home";
 import JoinPage from "./pages/join/[gameId]";
+import LogoutPage from "./pages/logout";
 import NewGamePage from "./pages/new-game";
 import { AuthProvider } from "./providers/auth";
 import { ThemeProvider } from "./providers/theme";
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "new-game",
         Component: NewGamePage,
+      },
+      {
+        path: "logout",
+        Component: LogoutPage,
       },
       {
         path: "*",
