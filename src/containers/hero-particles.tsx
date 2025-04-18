@@ -7,7 +7,16 @@ export default function HeroParticles() {
   const { theme } = useTheme();
 
   useEffect(() => {
-    setColor(theme === "dark" ? "#ffffff" : "#000000");
+    if (theme === "system") {
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "dark"
+        : "light";
+
+      setColor(systemTheme === "dark" ? "#ffffff" : "#000000");
+    } else {
+      setColor(theme === "dark" ? "#ffffff" : "#000000");
+    }
   }, [theme]);
 
   return (
