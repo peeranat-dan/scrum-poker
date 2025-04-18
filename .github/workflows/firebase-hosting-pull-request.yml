@@ -17,7 +17,6 @@ jobs:
           echo "${{ secrets.CLIENT_ENV }}" > .env
       - uses: pnpm/action-setup@v4
         with:
-          version: 9.14.2
           run_install: false
       - name: Install Node.js
         uses: actions/setup-node@v4
