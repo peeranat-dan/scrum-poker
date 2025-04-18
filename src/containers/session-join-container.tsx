@@ -27,7 +27,7 @@ export default function SessionJoinContainer() {
     const participant = await createParticipantMutation.mutateAsync({
       sessionId: sessionId,
       uid: user.user.uid,
-      isOwner: false,
+      role: "player",
       displayName: data.name,
     });
 

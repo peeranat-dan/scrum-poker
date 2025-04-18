@@ -33,7 +33,7 @@ export default function GameActions() {
 
   const shouldDisableRevealVoteButton = participantsWithNoVotes.length > 0;
 
-  if (participant?.isOwner) {
+  if (participant?.role === "owner") {
     return (
       <div className="flex gap-2">
         {round?.status === "in-progress" ? (

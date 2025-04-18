@@ -16,7 +16,7 @@ export function participantConverter(
   return {
     id: doc.id,
     displayName: data.displayName,
-    isOwner: data.isOwner,
+    role: data.role,
     joinedAt: data.joinedAt.toDate(),
     sessionId: data.sessionId,
     uid: data.uid,

@@ -37,7 +37,7 @@ export default function SessionCreationContainer() {
     const participant = await createParticipantMutation.mutateAsync({
       sessionId: session.id,
       uid: user.user.uid,
-      isOwner: true,
+      role: "owner",
     });
     // STEP 4: Update session ownerId with participant.id
     await updateSessionOwnerIdMutation.mutateAsync({
