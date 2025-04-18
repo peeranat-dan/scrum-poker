@@ -1,6 +1,13 @@
 import { buttonVariants } from "@/components/ui/button-variants";
+import { useParticipant } from "@/providers/participant";
 import { Settings, Users2 } from "lucide-react";
-import { NavLink, Outlet } from "react-router";
+import {
+  generatePath,
+  Navigate,
+  NavLink,
+  Outlet,
+  useParams,
+} from "react-router";
 
 const items = [
   {
@@ -16,6 +23,17 @@ const items = [
 ];
 
 export default function GameSettingsLayout() {
+  const { gameId } = useParams<{ gameId: string }>();
+  const { participant } = useParticipant();
+
+  if (!gameId) {
+    throw new Error("Game ID is required");
+  }
+
+  if (!participant) {
+    return <Navigate to={generatePath("/join/:gameId", { gameId: gameId })} />;
+  }
+
   return (
     <div className="flex flex-1 max-w-3xl mx-auto py-8 px-4 md:px-0">
       <nav className="w-fit md:w-48 border-r space-y-2 pr-2 flex flex-col">
