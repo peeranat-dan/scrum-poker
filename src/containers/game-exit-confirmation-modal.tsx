@@ -25,8 +25,11 @@ export default function GameExitConfirmationModal() {
   }, [participant?.deletedAt, participant?.leftAt, status]);
 
   // NOTE: Block for client side navigation
-  const blocker = useBlocker(({ nextLocation }) => {
-    if (nextLocation.pathname.includes("/settings")) {
+  const blocker = useBlocker(({ nextLocation, currentLocation }) => {
+    if (
+      nextLocation.pathname.includes("/settings") ||
+      nextLocation.pathname === currentLocation.pathname
+    ) {
       return false;
     }
     return shouldOpenModal;
