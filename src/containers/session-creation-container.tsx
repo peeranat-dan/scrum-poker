@@ -2,7 +2,6 @@ import SessionCreationForm from "@/components/form/session-creation-form";
 import { useCreateParticipant } from "@/hooks/participant/use-create-participant";
 import { useCreateRound } from "@/hooks/round/use-create-round";
 import { useCreateSession } from "@/hooks/session/use-create-session";
-import { useUpdateSessionOwnerId } from "@/hooks/session/use-update-session-owner-id";
 import { useAuth } from "@/providers/auth";
 import {
   type CreateSessionInput,
@@ -21,30 +20,27 @@ export default function SessionCreationContainer() {
       votingSystem: "fibonacci",
     },
   });
-  const { signInAnonymously } = useAuth();
+  const { user: authUser, signInAnonymously } = useAuth();
 
   const createSessionMutation = useCreateSession();
   const createParticipantMutation = useCreateParticipant();
   const createRoundMutation = useCreateRound();
-  const updateSessionOwnerIdMutation = useUpdateSessionOwnerId();
 
   const onSubmit = async (data: CreateSessionInput) => {
     // STEP 1: Handle anonymous login
-    const user = await signInAnonymously();
+    const user = authUser ?? (await signInAnonymously()).user;
     // STEP 2: Create session
-    const session = await createSessionMutation.mutateAsync(data);
+    const session = await createSessionMutation.mutateAsync({
+      ...data,
+      ownerId: user.uid,
+    });
     // STEP 3: Create participant
     const participant = await createParticipantMutation.mutateAsync({
       sessionId: session.id,
-      uid: user.user.uid,
+      uid: user.uid,
       role: "owner",
     });
-    // STEP 4: Update session ownerId with participant.id
-    await updateSessionOwnerIdMutation.mutateAsync({
-      id: session.id,
-      ownerId: user.user.uid,
-    });
-    // STEP 5: Create round
+    // STEP 4: Create round
     const round = await createRoundMutation.mutateAsync(session.id);
 
     if (session && user && participant && round) {
