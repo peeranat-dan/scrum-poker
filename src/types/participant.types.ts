@@ -1,5 +1,7 @@
 import { type Timestamp } from "firebase/firestore";
 
+export type ParticipantRole = "owner" | "admin" | "player";
+
 export interface Participant {
   id: string;
   sessionId: string;
@@ -8,27 +10,27 @@ export interface Participant {
    */
   uid: string;
   displayName: string;
-  isOwner: boolean;
   joinedAt: Date;
   deletedAt: Date | null;
   leftAt: Date | null;
+  role: ParticipantRole;
 }
 
 export interface ParticipantDoc {
   sessionId: string;
   uid: string;
   displayName: string;
-  isOwner: boolean;
   joinedAt: Timestamp;
   deletedAt: Timestamp | null;
   leftAt: Timestamp | null;
+  role: ParticipantRole;
 }
 
 export interface CreateParticipantInput {
   sessionId: string;
   uid: string;
-  isOwner: boolean;
   displayName?: string;
+  role: ParticipantRole;
 }
 
 export interface UpdateParticipantNameInput {
