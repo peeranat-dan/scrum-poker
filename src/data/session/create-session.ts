@@ -9,6 +9,7 @@ export async function createSession(input: CreateSessionInput) {
     name: input.name,
     votingSystem: input.votingSystem,
     status: "active",
+    ownerId: "",
   });
 
   return session;
