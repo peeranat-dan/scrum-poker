@@ -1,12 +1,9 @@
-import { type CreateSessionInput } from "@/types/schema.types";
+import { type CreateSessionInput } from "@/types/session.types";
 import { addDoc, Timestamp } from "firebase/firestore";
 
 import { sessionsCollection } from "../firestore";
 
-// TODO: ownerId is not in the form, but it should be in the input
-export async function createSession(
-  input: CreateSessionInput & { ownerId: string }
-) {
+export async function createSession(input: CreateSessionInput) {
   const session = await addDoc(sessionsCollection, {
     createdAt: Timestamp.now(),
     name: input.name,
