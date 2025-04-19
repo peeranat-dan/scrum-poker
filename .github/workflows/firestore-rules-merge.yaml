@@ -1,9 +1,8 @@
 name: Deploy Firestore Rules on merge
 
 on:
-  push:
-    branches:
-      - develop
+  pull_request:
+    branches: ["*"]
 
 jobs:
   deploy-firestore-rules:
