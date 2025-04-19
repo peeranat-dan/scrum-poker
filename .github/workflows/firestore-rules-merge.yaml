@@ -21,9 +21,10 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "pnpm"
-      - name: Deploy Firestore Rules
-        uses: w9jds/firebase-action@master
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+      - uses: "google-github-actions/auth@v2"
         with:
-          args: deploy --only firestore:rules
-        env:
-          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NPRD_SCRUM_POKER }}
+          credentials_json: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_NPRD_SCRUM_POKER }}"
+      - name: Deploy firestore rules
+        run: firebase deploy -f --only firestore:rules --project nprd-scrum-poker
