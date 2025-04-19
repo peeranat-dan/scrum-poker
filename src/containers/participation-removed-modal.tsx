@@ -22,8 +22,8 @@ export default function ParticipationRemovedModal() {
   const { signOut } = useAuth();
 
   const shouldOpenModal = useMemo(() => {
-    return !!participant?.deletedAt;
-  }, [participant?.deletedAt]);
+    return participant?.status === "deleted";
+  }, [participant?.status]);
 
   const handleBackToHome = async () => {
     queryClient.resetQueries();

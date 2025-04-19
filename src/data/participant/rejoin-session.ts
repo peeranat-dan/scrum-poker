@@ -23,11 +23,12 @@ export async function rejoinSession(input: RejoinSessionInput) {
     throw new Error("Participant not found");
   }
 
-  if (!participant.leftAt) {
+  if (participant.status !== "left") {
     throw new Error("Participant has not left the session");
   }
 
   await updateDoc(doc(participantsCollection, participantId), {
     leftAt: null,
+    status: "active",
   });
 }

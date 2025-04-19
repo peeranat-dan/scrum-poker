@@ -13,16 +13,12 @@ import { useMemo } from "react";
 import { useBeforeUnload, useBlocker } from "react-router";
 
 export default function GameExitConfirmationModal() {
-  const { status } = useSession();
+  const { status: sessionStatus } = useSession();
   const { participant } = useParticipant();
 
   const shouldOpenModal = useMemo(() => {
-    return (
-      status === "active" &&
-      participant?.leftAt === null &&
-      participant?.deletedAt === null
-    );
-  }, [participant?.deletedAt, participant?.leftAt, status]);
+    return sessionStatus === "active" && participant?.status === "active";
+  }, [participant?.status, sessionStatus]);
 
   // NOTE: Block for client side navigation
   const blocker = useBlocker(({ nextLocation, currentLocation }) => {

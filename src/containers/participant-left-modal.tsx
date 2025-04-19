@@ -20,8 +20,8 @@ export default function ParticipantLeftModal() {
   const rejoinSessionMutation = useRejoinSession();
 
   const shouldOpenModal = useMemo(() => {
-    return !!participant?.leftAt;
-  }, [participant?.leftAt]);
+    return participant?.status === "left";
+  }, [participant?.status]);
 
   const rejoinSession = async () => {
     if (participant) {

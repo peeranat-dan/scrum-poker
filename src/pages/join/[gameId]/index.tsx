@@ -8,7 +8,7 @@ export default function JoinPage() {
   const { id, name } = useSession();
   const { participant } = useParticipant();
 
-  if (participant && !participant.deletedAt && !participant.leftAt) {
+  if (participant && participant.status === "active") {
     return (
       <Navigate to={generatePath("/game/:gameId", { gameId: id })} replace />
     );

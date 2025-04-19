@@ -9,11 +9,12 @@ export async function deleteParticipant(participantId: string) {
     throw new Error("Participant not found");
   }
 
-  if (participant.deletedAt) {
+  if (participant.status === "deleted") {
     throw new Error("Participant already deleted");
   }
 
   return await updateDoc(doc(participantsCollection, participantId), {
     deletedAt: new Date(),
+    status: "deleted",
   });
 }
