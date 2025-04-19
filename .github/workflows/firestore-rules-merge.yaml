@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - develop
-    paths:
-      - "firestore.rules"
 
 jobs:
   deploy-firestore-rules:
@@ -24,6 +22,6 @@ jobs:
       - name: Deploy Firestore Rules
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only firestore:rules
+          args: deploy --only firestore:rules --debug
         env:
           GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NPRD_SCRUM_POKER }}
