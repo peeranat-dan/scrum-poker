@@ -68,10 +68,6 @@ service cloud.firestore {
       // Only session owner can update rounds
       allow update: if isSignedIn() 
                    && isOwner(getSessionOwner(resource.data.sessionId));
-      
-      // Only session owner can delete rounds
-      allow delete: if isSignedIn() 
-                   && isOwner(getSessionOwner(resource.data.sessionId));
     }
     
     // Votes collection
