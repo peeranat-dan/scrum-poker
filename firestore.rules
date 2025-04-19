@@ -86,6 +86,10 @@ service cloud.firestore {
       // Users can update their own votes
       allow update: if isSignedIn() 
                    && get(/databases/$(database)/documents/participants/$(request.resource.data.participantId)).data.uid == request.auth.uid;
+      
+      // Only session owner can delete votes
+      allow delete: if isSignedIn()
+                   && isOwner(getSessionOwner(resource.data.sessionId));
     }
   }
 }
