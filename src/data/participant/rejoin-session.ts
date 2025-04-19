@@ -29,5 +29,6 @@ export async function rejoinSession(input: RejoinSessionInput) {
 
   await updateDoc(doc(participantsCollection, participantId), {
     leftAt: null,
+    status: "active",
   });
 }

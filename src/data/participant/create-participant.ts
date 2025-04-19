@@ -13,6 +13,7 @@ export async function createParticipant(input: CreateParticipantInput) {
     joinedAt: Timestamp.now(),
     deletedAt: null,
     leftAt: null,
+    status: "active",
   });
 
   return participant;

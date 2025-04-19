@@ -23,5 +23,6 @@ export function participantConverter(
     uid: data.uid,
     deletedAt: data.deletedAt ? data.deletedAt.toDate() : null,
     leftAt: data.leftAt ? data.leftAt.toDate() : null,
+    status: data.status,
   });
 }
