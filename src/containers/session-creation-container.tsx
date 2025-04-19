@@ -31,7 +31,8 @@ export default function SessionCreationContainer() {
     const user = authUser ?? (await signInAnonymously()).user;
     // STEP 2: Create session
     const session = await createSessionMutation.mutateAsync({
-      ...data,
+      name: data.name,
+      votingSystem: data.votingSystem,
       ownerId: user.uid,
     });
     // STEP 3: Create participant

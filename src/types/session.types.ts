@@ -30,6 +30,12 @@ export interface SessionDoc {
   ownerId: string;
 }
 
+export interface CreateSessionInput {
+  name: string;
+  votingSystem: VotingSystem;
+  ownerId: string;
+}
+
 export interface UpdateSessionInput {
   id: string;
   name?: string;
