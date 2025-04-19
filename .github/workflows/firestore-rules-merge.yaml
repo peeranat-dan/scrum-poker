@@ -18,6 +18,8 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "pnpm"
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
       - uses: "google-github-actions/auth@v2"
         with:
           credentials_json: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_NPRD_SCRUM_POKER }}"
