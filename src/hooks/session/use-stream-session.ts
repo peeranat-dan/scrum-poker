@@ -1,5 +1,5 @@
 import { streamSession } from "@/data/session/stream-session";
-import { type Session } from "@/types/session.types";
+import { type Session } from "@/data/session/types";
 import { useEffect, useState } from "react";
 
 export function useStreamSession(sessionId: string) {
