@@ -1,4 +1,4 @@
-import { type Participant } from "@/types/participant.types";
+import { type Participant } from "@/data/participant/types";
 import { type Vote } from "@/types/vote.types";
 
 export function mapParticipantsToVotes(

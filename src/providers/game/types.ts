@@ -1,5 +1,5 @@
+import { type Participant } from "@/data/participant/types";
 import { type Card } from "@/types/card.types";
-import { type Participant } from "@/types/participant.types";
 import { type Round } from "@/types/round.types";
 import { type Vote } from "@/types/vote.types";
 

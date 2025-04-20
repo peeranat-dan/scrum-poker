@@ -1,5 +1,6 @@
 import { streamParticipant } from "@/data/participant/stream-participant";
-import { type Participant } from "@/types/participant.types";
+import { type Participant } from "@/data/participant/types";
+
 import { useEffect, useState } from "react";
 
 export function useStreamParticipant(sessionId: string, uid: string) {
