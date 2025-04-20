@@ -1,16 +1,16 @@
 import { createRound } from "./create-round";
-import { getActiveRound } from "./get-active-round";
+import { getLatestRound } from "./get-latest-round";
 import { updateRound } from "./update-round";
 
 export async function startNewRound(sessionId: string) {
-  const activeRound = await getActiveRound(sessionId);
+  const latestRound = await getLatestRound(sessionId);
 
-  if (!activeRound) {
+  if (!latestRound) {
     throw new Error("No active round");
   }
 
   await updateRound({
-    id: activeRound.id,
+    id: latestRound.id,
     status: "finished",
     finishedAt: new Date(),
   });
