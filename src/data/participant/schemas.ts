@@ -14,3 +14,10 @@ export const ParticipantSchema = z.object({
   role: z.enum(participantRoles),
   status: z.enum(participantStatuses),
 });
+
+export const CreateParticipantSchema = z.object({
+  sessionId: z.string(),
+  uid: z.string(),
+  displayName: z.string().optional(),
+  role: z.enum(participantRoles),
+});

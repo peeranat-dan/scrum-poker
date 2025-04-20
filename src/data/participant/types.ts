@@ -1,6 +1,7 @@
 import { type Timestamp } from "firebase/firestore";
 import { type z } from "zod";
 import {
+  type CreateParticipantSchema,
   type participantRoles,
   type ParticipantSchema,
   type participantStatuses,
@@ -20,3 +21,5 @@ export interface ParticipantDoc {
   role: ParticipantRole;
   status: ParticipantStatus;
 }
+
+export type CreateParticipantInput = z.infer<typeof CreateParticipantSchema>;
