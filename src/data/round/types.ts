@@ -7,7 +7,7 @@ import {
 } from "./schemas";
 
 export type Round = z.infer<typeof RoundSchema>;
-type RoundStatus = (typeof roundStatuses)[number];
+export type RoundStatus = (typeof roundStatuses)[number];
 
 export interface RoundDoc {
   sessionId: string;

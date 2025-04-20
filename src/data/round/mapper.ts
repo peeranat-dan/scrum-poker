@@ -1,7 +1,7 @@
 import { assertValid } from "@/shared/zod/utils";
-import { type Round, type RoundDoc } from "@/types/round.types";
 import { type DocumentData, type DocumentSnapshot } from "firebase/firestore";
 import { RoundSchema } from "./schemas";
+import { type Round, type RoundDoc } from "./types";
 
 export function toRound(doc: DocumentSnapshot<RoundDoc, DocumentData>): Round {
   const data = doc.data();

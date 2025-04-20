@@ -1,7 +1,7 @@
+import { type RoundStatus } from "@/data/round/types";
 import { cn } from "@/lib/utils";
 import { useGame } from "@/providers/game";
 import { type Card } from "@/types/card.types";
-import { type RoundStatus } from "@/types/round.types";
 
 function getVoteValue(
   cards: Card[],
