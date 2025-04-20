@@ -22,6 +22,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
+    /* etc */
+    "erasableSyntaxOnly": true,
+
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
