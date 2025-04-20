@@ -6,7 +6,7 @@ export async function startNewRound(sessionId: string) {
   const activeRound = await getActiveRound(sessionId);
 
   if (!activeRound) {
-    throw new Error("No active round∏");
+    throw new Error("No active round");
   }
 
   await updateRound({
