@@ -1,11 +1,14 @@
-import { type CreateSessionInput } from "@/types/session.types";
-import { addDoc, Timestamp } from "firebase/firestore";
+import { addDoc, serverTimestamp } from "firebase/firestore";
 
 import { sessionsCollection } from "../firestore";
+import { CreateSesionSchema } from "./schemas";
+import { type CreateSessionInput } from "./types";
 
-export async function createSession(input: CreateSessionInput) {
+export async function createSession(_input: CreateSessionInput) {
+  const input = CreateSesionSchema.parse(_input);
+
   const session = await addDoc(sessionsCollection, {
-    createdAt: Timestamp.now(),
+    createdAt: serverTimestamp(),
     name: input.name,
     votingSystem: input.votingSystem,
     status: "active",

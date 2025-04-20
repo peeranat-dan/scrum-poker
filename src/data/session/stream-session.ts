@@ -1,7 +1,8 @@
-import { type Session } from "@/types/session.types";
 import { doc, onSnapshot } from "firebase/firestore";
+
 import { sessionsCollection } from "../firestore";
-import { sessionConverter } from "./firestore-converter";
+import { toSession } from "./mapper";
+import { type Session } from "./types";
 
 export function streamSession(
   sessionId: string,
@@ -12,7 +13,7 @@ export function streamSession(
     doc(sessionsCollection, sessionId),
     (doc) => {
       if (doc.exists()) {
-        callback(sessionConverter(doc));
+        callback(toSession(doc));
         return;
       }
       errorCallback(new Error("Session not found"));
