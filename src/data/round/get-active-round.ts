@@ -1,6 +1,6 @@
 import { getDocs, limit, query, where } from "firebase/firestore";
 import { roundsCollection } from "../firestore";
-import { roundConverter } from "./firestore-converter";
+import { toRound } from "./mapper";
 
 export async function getActiveRound(sessionId: string) {
   const activeRoundSnapshot = await getDocs(
@@ -16,5 +16,5 @@ export async function getActiveRound(sessionId: string) {
     return undefined;
   }
 
-  return roundConverter(activeRoundSnapshot.docs[0]);
+  return toRound(activeRoundSnapshot.docs[0]);
 }

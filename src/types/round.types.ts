@@ -26,8 +26,3 @@ export interface UpdateRoundInput {
   averageVote?: number | null;
   finishedAt: Date | null;
 }
-
-export interface StartNewRoundInput {
-  sessionId: string;
-  roundId: string;
-}

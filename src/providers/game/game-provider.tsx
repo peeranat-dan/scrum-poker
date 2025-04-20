@@ -89,10 +89,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
 
   const startNewRound = useCallback(async () => {
     if (round) {
-      startNewRoundMutation.mutateAsync({
-        roundId: round.id,
-        sessionId: session.id,
-      });
+      startNewRoundMutation.mutateAsync(session.id);
     }
   }, [round, session.id, startNewRoundMutation]);
 
