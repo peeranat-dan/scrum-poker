@@ -14,10 +14,11 @@ export function toSession(
 
   return assertValid(SessionSchema, {
     id: doc.id,
-    createdAt: data.createdAt,
+    createdAt: data.createdAt.toDate(),
     name: data.name,
     votingSystem: data.votingSystem,
     status: data.status,
     ownerId: data.ownerId,
+    finishedAt: data.finishedAt?.toDate(),
   });
 }
