@@ -1,6 +1,6 @@
 import { doc, getDoc } from "firebase/firestore";
 import { roundsCollection } from "../firestore";
-import { roundConverter } from "./firestore-converter";
+import { toRound } from "./mapper";
 
 export async function getRoundById(id: string) {
   const roundDoc = await getDoc(doc(roundsCollection, id));
@@ -9,5 +9,5 @@ export async function getRoundById(id: string) {
     throw new Error("Round not found");
   }
 
-  return roundConverter(roundDoc);
+  return toRound(roundDoc);
 }

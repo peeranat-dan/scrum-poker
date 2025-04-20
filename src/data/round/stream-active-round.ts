@@ -1,7 +1,7 @@
-import { type Round } from "@/types/round.types";
 import { and, limit, onSnapshot, or, query, where } from "firebase/firestore";
 import { roundsCollection } from "../firestore";
-import { roundConverter } from "./firestore-converter";
+import { toRound } from "./mapper";
+import { type Round } from "./types";
 
 export function streamActiveRound(
   sessionId: string,
@@ -21,7 +21,7 @@ export function streamActiveRound(
 
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     const round = querySnapshot.docs.length
-      ? roundConverter(querySnapshot.docs[0])
+      ? toRound(querySnapshot.docs[0])
       : undefined;
     callback(round);
   });

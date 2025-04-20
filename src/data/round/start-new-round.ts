@@ -1,20 +1,16 @@
-import { type StartNewRoundInput } from "@/types/round.types";
-import { doc, getDoc } from "firebase/firestore";
-import { roundsCollection } from "../firestore";
 import { createRound } from "./create-round";
+import { getLatestRound } from "./get-latest-round";
 import { updateRound } from "./update-round";
 
-export async function startNewRound(input: StartNewRoundInput) {
-  const { sessionId, roundId } = input;
+export async function startNewRound(sessionId: string) {
+  const latestRound = await getLatestRound(sessionId);
 
-  const roundDoc = await getDoc(doc(roundsCollection, roundId));
-
-  if (!roundDoc.exists()) {
-    throw new Error("Round not found");
+  if (!latestRound) {
+    throw new Error("No active round");
   }
 
   await updateRound({
-    id: roundId,
+    id: latestRound.id,
     status: "finished",
     finishedAt: new Date(),
   });

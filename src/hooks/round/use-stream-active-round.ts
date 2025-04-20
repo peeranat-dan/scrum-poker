@@ -1,5 +1,5 @@
 import { streamActiveRound } from "@/data/round/stream-active-round";
-import { type Round } from "@/types/round.types";
+import { type Round } from "@/data/round/types";
 import { useEffect, useState } from "react";
 
 export function useStreamActiveRound(sessionId: string) {

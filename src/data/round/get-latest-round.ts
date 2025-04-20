@@ -1,13 +1,13 @@
-import { getDocs, limit, query, where } from "firebase/firestore";
+import { getDocs, limit, orderBy, query, where } from "firebase/firestore";
 import { roundsCollection } from "../firestore";
 import { toRound } from "./mapper";
 
-export async function getActiveRound(sessionId: string) {
+export async function getLatestRound(sessionId: string) {
   const activeRoundSnapshot = await getDocs(
     query(
       roundsCollection,
       where("sessionId", "==", sessionId),
-      where("status", "==", "in-progress"),
+      orderBy("createdAt", "desc"),
       limit(1)
     )
   );

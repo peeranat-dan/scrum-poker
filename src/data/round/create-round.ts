@@ -1,4 +1,4 @@
-import { addDoc } from "firebase/firestore";
+import { addDoc, serverTimestamp } from "firebase/firestore";
 import { roundsCollection } from "../firestore";
 import { getActiveRound } from "./get-active-round";
 
@@ -15,6 +15,7 @@ export async function createRound(sessionId: string) {
     revealedAt: null,
     averageVote: null,
     finishedAt: null,
+    createdAt: serverTimestamp(),
   });
   return round;
 }
