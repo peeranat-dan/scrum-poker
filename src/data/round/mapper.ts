@@ -17,6 +17,6 @@ export function toRound(doc: DocumentSnapshot<RoundDoc, DocumentData>): Round {
     revealedAt: data.revealedAt?.toDate() ?? null,
     averageVote: data.averageVote,
     finishedAt: data.finishedAt?.toDate() ?? null,
-    createdAt: data.createdAt.toDate(),
+    createdAt: data.createdAt?.toDate(),
   });
 }
