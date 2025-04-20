@@ -25,7 +25,7 @@ export function ParticipantProvider({
       if (!participant) return;
       await updateParticipantNameMutation.mutateAsync(
         {
-          participantId: participant.id,
+          id: participant.id,
           name,
         },
         {
