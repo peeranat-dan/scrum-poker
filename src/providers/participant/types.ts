@@ -1,4 +1,4 @@
-import { type Participant } from "@/types/participant.types";
+import { type Participant } from "@/data/participant/types";
 
 export interface ParticipantProviderProps {
   children: React.ReactNode;
