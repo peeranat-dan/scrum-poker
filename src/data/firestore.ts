@@ -1,6 +1,5 @@
 import { type ParticipantDoc } from "@/types/participant.types";
 import { type RoundDoc } from "@/types/round.types";
-import { type SessionDoc } from "@/types/session.types";
 import { type VoteDoc } from "@/types/vote.types";
 import {
   collection,
@@ -9,7 +8,9 @@ import {
   type DocumentData,
   getFirestore,
 } from "firebase/firestore";
+
 import { app } from "./firebase";
+import { type SessionDoc } from "./session/types";
 
 const db = getFirestore(app);
 

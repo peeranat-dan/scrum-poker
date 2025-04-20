@@ -1,7 +1,7 @@
-import { type Session, type SessionDoc } from "@/types/session.types";
+import { assertValid } from "@/shared/zod/utils";
 import { type DocumentData, type DocumentSnapshot } from "firebase/firestore";
 import { SessionSchema } from "./schemas";
-import { assertValid } from "@/shared/zod/utils";
+import { type Session, type SessionDoc } from "./types";
 
 export function toSession(
   doc: DocumentSnapshot<SessionDoc, DocumentData>
@@ -14,7 +14,7 @@ export function toSession(
 
   return assertValid(SessionSchema, {
     id: doc.id,
-    createdAt: data.createdAt.toDate(),
+    createdAt: data.createdAt,
     name: data.name,
     votingSystem: data.votingSystem,
     status: data.status,
