@@ -1,11 +1,13 @@
-import { type UpdateParticipantNameInput } from "@/types/participant.types";
 import { doc, updateDoc } from "firebase/firestore";
 import { participantsCollection } from "../firestore";
+import { type UpdateParticipantNameInput } from "./types";
+import { assertValid } from "@/shared/zod/utils";
+import { UpdateParticipantNameSchema } from "./schemas";
 
 export async function updateParticipantName(input: UpdateParticipantNameInput) {
-  const { participantId, name } = input;
+  const { id, name } = assertValid(UpdateParticipantNameSchema, input);
 
-  return await updateDoc(doc(participantsCollection, participantId), {
+  return await updateDoc(doc(participantsCollection, id), {
     displayName: name,
   });
 }

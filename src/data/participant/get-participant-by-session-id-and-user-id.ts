@@ -1,6 +1,7 @@
 import { getDocs, limit, query, where } from "firebase/firestore";
+
 import { participantsCollection } from "../firestore";
-import { participantConverter } from "./firestore-converter";
+import { toParticipant } from "./mapper";
 
 export async function getParticipantBySessionIdAndUserId(
   sessionId: string,
@@ -20,7 +21,7 @@ export async function getParticipantBySessionIdAndUserId(
   }
 
   // NOTE: We are assuming that there is only one participant with the same sessionId and userId
-  const data = participantConverter(participantDoc.docs[0]);
+  const data = toParticipant(participantDoc.docs[0]);
 
   return data;
 }

@@ -1,11 +1,9 @@
-import {
-  ParticipantSchema,
-  type Participant,
-  type ParticipantDoc,
-} from "@/types/participant.types";
+import { assertValid } from "@/shared/zod/utils";
 import { type DocumentData, type DocumentSnapshot } from "firebase/firestore";
+import { ParticipantSchema } from "./schemas";
+import { type Participant, type ParticipantDoc } from "./types";
 
-export function participantConverter(
+export function toParticipant(
   doc: DocumentSnapshot<ParticipantDoc, DocumentData>
 ): Participant {
   const data = doc.data();
@@ -14,7 +12,7 @@ export function participantConverter(
     throw new Error("Participant not found");
   }
 
-  return ParticipantSchema.parse({
+  return assertValid(ParticipantSchema, {
     id: doc.id,
     displayName: data.displayName,
     role: data.role,

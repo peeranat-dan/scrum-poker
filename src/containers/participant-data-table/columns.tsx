@@ -1,4 +1,4 @@
-import { type ParticipantRole } from "@/types/participant.types";
+import { type ParticipantRole } from "@/data/participant/types";
 import { type ColumnDef } from "@tanstack/react-table";
 
 import ParticipantDeletionButton from "../participant-deletion-button";
