@@ -3,9 +3,10 @@ import { addDoc, serverTimestamp } from "firebase/firestore";
 import { sessionsCollection } from "../firestore";
 import { CreateSesionSchema } from "./schemas";
 import { type CreateSessionInput } from "./types";
+import { assertValid } from "@/shared/zod/utils";
 
 export async function createSession(_input: CreateSessionInput) {
-  const input = CreateSesionSchema.parse(_input);
+  const input = assertValid(CreateSesionSchema, _input);
 
   const session = await addDoc(sessionsCollection, {
     createdAt: serverTimestamp(),

@@ -1,6 +1,7 @@
 import { type Session, type SessionDoc } from "@/types/session.types";
 import { type DocumentData, type DocumentSnapshot } from "firebase/firestore";
 import { SessionSchema } from "./schemas";
+import { assertValid } from "@/shared/zod/utils";
 
 export function toSession(
   doc: DocumentSnapshot<SessionDoc, DocumentData>
@@ -11,7 +12,7 @@ export function toSession(
     throw new Error("Session not found");
   }
 
-  return SessionSchema.parse({
+  return assertValid(SessionSchema, {
     id: doc.id,
     createdAt: data.createdAt.toDate(),
     name: data.name,
