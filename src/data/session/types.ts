@@ -1,20 +1,21 @@
 import { type VotingSystem } from "@/shared/zod/enum";
+import { type Timestamp } from "firebase/firestore";
 import { type z } from "zod";
 import {
-  type UpdateSessionInformationSchema,
   type CreateSesionSchema,
   type SessionSchema,
+  type UpdateSessionInformationSchema,
   type UpdateSessionSchema,
 } from "./schemas";
 
 export type Session = z.infer<typeof SessionSchema>;
 
 export interface SessionDoc {
-  createdAt: Date;
+  createdAt: Timestamp;
   name: string;
   votingSystem: VotingSystem;
   status: "active" | "finished";
-  finishedAt?: Date;
+  finishedAt?: Timestamp;
   ownerId: string;
 }
 
