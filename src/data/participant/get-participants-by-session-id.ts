@@ -1,6 +1,6 @@
 import { getDocs, query, where } from "firebase/firestore";
 import { participantsCollection } from "../firestore";
-import { participantConverter } from "./firestore-converter";
+import { toParticipant } from "./mapper";
 
 export async function getParticipantsBySessionId(sessionId: string) {
   const participantSnapshot = await getDocs(
@@ -12,6 +12,6 @@ export async function getParticipantsBySessionId(sessionId: string) {
   }
 
   return participantSnapshot.docs.map((participantDoc) =>
-    participantConverter(participantDoc)
+    toParticipant(participantDoc)
   );
 }
