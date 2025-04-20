@@ -1,8 +1,8 @@
-import { type Participant } from "@/types/participant.types";
 import { limit, onSnapshot, query, where } from "firebase/firestore";
 
 import { participantsCollection } from "../firestore";
-import { participantConverter } from "./firestore-converter";
+import { toParticipant } from "./mapper";
+import { type Participant } from "./types";
 
 export function streamParticipant(
   sessionId: string,
@@ -21,7 +21,7 @@ export function streamParticipant(
     q,
     (querySnapshot) => {
       const participant = querySnapshot.docs.length
-        ? participantConverter(querySnapshot.docs[0])
+        ? toParticipant(querySnapshot.docs[0])
         : undefined;
       callback(participant);
     },

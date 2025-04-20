@@ -21,3 +21,13 @@ export const CreateParticipantSchema = z.object({
   displayName: z.string().optional(),
   role: z.enum(participantRoles),
 });
+
+export const RejoinSessionSchema = z.object({
+  sessionId: z.string(),
+  participantId: z.string(),
+});
+
+export const UpdateParticipantNameSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+});

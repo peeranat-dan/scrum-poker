@@ -5,6 +5,8 @@ import {
   type participantRoles,
   type ParticipantSchema,
   type participantStatuses,
+  type RejoinSessionSchema,
+  type UpdateParticipantNameSchema,
 } from "./schemas";
 
 export type ParticipantRole = (typeof participantRoles)[number];
@@ -23,3 +25,9 @@ export interface ParticipantDoc {
 }
 
 export type CreateParticipantInput = z.infer<typeof CreateParticipantSchema>;
+
+export type RejoinSessionInput = z.infer<typeof RejoinSessionSchema>;
+
+export type UpdateParticipantNameInput = z.infer<
+  typeof UpdateParticipantNameSchema
+>;
