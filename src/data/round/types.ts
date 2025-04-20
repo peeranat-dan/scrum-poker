@@ -15,6 +15,7 @@ export interface RoundDoc {
   revealedAt: Timestamp | null;
   averageVote: number | null;
   finishedAt: Timestamp | null;
+  createdAt: Timestamp;
 }
 
 export type UpdateRoundInput = z.infer<typeof UpdateRoundSchema>;

@@ -9,6 +9,7 @@ export const RoundSchema = z.object({
   revealedAt: z.date().nullable(),
   averageVote: z.number().nullable(),
   finishedAt: z.date().nullable(),
+  createdAt: z.date(),
 });
 
 export const UpdateRoundSchema = RoundSchema.partial();

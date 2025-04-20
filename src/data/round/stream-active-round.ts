@@ -20,6 +20,7 @@ export function streamActiveRound(
   );
 
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    console.log(querySnapshot.docs[0]?.data());
     const round = querySnapshot.docs.length
       ? toRound(querySnapshot.docs[0])
       : undefined;
