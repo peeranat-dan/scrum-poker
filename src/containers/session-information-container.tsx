@@ -12,6 +12,7 @@ import { toast } from "sonner";
 
 export default function SessionInformationContainer() {
   const { id, name, votingSystem } = useSession();
+
   const form = useForm<SessionInformationInput>({
     defaultValues: {
       name,
@@ -42,13 +43,10 @@ export default function SessionInformationContainer() {
 
   useEffect(() => {
     if (form.formState.isSubmitSuccessful) {
-      form.reset({
-        name: name,
-        votingSystem: votingSystem,
-      });
+      form.reset(form.getValues());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.formState.isSubmitSuccessful, name, votingSystem]);
+  }, [form.formState.isSubmitSuccessful]);
 
   return <SessionInformationForm form={form} onSubmit={onSubmit} />;
 }
