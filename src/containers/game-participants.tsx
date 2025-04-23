@@ -19,6 +19,22 @@ function getVoteValue(
   return typeof voteValue !== "undefined" ? "👍🏼" : "🤔";
 }
 
+function getCardColor(
+  cards: Card[],
+  voteValue?: number,
+  roundStatus?: RoundStatus
+) {
+  const defaultBg = "bg-[var(--accent)]";
+  if (!roundStatus) {
+    return defaultBg;
+  }
+  if (roundStatus === "revealed") {
+    return cards.find((card) => card.value === voteValue)?.color ?? defaultBg;
+  }
+
+  return defaultBg;
+}
+
 export default function GameParticipants() {
   const { participants, round, cards } = useGame();
 
@@ -32,6 +48,7 @@ export default function GameParticipants() {
           <div
             className={cn(
               "flex w-24 aspect-[2/3] shrink-0 items-center rounded-md justify-center border bg-card text-center text-2xl font-semibold font-mono text-foreground shadow-md",
+              getCardColor(cards, participant.vote, round?.status),
               typeof participant.vote === "undefined" &&
                 "bg-accent text-accent-foreground"
             )}

@@ -12,8 +12,8 @@ export default function GameCards() {
           onClick={() => castVote(card.value)}
           className={cn(
             "flex w-20 aspect-[2/3] shrink-0 cursor-pointer items-center justify-center rounded-md border bg-card text-center text-2xl font-semibold font-mono text-foreground shadow-md transition-all hover:scale-105",
-            vote?.value === card.value &&
-              "bg-primary text-primary-foreground border-primary"
+            card.color,
+            vote?.value === card.value && "scale-110 hover:scale-110"
           )}
         >
           {card.displayValue}
