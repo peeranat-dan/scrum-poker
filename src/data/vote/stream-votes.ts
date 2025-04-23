@@ -1,7 +1,7 @@
-import { type Vote } from "@/types/vote.types";
 import { onSnapshot, query, where } from "firebase/firestore";
 import { votesCollection } from "../firestore";
-import { voteConverter } from "./firestore-converter";
+import { toVote } from "./mapper";
+import { type Vote } from "./types";
 
 export function streamVotes(
   roundId: string,
@@ -14,7 +14,7 @@ export function streamVotes(
     // NOTE: forEach here is from querySnapshot, not from the forEach function in array
     // No need to convert to for const
     querySnapshot.forEach((doc) => {
-      const vote = voteConverter(doc);
+      const vote = toVote(doc);
       votes.push(vote);
     });
 

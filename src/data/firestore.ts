@@ -1,4 +1,3 @@
-import { type VoteDoc } from "@/types/vote.types";
 import {
   collection,
   type CollectionReference,
@@ -11,6 +10,7 @@ import { app } from "./firebase";
 import { type ParticipantDoc } from "./participant/types";
 import { type RoundDoc } from "./round/types";
 import { type SessionDoc } from "./session/types";
+import { type VoteDoc } from "./vote/types";
 
 const db = getFirestore(app);
 

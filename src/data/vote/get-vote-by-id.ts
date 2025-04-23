@@ -1,6 +1,6 @@
 import { doc, getDoc } from "firebase/firestore";
 import { votesCollection } from "../firestore";
-import { voteConverter } from "./firestore-converter";
+import { toVote } from "./mapper";
 
 export async function getVoteById(id: string) {
   const voteDoc = await getDoc(doc(votesCollection, id));
@@ -9,5 +9,5 @@ export async function getVoteById(id: string) {
     throw new Error("Vote not found");
   }
 
-  return voteConverter(voteDoc);
+  return toVote(voteDoc);
 }
