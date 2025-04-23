@@ -40,6 +40,30 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --font-mono: "JetBrains Mono Variable", "Noto Sans Thai Variable", monospace;
+
+  /* Cards Colors */
+  /* Fibonacci */
+  --color-card-0: #3b82f6;
+  --color-card-1: #4f8bf4;
+  --color-card-2: #6395f2;
+  --color-card-3: #77a0f0;
+  --color-card-5: #9bb3ec;
+  --color-card-8: #c1c7e8;
+  --color-card-13: #e1b7d2;
+  --color-card-21: #ed94b7;
+  --color-card-34: #f46e9e;
+  --color-card-55: #f3457f;
+  --color-card-89: #ef1f5e;
+  --color-card-no: #a3a3a3;
+
+  /* T-Shirt */
+  --color-card-tshirt-xs: #3b82f6;
+  --color-card-tshirt-s: #6395f2;
+  --color-card-tshirt-m: #9bb3ec;
+  --color-card-tshirt-l: #e1b7d2;
+  --color-card-tshirt-xl: #f46e9e;
+  --color-card-tshirt-xxl: #ef1f5e;
+  --color-card-tshirt-no: #a3a3a3;
 }
 
 :root {
