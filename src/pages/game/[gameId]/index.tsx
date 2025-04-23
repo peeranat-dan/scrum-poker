@@ -18,7 +18,7 @@ export default function GamePage() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full relative px-4 lg:px-0">
-      <div className="absolute flex justify-center items-center py-4 overflow-x-scroll no-scrollbar top-0 w-full">
+      <div className="fixed lg:absolute flex justify-center items-center py-4 top-[var(--header-height)] lg:top-0 overflow-x-scroll no-scrollbar w-full">
         <GameParticipants />
       </div>
       <GameController />
