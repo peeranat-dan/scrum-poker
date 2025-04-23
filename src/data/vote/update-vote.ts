@@ -1,13 +1,15 @@
-import { type UpdateVoteInput } from "@/types/vote.types";
+import { assertValid } from "@/shared/zod/utils";
 import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { votesCollection } from "../firestore";
-import { getVoteById } from "./get-vote-by-id";
 import { getRoundById } from "../round/get-round-by-id";
+import { getVoteById } from "./get-vote-by-id";
+import { UpdateVoteSchema } from "./schemas";
+import { type UpdateVoteInput } from "./types";
 
 export async function updateVote(input: UpdateVoteInput) {
-  const { voteId, value } = input;
+  const { id, value } = assertValid(UpdateVoteSchema, input);
 
-  const vote = await getVoteById(voteId);
+  const vote = await getVoteById(id);
 
   const round = await getRoundById(vote.roundId);
 
@@ -15,7 +17,7 @@ export async function updateVote(input: UpdateVoteInput) {
     throw new Error("Round is not in progress");
   }
 
-  await updateDoc(doc(votesCollection, voteId), {
+  await updateDoc(doc(votesCollection, id), {
     value,
     castAt: serverTimestamp(),
   });

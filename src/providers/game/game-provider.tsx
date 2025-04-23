@@ -57,7 +57,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       } else {
         updateVoteMutation.mutate(
           {
-            voteId: voteData.id,
+            id: voteData.id,
             value,
           },
           {

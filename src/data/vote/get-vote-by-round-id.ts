@@ -1,6 +1,6 @@
 import { getDocs, limit, query, where } from "firebase/firestore";
 import { votesCollection } from "../firestore";
-import { voteConverter } from "./firestore-converter";
+import { toVote } from "./mapper";
 
 export async function getVoteByRoundId(roundId: string, participantId: string) {
   const voteSnapshot = await getDocs(
@@ -16,5 +16,5 @@ export async function getVoteByRoundId(roundId: string, participantId: string) {
     return null;
   }
 
-  return voteConverter(voteSnapshot.docs[0]);
+  return toVote(voteSnapshot.docs[0]);
 }

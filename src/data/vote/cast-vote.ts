@@ -1,10 +1,12 @@
-import { type CastVoteInput } from "@/types/vote.types";
-import { addDoc, Timestamp } from "firebase/firestore";
+import { assertValid } from "@/shared/zod/utils";
+import { addDoc, serverTimestamp } from "firebase/firestore";
 import { votesCollection } from "../firestore";
 import { getRoundById } from "../round/get-round-by-id";
+import { CastVoteSchema } from "./schemas";
+import { type CastVoteInput } from "./types";
 
 export async function castVote(input: CastVoteInput) {
-  const { participantId, roundId, value } = input;
+  const { participantId, roundId, value } = assertValid(CastVoteSchema, input);
 
   const round = await getRoundById(roundId);
 
@@ -13,7 +15,7 @@ export async function castVote(input: CastVoteInput) {
   }
 
   const vote = await addDoc(votesCollection, {
-    castAt: Timestamp.now(),
+    castAt: serverTimestamp(),
     participantId,
     roundId,
     value,
