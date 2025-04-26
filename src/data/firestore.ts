@@ -4,7 +4,6 @@ import {
   // connectFirestoreEmulator,
   type DocumentData,
   getFirestore,
-  type Timestamp,
 } from "firebase/firestore";
 
 import { app } from "./firebase";
@@ -33,9 +32,3 @@ export {
   sessionsCollection,
   votesCollection,
 };
-
-// TODO: Move to firestore/types
-export type FirestoreDoc<T> = {
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
-} & T;

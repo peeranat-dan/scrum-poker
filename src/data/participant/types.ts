@@ -1,4 +1,4 @@
-import { type FirestoreDoc } from "../firestore";
+import { type FirestoreDoc } from "@/shared/firestore/types";
 
 export const participantRoles = ["owner", "admin", "player"] as const;
 export const participantStatuses = ["active", "left", "removed"] as const;

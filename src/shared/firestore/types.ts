@@ -1,4 +1,4 @@
-import { type WhereFilterOp } from "firebase/firestore";
+import { type Timestamp, type WhereFilterOp } from "firebase/firestore";
 
 type FilterCondition<Value> = { op: WhereFilterOp; value: Value } | Value;
 
@@ -16,3 +16,8 @@ export interface FirestoreSearchInput<T extends Record<string, unknown>> {
     limit: number;
   };
 }
+
+export type FirestoreDoc<T> = {
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+} & T;

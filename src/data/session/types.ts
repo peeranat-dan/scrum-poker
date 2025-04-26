@@ -1,5 +1,5 @@
+import { type FirestoreDoc } from "@/shared/firestore/types";
 import { type VotingSystem } from "@/shared/zod/enum";
-import { type FirestoreDoc } from "../firestore";
 
 interface BaseSessionDoc {
   name: string;

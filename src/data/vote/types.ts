@@ -1,5 +1,7 @@
-import { type FirestoreSearchInput } from "@/shared/firestore/types";
-import { type FirestoreDoc } from "../firestore";
+import {
+  type FirestoreDoc,
+  type FirestoreSearchInput,
+} from "@/shared/firestore/types";
 
 export interface BaseVoteDoc {
   roundId: string;
