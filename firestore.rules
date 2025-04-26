@@ -76,9 +76,8 @@ service cloud.firestore {
       allow read: if true;
       
       // Users can create their own votes
-      allow create: if isSignedIn() 
-                   && request.resource.data.castAt is timestamp;
-      
+      allow create: if isSignedIn();
+            
       // Users can update their own votes
       allow update: if isSignedIn() 
                    && get(/databases/$(database)/documents/participants/$(request.resource.data.participantId)).data.uid == request.auth.uid
