@@ -10,7 +10,7 @@ export async function getParticipantVoteByRoundId(
     GetParticipantVoteByRoundIdSchema,
     input
   );
-  const vote = findVote({
+  const vote = await findVote({
     filter: {
       roundId,
       participantId,
