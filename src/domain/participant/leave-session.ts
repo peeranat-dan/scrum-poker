@@ -1,10 +1,9 @@
-import { doc, updateDoc } from "firebase/firestore";
-import { getParticipantById } from "./get-participant-by-id";
-import { participantsCollection } from "../firestore";
-import { getSession } from "../session/get-session";
+import { getParticipant } from "@/data/participant/get-participant";
+import { updateParticipant } from "@/data/participant/update-participant";
+import { getSession } from "@/data/session/get-session";
 
 export async function leaveSession(participantId: string) {
-  const participant = await getParticipantById(participantId);
+  const participant = await getParticipant(participantId);
 
   if (!participant) {
     throw new Error("Participant not found");
@@ -26,8 +25,7 @@ export async function leaveSession(participantId: string) {
     throw new Error("Session is finished");
   }
 
-  return await updateDoc(doc(participantsCollection, participantId), {
-    leftAt: new Date(),
+  return await updateParticipant(participantId, {
     status: "left",
   });
 }

@@ -1,5 +1,5 @@
+import { createParticipant } from "@/domain/participant/create-participant";
 import { useMutation } from "@tanstack/react-query";
-import { createParticipant } from "@/data/participant/create-participant";
 
 export function useCreateParticipant() {
   return useMutation({

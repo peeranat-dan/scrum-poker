@@ -1,6 +1,6 @@
-import { type Participant } from "@/data/participant/types";
 import { type Round } from "@/data/round/types";
 import { type Vote } from "@/data/vote/types";
+import { type Participant } from "@/domain/participant/types";
 import { type Card } from "@/types/card.types";
 
 export interface GameProviderProps {

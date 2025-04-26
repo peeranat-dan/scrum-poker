@@ -1,9 +1,10 @@
+import { ParticipantSchema } from "@/domain/participant/schemas";
+import { type Participant } from "@/domain/participant/types";
 import { assertValid } from "@/shared/zod/utils";
 import { type DocumentData, type DocumentSnapshot } from "firebase/firestore";
-import { ParticipantSchema } from "./schemas";
-import { type Participant, type ParticipantDoc } from "./types";
+import { type ParticipantDoc } from "./types";
 
-export function toParticipant(
+function toParticipant(
   doc: DocumentSnapshot<ParticipantDoc, DocumentData>
 ): Participant {
   const data = doc.data();
@@ -16,11 +17,14 @@ export function toParticipant(
     id: doc.id,
     displayName: data.displayName,
     role: data.role,
-    joinedAt: data.joinedAt.toDate(),
+    createdAt: data.createdAt.toDate(),
+    updatedAt: data.updatedAt.toDate(),
     sessionId: data.sessionId,
     uid: data.uid,
-    deletedAt: data.deletedAt ? data.deletedAt.toDate() : null,
-    leftAt: data.leftAt ? data.leftAt.toDate() : null,
     status: data.status,
   });
 }
+
+export const participantMapper = {
+  toParticipant,
+};

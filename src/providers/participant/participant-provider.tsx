@@ -1,10 +1,10 @@
+import Loading from "@/components/loading";
 import { useStreamParticipant } from "@/hooks/participant/use-stream-participant";
 import { useUpdateParticipantName } from "@/hooks/participant/use-update-participant-name";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
 import { ParticipantContext } from "./participant-context";
 import { type ParticipantProviderProps } from "./types";
-import Loading from "@/components/loading";
 
 export function ParticipantProvider({
   children,
@@ -26,7 +26,7 @@ export function ParticipantProvider({
       await updateParticipantNameMutation.mutateAsync(
         {
           id: participant.id,
-          name,
+          displayName: name,
         },
         {
           onSuccess: () => {

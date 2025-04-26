@@ -1,33 +1,23 @@
-import { type Timestamp } from "firebase/firestore";
-import { type z } from "zod";
-import {
-  type CreateParticipantSchema,
-  type participantRoles,
-  type ParticipantSchema,
-  type participantStatuses,
-  type RejoinSessionSchema,
-  type UpdateParticipantNameSchema,
-} from "./schemas";
+import { type FirestoreDoc } from "../firestore";
+
+export const participantRoles = ["owner", "admin", "player"] as const;
+export const participantStatuses = ["active", "left", "removed"] as const;
 
 export type ParticipantRole = (typeof participantRoles)[number];
 export type ParticipantStatus = (typeof participantStatuses)[number];
-export type Participant = z.infer<typeof ParticipantSchema>;
 
-export interface ParticipantDoc {
+export interface BaseParticipantDoc {
   sessionId: string;
   uid: string;
   displayName: string;
-  joinedAt: Timestamp;
-  deletedAt: Timestamp | null;
-  leftAt: Timestamp | null;
   role: ParticipantRole;
   status: ParticipantStatus;
 }
 
-export type CreateParticipantInput = z.infer<typeof CreateParticipantSchema>;
+export type ParticipantDoc = Prettify<FirestoreDoc<BaseParticipantDoc>>;
 
-export type RejoinSessionInput = z.infer<typeof RejoinSessionSchema>;
+export type AddParticipantInput = BaseParticipantDoc;
 
-export type UpdateParticipantNameInput = z.infer<
-  typeof UpdateParticipantNameSchema
->;
+export type UpdateParticipantInput = Partial<ParticipantDoc>;
+
+export type FilterParticipantInput = Partial<ParticipantDoc>;

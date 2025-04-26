@@ -25,10 +25,7 @@ export default function ParticipantLeftModal() {
 
   const rejoinSession = async () => {
     if (participant) {
-      await rejoinSessionMutation.mutateAsync({
-        sessionId: participant.sessionId,
-        participantId: participant.id,
-      });
+      await rejoinSessionMutation.mutateAsync(participant.id);
     }
   };
 
