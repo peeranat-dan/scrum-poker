@@ -1,4 +1,4 @@
-import { type Session } from "@/data/session/types";
+import { type Session } from "@/domain/session/types";
 
 export interface SessionProviderProps {
   sessionId: string;

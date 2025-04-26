@@ -1,4 +1,4 @@
-import { getSessionById } from "@/data/session/get-session-by-id";
+import { getSessionById } from "@/domain/session/get-session-by-id";
 import { useQuery } from "@tanstack/react-query";
 
 export function useGetSessionById(id: string) {

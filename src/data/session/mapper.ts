@@ -1,11 +1,15 @@
-import { assertValid } from "@/shared/zod/utils";
-import { type DocumentData, type DocumentSnapshot } from "firebase/firestore";
-import { SessionSchema } from "./schemas";
-import { type Session, type SessionDoc } from "./types";
+import {
+  Timestamp,
+  type DocumentData,
+  type DocumentSnapshot,
+} from "firebase/firestore";
 
-export function toSession(
-  doc: DocumentSnapshot<SessionDoc, DocumentData>
-): Session {
+import { type SessionDoc } from "@/data/session/types";
+import { SessionSchema } from "@/domain/session/schemas";
+import { type Session } from "@/domain/session/types";
+import { assertValid } from "@/shared/zod/utils";
+
+function toSession(doc: DocumentSnapshot<SessionDoc, DocumentData>): Session {
   const data = doc.data();
 
   if (!data) {
@@ -19,6 +23,22 @@ export function toSession(
     votingSystem: data.votingSystem,
     status: data.status,
     ownerId: data.ownerId,
-    finishedAt: data.finishedAt?.toDate(),
+    updatedAt: data.updatedAt?.toDate(),
   });
 }
+
+function toSessionDoc(session: Session): SessionDoc {
+  return {
+    createdAt: Timestamp.fromDate(session.createdAt),
+    updatedAt: Timestamp.fromDate(session.updatedAt),
+    name: session.name,
+    votingSystem: session.votingSystem,
+    status: session.status,
+    ownerId: session.ownerId,
+  };
+}
+
+export const sessionMapper = {
+  toSession,
+  toSessionDoc,
+};

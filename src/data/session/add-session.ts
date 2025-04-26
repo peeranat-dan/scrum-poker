@@ -1,18 +1,15 @@
 import { addDoc, serverTimestamp } from "firebase/firestore";
 
 import { sessionsCollection } from "../firestore";
-import { CreateSesionSchema } from "./schemas";
-import { type CreateSessionInput } from "./types";
-import { assertValid } from "@/shared/zod/utils";
+import { type AddSessionInput } from "./types";
 
-export async function createSession(_input: CreateSessionInput) {
-  const input = assertValid(CreateSesionSchema, _input);
-
+export async function addSession(input: AddSessionInput) {
   const session = await addDoc(sessionsCollection, {
     createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
     name: input.name,
     votingSystem: input.votingSystem,
-    status: "active",
+    status: input.status,
     ownerId: input.ownerId,
   });
 

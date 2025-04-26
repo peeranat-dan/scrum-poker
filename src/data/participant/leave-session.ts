@@ -1,7 +1,7 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { getParticipantById } from "./get-participant-by-id";
 import { participantsCollection } from "../firestore";
-import { getSessionById } from "../session/get-session-by-id";
+import { getSession } from "../session/get-session";
 
 export async function leaveSession(participantId: string) {
   const participant = await getParticipantById(participantId);
@@ -16,7 +16,7 @@ export async function leaveSession(participantId: string) {
     throw new Error("Session ID not found");
   }
 
-  const session = await getSessionById(sessionId);
+  const session = await getSession(sessionId);
 
   if (!session) {
     throw new Error("Session not found");

@@ -1,7 +1,7 @@
 import { assertValid } from "@/shared/zod/utils";
 import { doc, updateDoc } from "firebase/firestore";
 import { participantsCollection } from "../firestore";
-import { getSessionById } from "../session/get-session-by-id";
+import { getSession } from "../session/get-session";
 import { getParticipantById } from "./get-participant-by-id";
 import { RejoinSessionSchema } from "./schemas";
 import { type RejoinSessionInput } from "./types";
@@ -9,7 +9,7 @@ import { type RejoinSessionInput } from "./types";
 export async function rejoinSession(input: RejoinSessionInput) {
   const { sessionId, participantId } = assertValid(RejoinSessionSchema, input);
 
-  const session = await getSessionById(sessionId);
+  const session = await getSession(sessionId);
 
   if (!session) {
     throw new Error("Session not found");
