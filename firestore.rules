@@ -13,7 +13,7 @@ service cloud.firestore {
 
     function isValidParticipant() {
       return request.resource.data.uid == request.auth.uid
-          && request.resource.data.joinedAt is timestamp;
+          && request.resource.data.createdAt is timestamp;
     }
 
     function getSessionOwner(sessionId) {
