@@ -1,9 +1,11 @@
-import { assertValid } from "@/shared/zod/utils";
 import { type DocumentData, type DocumentSnapshot } from "firebase/firestore";
-import { RoundSchema } from "./schemas";
-import { type Round, type RoundDoc } from "./types";
 
-export function toRound(doc: DocumentSnapshot<RoundDoc, DocumentData>): Round {
+import { RoundSchema } from "@/domain/round/schemas";
+import { type Round } from "@/domain/round/types";
+import { assertValid } from "@/shared/zod/utils";
+import { type RoundDoc } from "./types";
+
+function toRound(doc: DocumentSnapshot<RoundDoc, DocumentData>): Round {
   const data = doc.data();
 
   if (!data) {
@@ -14,9 +16,12 @@ export function toRound(doc: DocumentSnapshot<RoundDoc, DocumentData>): Round {
     id: doc.id,
     sessionId: data.sessionId,
     status: data.status,
-    revealedAt: data.revealedAt?.toDate() ?? null,
     averageVote: data.averageVote,
-    finishedAt: data.finishedAt?.toDate() ?? null,
-    createdAt: data.createdAt?.toDate(),
+    createdAt: data.createdAt.toDate(),
+    updatedAt: data.updatedAt.toDate(),
   });
 }
+
+export const roundMapper = {
+  toRound,
+};
