@@ -1,11 +1,11 @@
 import { Link } from "react-router";
-import { buttonVariants } from "../ui/button-variants";
-import { ThemeToggle } from "../theme-toggle";
 import Logo from "../logo";
+import { ThemeToggle } from "../theme-toggle";
+import { buttonVariants } from "../ui/button-variants";
 
 export default function Header() {
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b px-6 md:px-8 bg-background/80 backdrop-blur">
+    <header className="sticky left-0 top-0 z-50 w-full border-b px-6 md:px-8 bg-background/80 backdrop-blur">
       <div className="container flex h-[3.5rem] items-center justify-between mx-auto">
         <Link to="/" className="flex items-center gap-2">
           <Logo />

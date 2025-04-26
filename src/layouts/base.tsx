@@ -4,9 +4,9 @@ import { Outlet } from "react-router";
 
 export default function BaseLayout() {
   return (
-    <div className="flex h-dvh w-screen flex-col relative">
+    <div className="flex min-h-dvh w-screen flex-col relative">
       <Header />
-      <main className="flex flex-1 overflow-x-hidden">
+      <main className="flex flex-1">
         <Outlet />
       </main>
       <Toaster />
