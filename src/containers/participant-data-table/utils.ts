@@ -1,5 +1,5 @@
-import { type Vote } from "@/data/vote/types";
 import { type Participant } from "@/domain/participant/types";
+import { type Vote } from "@/domain/vote/types";
 
 export function mapper(
   participants: (Participant & { vote: Vote["value"] | undefined })[]
