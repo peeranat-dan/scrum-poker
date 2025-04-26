@@ -1,5 +1,7 @@
+import { findRound } from "@/data/round/find-round";
 import { getSession } from "@/data/session/get-session";
 import { updateSession } from "@/data/session/update-session";
+import { searchVotes } from "@/data/vote/search-votes";
 import { assertValid } from "@/shared/zod/utils";
 import { UpdateSessionInformationSchema } from "./schemas";
 import { type UpdateSessionInformationInput } from "./types";
@@ -19,24 +21,29 @@ export async function updateSessionInformation(
     throw new Error("Session not found");
   }
 
-  // TODO: Add validation
-  //   if (sessionDoc.status === "finished") {
-  //     throw new Error("Session is finished");
-  //   }
+  if (session.status === "finished") {
+    throw new Error("Session is finished");
+  }
 
-  //   if (sessionDoc.votingSystem !== votingSystem) {
-  //     const activeRound = await getActiveRound(sessionId);
+  if (session.votingSystem !== votingSystem) {
+    const activeRound = await findRound({
+      filter: { sessionId: sessionId, status: "in-progress" },
+    });
 
-  //     if (!activeRound) {
-  //       throw new Error("Active round not found");
-  //     }
+    if (!activeRound) {
+      throw new Error("Active round not found");
+    }
 
-  //     const votes = await getVotesByRoundId(activeRound.id);
+    const votes = await searchVotes({
+      filter: {
+        roundId: activeRound.id,
+      },
+    });
 
-  //     if (votes.length > 0) {
-  //       throw new Error("Votes already exist for this round.");
-  //     }
-  //   }
+    if (votes.length > 0) {
+      throw new Error("Votes already exist for this round.");
+    }
+  }
 
   await updateSession(sessionId, {
     name,
