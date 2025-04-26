@@ -34,6 +34,7 @@ export default function SessionCreationContainer() {
       name: data.name,
       votingSystem: data.votingSystem,
       ownerId: user.uid,
+      status: "active",
     });
     // STEP 3: Create participant
     const participant = await createParticipantMutation.mutateAsync({

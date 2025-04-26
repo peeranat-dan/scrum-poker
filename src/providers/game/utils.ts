@@ -1,5 +1,5 @@
-import { type Participant } from "@/data/participant/types";
-import { type Vote } from "@/data/vote/types";
+import { type Participant } from "@/domain/participant/types";
+import { type Vote } from "@/domain/vote/types";
 
 export function mapParticipantsToVotes(
   participants: Participant[],
@@ -9,16 +9,18 @@ export function mapParticipantsToVotes(
     acc[vote.participantId] = vote;
     return acc;
   }, {} as Record<string, Vote>);
-  const sortedParticipantsByJoinedAt = participants.sort(
-    (a, b) => a.joinedAt.getTime() - b.joinedAt.getTime()
+  const sortedParticipantsByUpdatedAt = participants.sort(
+    (a, b) => a.updatedAt.getTime() - b.updatedAt.getTime()
   );
-  const votesByParticipant = sortedParticipantsByJoinedAt.map((participant) => {
-    const vote = votesByParticipantId[participant.id];
-    return {
-      ...participant,
-      vote: vote ? vote.value : undefined, // Default to undefined if no vote exists
-    };
-  });
+  const votesByParticipant = sortedParticipantsByUpdatedAt.map(
+    (participant) => {
+      const vote = votesByParticipantId[participant.id];
+      return {
+        ...participant,
+        vote: vote ? vote.value : undefined, // Default to undefined if no vote exists
+      };
+    }
+  );
 
   return votesByParticipant;
 }

@@ -1,4 +1,5 @@
 import { type CreateSessionInput } from "@/types/schema.types";
+import { Loader2 } from "lucide-react";
 import { type UseFormReturn } from "react-hook-form";
 import { Button } from "../ui/button";
 import {
@@ -9,6 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { Input } from "../ui/input";
 import {
   Select,
   SelectContent,
@@ -16,7 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Input } from "../ui/input";
 
 interface SessionCreationFormProps {
   onSubmit: (data: CreateSessionInput) => void;
@@ -67,6 +68,9 @@ export default function SessionCreationForm({
           )}
         />
         <Button className="w-full" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          ) : null}
           Create Session
         </Button>
       </form>

@@ -10,7 +10,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useDeleteParticipant } from "@/hooks/participant/use-delete-participant";
+import { useRemoveParticipant } from "@/hooks/participant/use-remove-participant";
 import { Trash2 } from "lucide-react";
 import { useCallback } from "react";
 import { toast } from "sonner";
@@ -24,10 +24,10 @@ export default function ParticipantDeletionButton({
   id,
   disabled,
 }: Readonly<ParticipantDeletionButtonProps>) {
-  const deleteParticipantMutation = useDeleteParticipant();
+  const removeParticipantMutation = useRemoveParticipant();
 
-  const handleDeleteParticipant = useCallback(async () => {
-    await deleteParticipantMutation.mutateAsync(id, {
+  const handleRemoveParticipant = useCallback(async () => {
+    await removeParticipantMutation.mutateAsync(id, {
       onSuccess: () => {
         toast.success("Participant deleted");
       },
@@ -35,7 +35,7 @@ export default function ParticipantDeletionButton({
         toast.error(`Failed to delete participant: ${error.message}`);
       },
     });
-  }, [deleteParticipantMutation, id]);
+  }, [removeParticipantMutation, id]);
 
   return (
     <AlertDialog>
@@ -57,7 +57,7 @@ export default function ParticipantDeletionButton({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Button variant="destructive" onClick={handleDeleteParticipant}>
+            <Button variant="destructive" onClick={handleRemoveParticipant}>
               Remove
             </Button>
           </AlertDialogAction>

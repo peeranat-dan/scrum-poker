@@ -1,4 +1,4 @@
-import { startNewRound } from "@/data/round/start-new-round";
+import { startNewRound } from "@/domain/round/start-new-round";
 import { useMutation } from "@tanstack/react-query";
 
 export function useStartNewRound() {

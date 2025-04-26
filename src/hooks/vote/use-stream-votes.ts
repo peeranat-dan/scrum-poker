@@ -1,5 +1,5 @@
-import { streamVotes } from "@/data/vote/stream-votes";
-import { type Vote } from "@/data/vote/types";
+import { streamVotes } from "@/domain/vote/stream-votes";
+import { type Vote } from "@/domain/vote/types";
 import { useEffect, useState } from "react";
 
 export function useStreamVotes(roundId: string) {

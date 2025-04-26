@@ -6,7 +6,7 @@ import ParticipantDeletionButton from "../participant-deletion-button";
 export type ParticipantRow = {
   id: string;
   name: string;
-  joinedAt: string;
+  updatedAt: string;
   role: ParticipantRole;
   voted: boolean;
 };
@@ -17,7 +17,7 @@ export const columns: ColumnDef<ParticipantRow>[] = [
     header: "Name",
   },
   {
-    accessorKey: "joinedAt",
+    accessorKey: "updatedAt",
     header: "Joined at",
   },
   {

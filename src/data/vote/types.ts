@@ -1,20 +1,20 @@
-import { type Timestamp } from "firebase/firestore";
-import { type z } from "zod";
 import {
-  type CastVoteSchema,
-  type UpdateVoteSchema,
-  type VoteSchema,
-} from "./schemas";
+  type FirestoreDoc,
+  type FirestoreSearchInput,
+} from "@/shared/firestore/types";
 
-export type Vote = z.infer<typeof VoteSchema>;
-
-export interface VoteDoc {
+export interface BaseVoteDoc {
   roundId: string;
   participantId: string;
   value: number;
-  castAt: Timestamp;
 }
 
-export type CastVoteInput = z.infer<typeof CastVoteSchema>;
+export type VoteDoc = Prettify<FirestoreDoc<BaseVoteDoc>>;
 
-export type UpdateVoteInput = z.infer<typeof UpdateVoteSchema>;
+export type AddVoteInput = BaseVoteDoc;
+
+export type UpdateVoteInput = Partial<BaseVoteDoc>;
+
+export type SearchVoteInput = Prettify<FirestoreSearchInput<VoteDoc>>;
+
+export type FindVoteInput = Omit<SearchVoteInput, "paging">;

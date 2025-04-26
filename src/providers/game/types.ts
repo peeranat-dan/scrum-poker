@@ -1,6 +1,6 @@
-import { type Participant } from "@/data/participant/types";
-import { type Round } from "@/data/round/types";
-import { type Vote } from "@/data/vote/types";
+import { type Participant } from "@/domain/participant/types";
+import { type Round } from "@/domain/round/types";
+import { type Vote } from "@/domain/vote/types";
 import { type Card } from "@/types/card.types";
 
 export interface GameProviderProps {
@@ -8,9 +8,13 @@ export interface GameProviderProps {
   gameId: string;
 }
 
+interface ParticipantWithVote extends Participant {
+  vote: Vote["value"] | undefined;
+}
+
 export interface GameProviderState {
   cards: Card[];
-  participants: (Participant & { vote: Vote["value"] | undefined })[];
+  participants: ParticipantWithVote[];
   round: Round | undefined;
   vote: Vote | null | undefined;
   castVote: (value: number) => void;

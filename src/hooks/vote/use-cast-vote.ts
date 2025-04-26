@@ -1,4 +1,4 @@
-import { castVote } from "@/data/vote/cast-vote";
+import { castVote } from "@/domain/vote/cast-vote";
 import { useMutation } from "@tanstack/react-query";
 
 export function useCastVote() {

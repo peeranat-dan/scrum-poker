@@ -1,4 +1,4 @@
-import { leaveSession } from "@/data/participant/leave-session";
+import { leaveSession } from "@/domain/participant/leave-session";
 import { useAuth } from "@/providers/auth";
 import { useMutation } from "@tanstack/react-query";
 

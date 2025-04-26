@@ -1,21 +1,24 @@
-import { type Timestamp } from "firebase/firestore";
-import { type z } from "zod";
 import {
-  type RoundSchema,
-  type roundStatuses,
-  type UpdateRoundSchema,
-} from "./schemas";
+  type FirestoreDoc,
+  type FirestoreSearchInput,
+} from "@/shared/firestore/types";
 
-export type Round = z.infer<typeof RoundSchema>;
-export type RoundStatus = (typeof roundStatuses)[number];
+export type RoundStatus = "in-progress" | "revealed" | "finished";
 
-export interface RoundDoc {
+export interface BaseRoundDoc {
   sessionId: string;
   status: RoundStatus;
-  revealedAt: Timestamp | null;
   averageVote: number | null;
-  finishedAt: Timestamp | null;
-  createdAt: Timestamp;
 }
 
-export type UpdateRoundInput = z.infer<typeof UpdateRoundSchema>;
+export type RoundDoc = Prettify<FirestoreDoc<BaseRoundDoc>>;
+
+export type AddRoundInput = BaseRoundDoc;
+
+export type UpdateRoundInput = Partial<BaseRoundDoc>;
+
+export type FilterRoundInput = Partial<BaseRoundDoc>;
+
+export type SearchRoundInput = Prettify<FirestoreSearchInput<RoundDoc>>;
+
+export type FindRoundInput = Omit<SearchRoundInput, "paging">;

@@ -22,7 +22,7 @@ export default function ParticipationRemovedModal() {
   const { signOut } = useAuth();
 
   const shouldOpenModal = useMemo(() => {
-    return participant?.status === "deleted";
+    return participant?.status === "removed";
   }, [participant?.status]);
 
   const handleBackToHome = async () => {
