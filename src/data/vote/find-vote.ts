@@ -16,5 +16,5 @@ export async function findVote(input: FindVoteInput) {
   const q = query(votesCollection, ...constraints);
   const snapshot = await getDocs(q);
 
-  return snapshot.empty ? undefined : voteMapper.toVote(snapshot.docs[0]);
+  return snapshot.empty ? null : voteMapper.toVote(snapshot.docs[0]);
 }

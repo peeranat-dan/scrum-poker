@@ -16,5 +16,5 @@ export async function findRound(input: FindRoundInput) {
   const q = query(roundsCollection, ...constraints);
   const snapshot = await getDocs(q);
 
-  return snapshot.empty ? undefined : roundMapper.toRound(snapshot.docs[0]);
+  return snapshot.empty ? null : roundMapper.toRound(snapshot.docs[0]);
 }
