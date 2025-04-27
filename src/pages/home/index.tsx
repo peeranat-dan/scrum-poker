@@ -1,6 +1,6 @@
 import { buttonVariants } from "@/components/ui/button-variants";
 import HeroParticles from "@/containers/hero-particles";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router";
 

@@ -1,15 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { copyJoinLink } from "@/lib/utils";
-import { useGame } from "@/providers/game";
-import { useParticipant } from "@/providers/participant";
-import { useMemo } from "react";
-import { toast } from "sonner";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { copyJoinLink } from "@/lib/utils";
+import { useGame } from "@/providers/game";
+import { useParticipant } from "@/providers/participant";
+import { useMemo } from "react";
+import { toast } from "sonner";
 import SessionLeaveButton from "./session-leave-button";
 
 export default function GameActions() {

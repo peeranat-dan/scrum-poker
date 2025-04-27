@@ -1,5 +1,5 @@
 import { type RoundStatus } from "@/data/round/types";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 import { useGame } from "@/providers/game";
 import { type Card } from "@/types/card.types";
 

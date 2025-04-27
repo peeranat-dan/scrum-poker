@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 import { useGame } from "@/providers/game";
 
 export default function GameCards() {
