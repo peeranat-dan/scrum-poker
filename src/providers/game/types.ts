@@ -1,7 +1,7 @@
 import { type Participant } from "@/domain/participant/types";
 import { type Round } from "@/domain/round/types";
 import { type Vote } from "@/domain/vote/types";
-import { type Card } from "@/types/card.types";
+import { type Card } from "@/shared/card/types";
 
 export interface GameProviderProps {
   children: React.ReactNode;

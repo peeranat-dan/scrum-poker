@@ -1,6 +1,6 @@
-import { type Card } from "@/types/card.types";
+import { type Card } from "./types";
 
-const FIBONACCI_CARDS: Card[] = [
+export const FIBONACCI_CARDS: Card[] = [
   {
     displayValue: "0",
     value: 0,
@@ -70,7 +70,7 @@ const FIBONACCI_CARDS: Card[] = [
   },
 ];
 
-const T_SHIRT_CARDS: Card[] = [
+export const T_SHIRT_CARDS: Card[] = [
   {
     displayValue: "XS",
     value: 0,
@@ -114,15 +114,3 @@ const T_SHIRT_CARDS: Card[] = [
     color: "bg-[var(--color-card-tshirt-no)]",
   },
 ];
-
-export function getCards(votingSystem: "fibonacci" | "t-shirt") {
-  const cards = votingSystem === "fibonacci" ? FIBONACCI_CARDS : T_SHIRT_CARDS;
-
-  return cards.map((card) => ({
-    ...card,
-    shouldIncludeInAverage:
-      typeof card.shouldIncludeInAverage === "undefined"
-        ? true
-        : card.shouldIncludeInAverage,
-  }));
-}
