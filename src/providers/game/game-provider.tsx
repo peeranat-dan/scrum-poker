@@ -7,7 +7,7 @@ import { useStreamActiveRound } from "@/hooks/round/use-stream-active-round";
 import { useCastOrUpdateVote } from "@/hooks/vote/use-cast-or-update-vote";
 import { useGetVoteByRoundId } from "@/hooks/vote/use-get-vote-by-round-id";
 import { useStreamVotes } from "@/hooks/vote/use-stream-votes";
-import { getCards } from "@/lib/card";
+import { getCards } from "@/shared/card/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
 import { useParticipant } from "../participant";

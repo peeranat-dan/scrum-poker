@@ -7,9 +7,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { copyJoinLink } from "@/lib/utils";
 import { useParticipant } from "@/providers/participant";
 import { useSession } from "@/providers/session";
+import { copyJoinLink } from "@/shared/utils/copy-join-link";
 import { Link, Settings2 } from "lucide-react";
 import { generatePath, Link as NavLink, useNavigate } from "react-router";
 import { toast } from "sonner";

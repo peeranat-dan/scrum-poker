@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateAverage } from "../calculate-average";
+import { calculateAverage } from "../math";
 
 describe("calculateAverage", () => {
   it("should return 0 for empty array", () => {
