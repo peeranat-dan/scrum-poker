@@ -5,9 +5,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { copyJoinLink } from "@/lib/utils";
 import { useGame } from "@/providers/game";
 import { useParticipant } from "@/providers/participant";
+import { copyJoinLink } from "@/shared/utils/copy-join-link";
 import { useMemo } from "react";
 import { toast } from "sonner";
 import SessionLeaveButton from "./session-leave-button";
