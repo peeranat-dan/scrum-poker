@@ -1,6 +1,6 @@
 import { updateRound } from "@/data/round/update-round";
 import { searchVotes } from "@/data/vote/search-votes";
-import { calculateAverage } from "@/shared/utils/calculate-average";
+import { calculateAverage } from "@/lib/math";
 
 export async function revealRound(roundId: string) {
   const votes = await searchVotes({
