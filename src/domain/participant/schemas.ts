@@ -15,17 +15,3 @@ export const BaseParticipantSchema = z.object({
 export const ParticipantSchema = DomainEntitySchema.merge(
   BaseParticipantSchema
 );
-
-export const CreateParticipantSchema = ParticipantSchema.extend({
-  displayName: z.string().optional(),
-}).pick({
-  sessionId: true,
-  uid: true,
-  displayName: true,
-  role: true,
-});
-
-export const UpdateParticipantNameSchema = ParticipantSchema.pick({
-  id: true,
-  displayName: true,
-});

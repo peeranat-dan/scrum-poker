@@ -1,16 +1,15 @@
 import { getParticipant } from "@/data/participant/get-participant";
 import { updateParticipant } from "@/data/participant/update-participant";
+import { canBeRemoved } from "@/domain/participant/rules";
+
+import { checkIfUserCanManageSession } from "../session/access-control";
 
 export async function removeParticipant(id: string) {
   const participant = await getParticipant(id);
 
-  if (!participant) {
-    throw new Error("Participant not found");
-  }
+  canBeRemoved(participant);
 
-  if (participant.status === "removed") {
-    throw new Error("Participant already removed");
-  }
+  await checkIfUserCanManageSession(participant.sessionId);
 
   await updateParticipant(id, {
     status: "removed",

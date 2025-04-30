@@ -6,6 +6,16 @@ import {
 } from "firebase/firestore";
 import { type FirestoreSearchInput } from "./types";
 
+/**
+ * Build query constraints from a search input
+ *
+ * @param input The search input
+ * @param input.filter The filter conditions
+ * @param input.order The order conditions
+ * @param input.paging The paging conditions
+ *
+ * @returns The query constraints
+ */
 export function buildQueryConstraints<T extends Record<string, unknown>>(
   input: FirestoreSearchInput<T>
 ): QueryConstraint[] {

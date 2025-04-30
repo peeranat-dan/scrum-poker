@@ -1,4 +1,4 @@
-import { updateParticipantName } from "@/domain/participant/update-participant-name";
+import { updateParticipantName } from "@/services/participant/update-participant-name";
 import { useMutation } from "@tanstack/react-query";
 
 export function useUpdateParticipantName() {
