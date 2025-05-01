@@ -23,14 +23,44 @@ This repository is a single page application (SPA) built with
 
 ## Architecture
 
-We use Layered Architecture to organize the codebase. The layers are as follows:
+This project follows a **Layered Architecture** to keep concerns separated and code maintainable.
 
-| Layer                | Description                                                                                       | Folders                                              |
-| -------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| Presentation Layer   | Contains the UI components and views.                                                             | `assets`, `components`, `layouts`, `pages`, `styles` |
-| Application Layer    | Contains the app logic, coordination between components, and interaction with domain/data layers. | `containers`, `hooks`, `providers`                   |
-| Domain Layer         | Contains the the rules and logic.                                                                 | `lib/domain-name`, `data`, `types`                   |
-| Infrastructure Layer | Handles technical details like third-party libraries, frameworks, database config.                | `main.tsx`, `data/firebase.ts`, `data/firestore.ts`  |
+### Layer Overview
+
+| Layer         | Responsibility                                                           |
+| ------------- | ------------------------------------------------------------------------ |
+| **View**      | UI components – rendering data, user input, and interactions             |
+| **Container** | Connects views with hooks and providers; handles UI logic and effects    |
+| **Hook**      | Wraps React Query or side effects; bridges view with service/data layers |
+| **Service**   | Business logic orchestration; handles use cases and validation           |
+| **Domain**    | Pure business rules and validation logic, no side effects                |
+| **Data**      | Talking to Firestore or external APIs (read/write/query)                 |
+| **Shared**    | Utilities, constants, schemas used across layers                         |
+
+### Folder Mapping
+
+| Folder        | Layer                                         |
+| ------------- | --------------------------------------------- |
+| `components/` | View                                          |
+| `containers/` | Container                                     |
+| `hooks/`      | Hook                                          |
+| `services/`   | Service                                       |
+| `domain/`     | Domain                                        |
+| `data/`       | Data                                          |
+| `shared/`     | Shared                                        |
+| `pages/`      | View                                          |
+| `providers/`  | Context layer, often used in containers/pages |
+
+### Where Should My Code Go?
+
+Use these rules to decide where to contribute:
+
+- ✅ Writing a UI component? → `components/`
+- ✅ Calling Firestore or an API? → `data/`
+- ✅ Writing business validation (e.g. "canVote")? → `domain/`
+- ✅ Wrapping a mutation/query using React Query? → `hooks/`
+- ✅ Creating a new flow or process (e.g. createSession)? → `services/`
+- ✅ Adding common utility like date formatting? → `shared/`
 
 ## Development
 
