@@ -2,7 +2,7 @@ import { getParticipantVoteByRoundId } from "@/services/vote/get-participant-vot
 import { useQuery } from "@tanstack/react-query";
 
 // TODO: Define type
-export function useGetVoteByRoundId({
+export function useGetParticipantVoteByRoundId({
   roundId,
   participantId,
 }: {
