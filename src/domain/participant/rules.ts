@@ -1,6 +1,14 @@
 import { type Session } from "../session/types";
 import { type Participant } from "./types";
 
+export function assertParticipantExists(
+  participant: Participant | null
+): asserts participant is Participant {
+  if (!participant) {
+    throw new Error("Participant not found");
+  }
+}
+
 export function canManageSession(participant: Participant) {
   return participant.role === "owner" || participant.role === "admin";
 }
@@ -9,9 +17,7 @@ export function canRejoinSession(
   participant: Participant,
   session: Session | null
 ) {
-  if (!participant) {
-    throw new Error("Participant not found");
-  }
+  assertParticipantExists(participant);
   if (participant.status !== "left") {
     throw new Error("Participant has not left the session");
   }
@@ -28,9 +34,7 @@ export function canLeaveSession(
   participant: Participant,
   session: Session | null
 ) {
-  if (!participant) {
-    throw new Error("Participant not found");
-  }
+  assertParticipantExists(participant);
   if (participant.status !== "active") {
     throw new Error("Participant is not active, cannot leave the session");
   }
@@ -44,9 +48,7 @@ export function canLeaveSession(
 }
 
 export function canBeRemoved(participant: Participant) {
-  if (!participant) {
-    throw new Error("Participant not found");
-  }
+  assertParticipantExists(participant);
 
   if (participant.status !== "active") {
     throw new Error("Participant is not active, cannot be removed");

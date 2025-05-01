@@ -1,16 +1,18 @@
 import { addParticipant } from "@/data/participant/add-participant";
 import { assertValid } from "@/shared/zod/utils";
 
-import { findParticipants } from "@/data/participant/find-participants";
+import { findParticipant } from "@/data/participant/find-participant";
 import { CreateParticipantSchema } from "./schemas";
 import { type CreateParticipantInput } from "./types";
 
 export async function createParticipant(input: CreateParticipantInput) {
   const validInput = assertValid(CreateParticipantSchema, input);
 
-  const existingParticipant = await findParticipants({
-    sessionId: validInput.sessionId,
-    uid: validInput.uid,
+  const existingParticipant = await findParticipant({
+    filter: {
+      sessionId: validInput.sessionId,
+      uid: validInput.uid,
+    },
   });
 
   if (existingParticipant) {

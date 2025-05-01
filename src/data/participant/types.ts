@@ -1,4 +1,7 @@
-import { type FirestoreDoc } from "@/shared/firestore/types";
+import {
+  type FirestoreDoc,
+  type FirestoreSearchInput,
+} from "@/shared/firestore/types";
 
 export const participantRoles = ["owner", "admin", "player"] as const;
 export const participantStatuses = ["active", "left", "removed"] as const;
@@ -20,4 +23,8 @@ export type AddParticipantInput = BaseParticipantDoc;
 
 export type UpdateParticipantInput = Partial<ParticipantDoc>;
 
-export type FilterParticipantInput = Partial<ParticipantDoc>;
+export type SearchParticipantInput = Prettify<
+  FirestoreSearchInput<ParticipantDoc>
+>;
+
+export type FindParticipantInput = Omit<SearchParticipantInput, "paging">;
