@@ -12,20 +12,3 @@ const BaseSessionSchema = z.object({
 });
 
 export const SessionSchema = DomainEntitySchema.merge(BaseSessionSchema);
-
-export const CreateSessionSchema = SessionSchema.pick({
-  name: true,
-  votingSystem: true,
-  ownerId: true,
-  status: true,
-});
-
-export const UpdateSessionSchema = BaseSessionSchema.partial().extend({
-  id: z.string(),
-});
-
-export const UpdateSessionInformationSchema = UpdateSessionSchema.pick({
-  id: true,
-  name: true,
-  votingSystem: true,
-});

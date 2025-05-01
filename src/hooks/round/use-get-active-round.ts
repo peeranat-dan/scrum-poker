@@ -1,4 +1,4 @@
-import { getActiveRound } from "@/domain/round/get-active-round";
+import { getActiveRound } from "@/services/round/get-active-round";
 import { useQuery } from "@tanstack/react-query";
 
 export function useGetActiveRound(sessionId: string) {

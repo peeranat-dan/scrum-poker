@@ -1,4 +1,4 @@
-import { streamParticipant } from "@/domain/participant/stream-participant";
+import { streamParticipant } from "@/data/participant/stream-participant";
 import { type Participant } from "@/domain/participant/types";
 
 import { useEffect, useState } from "react";

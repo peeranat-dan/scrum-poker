@@ -1,4 +1,4 @@
-import { streamVotes } from "@/domain/vote/stream-votes";
+import { streamVotes } from "@/data/vote/stream-votes";
 import { type Vote } from "@/domain/vote/types";
 import { useEffect, useState } from "react";
 

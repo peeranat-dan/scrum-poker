@@ -1,4 +1,4 @@
-import { revealRound } from "@/domain/round/reveal-round";
+import { revealRound } from "@/services/round/reveal-round";
 import { useMutation } from "@tanstack/react-query";
 
 export function useRevealRound() {

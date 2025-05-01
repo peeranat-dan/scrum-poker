@@ -1,4 +1,4 @@
-import { streamSession } from "@/domain/session/stream-session";
+import { streamSession } from "@/data/session/stream-session";
 import { type Session } from "@/domain/session/types";
 import { useEffect, useState } from "react";
 

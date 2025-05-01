@@ -3,9 +3,8 @@ import { useStreamParticipants } from "@/hooks/participant/use-stream-participan
 import { useRevealRound } from "@/hooks/round/use-reveal-round";
 import { useStartNewRound } from "@/hooks/round/use-start-new-round";
 import { useStreamActiveRound } from "@/hooks/round/use-stream-active-round";
-
 import { useCastOrUpdateVote } from "@/hooks/vote/use-cast-or-update-vote";
-import { useGetVoteByRoundId } from "@/hooks/vote/use-get-vote-by-round-id";
+import { useGetParticipantVoteByRoundId } from "@/hooks/vote/use-get-participant-vote-by-round-id";
 import { useStreamVotes } from "@/hooks/vote/use-stream-votes";
 import { getCards } from "@/shared/card/utils";
 import { useQueryClient } from "@tanstack/react-query";
@@ -23,10 +22,11 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const revealRoundMutation = useRevealRound();
 
   const { round } = useStreamActiveRound(session.id);
-  const { data: voteData, isLoading: isVoteLoading } = useGetVoteByRoundId({
-    roundId: round?.id ?? "",
-    participantId: participant?.id ?? "",
-  });
+  const { data: voteData, isLoading: isVoteLoading } =
+    useGetParticipantVoteByRoundId({
+      roundId: round?.id ?? "",
+      participantId: participant?.id ?? "",
+    });
   const { participants } = useStreamParticipants(session.id);
   const { votes } = useStreamVotes(round?.id ?? "");
 

@@ -1,6 +1,7 @@
 import { addRound } from "@/data/round/add-round";
 import { findRound } from "@/data/round/find-round";
 import { updateRound } from "@/data/round/update-round";
+import { canStartNewRound } from "@/domain/round/rules";
 
 export async function startNewRound(sessionId: string) {
   const latestRound = await findRound({
@@ -8,9 +9,7 @@ export async function startNewRound(sessionId: string) {
     order: { field: "createdAt", direction: "desc" },
   });
 
-  if (!latestRound) {
-    throw new Error("No active round");
-  }
+  canStartNewRound(latestRound);
 
   await updateRound(latestRound.id, {
     status: "finished",
