@@ -54,3 +54,7 @@ pnpm dev
 7. **Vote Results:** All players can see the results of the voting session including the average vote and the number of votes for each option.
 8. **Reset Vote:** Room owner can reset the voting session.
 9. **Terminate Session:** Room owner can terminate the session.
+
+## Contributing
+
+Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information on how to contribute to the project.
