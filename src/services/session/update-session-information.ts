@@ -1,4 +1,12 @@
+import { findRound } from "@/data/round/find-round";
+import { getSession } from "@/data/session/get-session";
 import { updateSession } from "@/data/session/update-session";
+import { searchVotes } from "@/data/vote/search-votes";
+import {
+  assertSessionExists,
+  assertSessionIsActive,
+  shouldValidateVotingSystemChange,
+} from "@/domain/session/rules";
 import { assertValid } from "@/shared/zod/utils";
 import { UpdateSessionInformationSchema } from "./schemas";
 import { type UpdateSessionInformationInput } from "./types";
@@ -12,36 +20,33 @@ export async function updateSessionInformation(
     votingSystem,
   } = assertValid(UpdateSessionInformationSchema, input);
 
-  // TODO: Add domain rules for this service function
-  //   const session = await getSession(sessionId);
+  const session = await getSession(sessionId);
 
-  //   if (!session) {
-  //     throw new Error("Session not found");
-  //   }
+  assertSessionExists(session);
 
-  //   if (session.status === "finished") {
-  //     throw new Error("Session is finished");
-  //   }
+  assertSessionIsActive(session);
 
-  //   if (session.votingSystem !== votingSystem) {
-  //     const activeRound = await findRound({
-  //       filter: { sessionId: sessionId, status: "in-progress" },
-  //     });
+  if (shouldValidateVotingSystemChange(session, votingSystem)) {
+    const activeRound = await findRound({
+      filter: { sessionId: sessionId, status: "in-progress" },
+    });
 
-  //     if (!activeRound) {
-  //       throw new Error("Active round not found");
-  //     }
+    // NOTE: This is a sanity check and should never happen
+    if (!activeRound) {
+      throw new Error("Active round not found");
+    }
 
-  //     const votes = await searchVotes({
-  //       filter: {
-  //         roundId: activeRound.id,
-  //       },
-  //     });
+    const votes = await searchVotes({
+      filter: {
+        roundId: activeRound.id,
+      },
+    });
 
-  //     if (votes.length > 0) {
-  //       throw new Error("Votes already exist for this round.");
-  //     }
-  //   }
+    // NOTE: This is a service level validation, do not move this check to domain rules
+    if (votes.length > 0) {
+      throw new Error("Votes already exist for this round.");
+    }
+  }
 
   await updateSession(sessionId, {
     name,
