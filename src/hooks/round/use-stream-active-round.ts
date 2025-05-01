@@ -1,4 +1,4 @@
-import { streamActiveRound } from "@/domain/round/stream-active-round";
+import { streamActiveRound } from "@/data/round/stream-active-round";
 import { type Round } from "@/domain/round/types";
 import { useEffect, useState } from "react";
 
