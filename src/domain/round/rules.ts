@@ -5,17 +5,16 @@ export function assertRoundExists(round: Round | null): asserts round is Round {
 }
 
 /**
- * Asserts that the latest round is not null and not finished.
+ * Asserts that the latest round is not null and not revealed.
  *
  * @param latestRound The latest round
  */
 export function canStartNewRound(
   latestRound: Round | null
 ): asserts latestRound is Round {
-  if (!latestRound) {
-    throw new Error("No previous round found");
-  }
-  if (latestRound.status !== "finished") {
-    throw new Error("Latest round is not finished");
+  assertRoundExists(latestRound);
+
+  if (latestRound.status !== "revealed") {
+    throw new Error("Latest round is not revealed");
   }
 }
