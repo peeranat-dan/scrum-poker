@@ -5,9 +5,33 @@ on:
     branches: ["*"]
 
 jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.changed-files.outputs.any_changed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify Changed files
+        uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c # v46
+        id: changed-files
+        with:
+          files: |
+            .nvmrc
+            src/
+            package.json
+            pnpm-lock.yaml
+            eslint.config.js
+            firebase.json
+            tsconfig
+            vite.config.ts
+            vitest.config.ts
+
   build:
     name: Build
     runs-on: ubuntu-latest
+    if: ${{ needs.check-changes.outputs.should_run == 'true' }}
+    needs: check-changes
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,6 +50,8 @@ jobs:
   lint:
     name: ESLint
     runs-on: ubuntu-latest
+    if: ${{ needs.check-changes.outputs.should_run == 'true' }}
+    needs: check-changes
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -46,6 +72,8 @@ jobs:
   test:
     name: Test with Vitest
     runs-on: ubuntu-latest
+    if: ${{ needs.check-changes.outputs.should_run == 'true' }}
+    needs: check-changes
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -66,6 +94,8 @@ jobs:
   code-scan:
     name: Code Scan
     runs-on: ubuntu-latest
+    if: ${{ needs.check-changes.outputs.should_run == 'true' }}
+    needs: check-changes
     permissions:
       pull-requests: write
       contents: read
