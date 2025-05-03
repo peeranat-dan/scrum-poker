@@ -21,9 +21,30 @@ jobs:
           echo "Changed files:"
           echo "$CHANGED_FILES"
 
-          echo "$CHANGED_FILES" | grep -qE '^(\.nvmrc|src/|package\.json|pnpm-lock\.yaml|eslint\.config\.js|firebase\.json|tsconfig.*\.json|vite\.config\.ts|vitest\.config\.ts|\.github/workflows/pull-request\.yaml)' \
-            && echo "should_run=true" >> $GITHUB_OUTPUT \
-            || echo "should_run=false" >> $GITHUB_OUTPUT
+          should_run="false"
+          echo "$CHANGED_FILES" > changed_files.txt
+
+          patterns=(
+            ".nvmrc"
+            "src/"
+            "package.json"
+            "pnpm-lock.yaml"
+            "eslint.config.js"
+            "firebase.json"
+            "tsconfig"
+            "vite.config.ts"
+            "vitest.config.ts"
+            ".github/workflows/pull-request.yaml"
+          )
+
+          for pattern in "${patterns[@]}"; do
+            if grep -q "$pattern" changed_files.txt; then
+              should_run="true"
+              break
+            fi
+          done
+
+          echo "should_run=$should_run" >> $GITHUB_OUTPUT
   build:
     name: Build
     runs-on: ubuntu-latest
