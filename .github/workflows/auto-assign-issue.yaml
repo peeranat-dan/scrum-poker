@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Assign issue to commenter
-        uses: actions-ecosystem/action-add-assignees@v1
+        uses: bdougie/take-action@main
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          assignees: ${{ github.actor }}
+          message: Thanks for taking this issue! Let us know if you have any questions!
+          trigger: /assign
+          token: ${{ secrets.GITHUB_TOKEN }}
