@@ -10,41 +10,28 @@ jobs:
     outputs:
       should_run: ${{ steps.set-result.outputs.should_run }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Check if relevant files changed
-        id: set-result
+      - name: Verify Changed files
+        uses: tj-actions/verify-changed-files@a1c6acee9df209257a246f2cc6ae8cb6581c1edf # v20
+        id: verify-changed-files
+        with:
+          files: |
+            .nvmrc
+            src/
+            package.json
+            pnpm-lock.yaml
+            eslint.config.js
+            firebase.json
+            tsconfig
+            vite.config.ts
+            vitest.config.ts
+            .github/workflows/pull-request.yaml
+
+      - name: Set should_run output
         run: |
-          git fetch origin ${{ github.base_ref }} --depth=1
-          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }})
+          echo "should_run=${{ steps.verify-changed-files.outputs.files_changed }}" >> $GITHUB_OUTPUT
 
-          echo "Changed files:"
-          echo "$CHANGED_FILES"
-
-          should_run="false"
-          echo "$CHANGED_FILES" > changed_files.txt
-
-          patterns=(
-            ".nvmrc"
-            "src/"
-            "package.json"
-            "pnpm-lock.yaml"
-            "eslint.config.js"
-            "firebase.json"
-            "tsconfig"
-            "vite.config.ts"
-            "vitest.config.ts"
-            ".github/workflows/pull-request.yaml"
-          )
-
-          for pattern in "${patterns[@]}"; do
-            if grep -q "$pattern" changed_files.txt; then
-              should_run="true"
-              break
-            fi
-          done
-
-          echo "should_run=$should_run" >> $GITHUB_OUTPUT
   build:
     name: Build
     runs-on: ubuntu-latest
