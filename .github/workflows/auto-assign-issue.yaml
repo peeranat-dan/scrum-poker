@@ -1,0 +1,16 @@
+name: Assign User to Issue
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  assign:
+    if: github.event.comment.body == '/assign'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign issue to commenter
+        uses: actions-ecosystem/action-add-assignees@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          assignees: ${{ github.event.comment.user.login }}
