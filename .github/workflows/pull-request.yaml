@@ -3,20 +3,31 @@ name: Pull Request
 on:
   pull_request:
     branches: ["*"]
-    paths:
-      - ".nvmrc"
-      - "src/**"
-      - "package.json"
-      - "pnpm-lock.yaml"
-      - "eslint.config.js"
-      - "firebase.json"
-      - "tsconfig*.json"
-      - "vite.config.ts"
-      - "vitest.config.ts"
+
 jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.set-result.outputs.should_run }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check if relevant files changed
+        id: set-result
+        run: |
+          git fetch origin ${{ github.base_ref }} --depth=1
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }})
+
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+
+          echo "$CHANGED_FILES" | grep -qE '^(\.nvmrc|src/|package\.json|pnpm-lock\.yaml|eslint\.config\.js|firebase\.json|tsconfig.*\.json|vite\.config\.ts|vitest\.config\.ts|.github/workflows/pull-request\.yaml)' \
+            && echo "should_run=true" >> $GITHUB_OUTPUT \
+            || echo "should_run=false" >> $GITHUB_OUTPUT
   build:
     name: Build
     runs-on: ubuntu-latest
+    if: ${{ steps.check-changes.outputs.should_run == 'true' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,6 +46,7 @@ jobs:
   lint:
     name: ESLint
     runs-on: ubuntu-latest
+    if: ${{ steps.check-changes.outputs.should_run == 'true' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -55,6 +67,7 @@ jobs:
   test:
     name: Test with Vitest
     runs-on: ubuntu-latest
+    if: ${{ steps.check-changes.outputs.should_run == 'true' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -75,6 +88,7 @@ jobs:
   code-scan:
     name: Code Scan
     runs-on: ubuntu-latest
+    if: ${{ steps.check-changes.outputs.should_run == 'true' }}
     permissions:
       pull-requests: write
       contents: read
