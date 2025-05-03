@@ -31,7 +31,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    if: ${{ needs.changed-files.outputs.only_changed == 'true' }}
+    if: ${{ needs.changed-files.outputs.any_changed == 'true' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -50,7 +50,7 @@ jobs:
   lint:
     name: ESLint
     runs-on: ubuntu-latest
-    if: ${{ needs.changed-files.outputs.only_changed == 'true' }}
+    if: ${{ needs.changed-files.outputs.any_changed == 'true' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -71,7 +71,7 @@ jobs:
   test:
     name: Test with Vitest
     runs-on: ubuntu-latest
-    if: ${{ needs.changed-files.outputs.only_changed == 'true' }}
+    if: ${{ needs.changed-files.outputs.any_changed == 'true' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -92,7 +92,7 @@ jobs:
   code-scan:
     name: Code Scan
     runs-on: ubuntu-latest
-    if: ${{ needs.changed-files.outputs.only_changed == 'true' }}
+    if: ${{ needs.changed-files.outputs.any_changed == 'true' }}
     permissions:
       pull-requests: write
       contents: read
