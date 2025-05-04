@@ -1,6 +1,8 @@
 import { Link } from 'react-router';
+import { Icons } from '../icons/icons';
 import Logo from '../logo';
 import { ThemeToggle } from '../theme-toggle';
+import { Button } from '../ui/button';
 import { buttonVariants } from '../ui/button-variants';
 
 export default function Header() {
@@ -10,7 +12,12 @@ export default function Header() {
         <Link to='/' className='flex items-center gap-2'>
           <Logo />
         </Link>
-        <div className='ml-auto flex h-full items-center gap-2'>
+        <div className='ml-auto flex h-full items-center gap-1 md:gap-2'>
+          <Button asChild variant='ghost' size='icon'>
+            <Link to={import.meta.env.VITE_GITHUB_URL} target='_blank' rel='noopener noreferrer'>
+              <Icons.gitHub />
+            </Link>
+          </Button>
           <ThemeToggle />
           <Link className={buttonVariants({ variant: 'secondary' })} to='/new-game'>
             Start new game
