@@ -1,14 +1,11 @@
-import SessionInformationForm from "@/components/form/session-information-form";
-import { useUpdateSessionInformation } from "@/hooks/session/use-update-session-information";
-import { useSession } from "@/providers/session";
-import {
-  type SessionInformationInput,
-  SessionInformationSchema,
-} from "@/types/schema.types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import SessionInformationForm from '@/components/form/session-information-form';
+import { useUpdateSessionInformation } from '@/hooks/session/use-update-session-information';
+import { useSession } from '@/providers/session';
+import { type SessionInformationInput, SessionInformationSchema } from '@/types/schema.types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 export default function SessionInformationContainer() {
   const { id, name, votingSystem } = useSession();
@@ -31,13 +28,13 @@ export default function SessionInformationContainer() {
       },
       {
         onSuccess: () => {
-          toast.success("Session information updated successfully");
+          toast.success('Session information updated successfully');
         },
         onError: (error) => {
           toast.error(error.message);
           console.error(error);
         },
-      }
+      },
     );
   };
 

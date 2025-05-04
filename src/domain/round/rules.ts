@@ -1,7 +1,7 @@
-import { type Round } from "./types";
+import { type Round } from './types';
 
 export function assertRoundExists(round: Round | null): asserts round is Round {
-  if (!round) throw new Error("No previous round found");
+  if (!round) throw new Error('No previous round found');
 }
 
 /**
@@ -9,12 +9,10 @@ export function assertRoundExists(round: Round | null): asserts round is Round {
  *
  * @param latestRound The latest round
  */
-export function canStartNewRound(
-  latestRound: Round | null
-): asserts latestRound is Round {
+export function canStartNewRound(latestRound: Round | null): asserts latestRound is Round {
   assertRoundExists(latestRound);
 
-  if (latestRound.status !== "revealed") {
-    throw new Error("Latest round is not revealed");
+  if (latestRound.status !== 'revealed') {
+    throw new Error('Latest round is not revealed');
   }
 }

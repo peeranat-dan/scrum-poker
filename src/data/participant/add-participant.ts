@@ -1,8 +1,8 @@
-import { addDoc, doc, getDoc, serverTimestamp } from "firebase/firestore";
+import { addDoc, doc, getDoc, serverTimestamp } from 'firebase/firestore';
 
-import { participantsCollection } from "../firestore";
-import { participantMapper } from "./mapper";
-import { type AddParticipantInput } from "./types";
+import { participantsCollection } from '../firestore';
+import { participantMapper } from './mapper';
+import { type AddParticipantInput } from './types';
 
 export async function addParticipant(input: AddParticipantInput) {
   const participantRef = await addDoc(participantsCollection, {
@@ -11,9 +11,7 @@ export async function addParticipant(input: AddParticipantInput) {
     updatedAt: serverTimestamp(),
   });
 
-  const participantDoc = await getDoc(
-    doc(participantsCollection, participantRef.id)
-  );
+  const participantDoc = await getDoc(doc(participantsCollection, participantRef.id));
 
   return participantMapper.toParticipant(participantDoc);
 }

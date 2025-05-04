@@ -1,12 +1,10 @@
-import { streamParticipant } from "@/data/participant/stream-participant";
-import { type Participant } from "@/domain/participant/types";
+import { streamParticipant } from '@/data/participant/stream-participant';
+import { type Participant } from '@/domain/participant/types';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export function useStreamParticipant(sessionId: string, uid: string) {
-  const [participant, setParticipant] = useState<Participant | undefined>(
-    undefined
-  );
+  const [participant, setParticipant] = useState<Participant | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | undefined>(undefined);
 
@@ -26,7 +24,7 @@ export function useStreamParticipant(sessionId: string, uid: string) {
       (error) => {
         setError(error);
         setLoading(false);
-      }
+      },
     );
 
     return () => {

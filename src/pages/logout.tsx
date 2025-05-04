@@ -1,5 +1,5 @@
-import { useAuth } from "@/providers/auth";
-import { useEffect } from "react";
+import { useAuth } from '@/providers/auth';
+import { useEffect } from 'react';
 
 export default function LogoutPage() {
   const { signOut } = useAuth();
@@ -7,7 +7,7 @@ export default function LogoutPage() {
   useEffect(() => {
     const logout = async () => {
       await signOut();
-      window.location.href = "/";
+      window.location.href = '/';
     };
     logout();
   }, [signOut]);

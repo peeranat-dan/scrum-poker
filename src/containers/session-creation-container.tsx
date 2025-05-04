@@ -1,23 +1,20 @@
-import SessionCreationForm from "@/components/form/session-creation-form";
-import { useCreateParticipant } from "@/hooks/participant/use-create-participant";
-import { useCreateRound } from "@/hooks/round/use-create-round";
-import { useCreateSession } from "@/hooks/session/use-create-session";
-import { useAuth } from "@/providers/auth";
-import {
-  type CreateSessionInput,
-  CreateSessionSchema,
-} from "@/types/schema.types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { generatePath, useNavigate } from "react-router";
+import SessionCreationForm from '@/components/form/session-creation-form';
+import { useCreateParticipant } from '@/hooks/participant/use-create-participant';
+import { useCreateRound } from '@/hooks/round/use-create-round';
+import { useCreateSession } from '@/hooks/session/use-create-session';
+import { useAuth } from '@/providers/auth';
+import { type CreateSessionInput, CreateSessionSchema } from '@/types/schema.types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { generatePath, useNavigate } from 'react-router';
 
 export default function SessionCreationContainer() {
   const navigate = useNavigate();
   const form = useForm<CreateSessionInput>({
     resolver: zodResolver(CreateSessionSchema),
     defaultValues: {
-      name: "",
-      votingSystem: "fibonacci",
+      name: '',
+      votingSystem: 'fibonacci',
     },
   });
   const { user: authUser, signInAnonymously } = useAuth();
@@ -34,19 +31,19 @@ export default function SessionCreationContainer() {
       name: data.name,
       votingSystem: data.votingSystem,
       ownerId: user.uid,
-      status: "active",
+      status: 'active',
     });
     // STEP 3: Create participant
     const participant = await createParticipantMutation.mutateAsync({
       sessionId: session.id,
       uid: user.uid,
-      role: "owner",
+      role: 'owner',
     });
     // STEP 4: Create round
     const round = await createRoundMutation.mutateAsync(session.id);
 
     if (session && user && participant && round) {
-      navigate(generatePath("/game/:gameId", { gameId: session.id }));
+      navigate(generatePath('/game/:gameId', { gameId: session.id }));
     }
   };
 

@@ -1,4 +1,4 @@
-import { useGame } from "@/providers/game";
+import { useGame } from '@/providers/game';
 
 export default function GameAverage() {
   const { round } = useGame();
@@ -8,11 +8,9 @@ export default function GameAverage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className='flex flex-col items-center justify-center'>
       <p>Game Average</p>
-      <p className="text-2xl font-bold">
-        {round.averageVote ?? "No votes yet"}
-      </p>
+      <p className='text-2xl font-bold'>{round.averageVote ?? 'No votes yet'}</p>
     </div>
   );
 }

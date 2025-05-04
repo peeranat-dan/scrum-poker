@@ -1,10 +1,5 @@
-import {
-  limit,
-  orderBy,
-  where,
-  type QueryConstraint,
-} from "firebase/firestore";
-import { type FirestoreSearchInput } from "./types";
+import { limit, orderBy, where, type QueryConstraint } from 'firebase/firestore';
+import { type FirestoreSearchInput } from './types';
 
 /**
  * Build query constraints from a search input
@@ -17,7 +12,7 @@ import { type FirestoreSearchInput } from "./types";
  * @returns The query constraints
  */
 export function buildQueryConstraints<T extends Record<string, unknown>>(
-  input: FirestoreSearchInput<T>
+  input: FirestoreSearchInput<T>,
 ): QueryConstraint[] {
   const { filter, order, paging } = input;
 
@@ -25,15 +20,10 @@ export function buildQueryConstraints<T extends Record<string, unknown>>(
 
   for (const [field, condition] of Object.entries(filter)) {
     if (condition !== undefined || condition !== null) {
-      if (
-        typeof condition === "object" &&
-        condition &&
-        "op" in condition &&
-        "value" in condition
-      ) {
+      if (typeof condition === 'object' && condition && 'op' in condition && 'value' in condition) {
         constraints.push(where(field as string, condition.op, condition.value));
       } else {
-        constraints.push(where(field as string, "==", condition));
+        constraints.push(where(field as string, '==', condition));
       }
     }
   }

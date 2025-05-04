@@ -1,4 +1,4 @@
-import { copyToClipboard } from "@/lib/clipboard";
+import { copyToClipboard } from '@/lib/clipboard';
 
 export function buildJoinLink(sessionId: string) {
   return `${window.location.origin}/join/${sessionId}`;

@@ -1,20 +1,20 @@
-import { limit, onSnapshot, query, where } from "firebase/firestore";
+import { limit, onSnapshot, query, where } from 'firebase/firestore';
 
-import { type Participant } from "@/domain/participant/types";
-import { participantsCollection } from "../firestore";
-import { participantMapper } from "./mapper";
+import { type Participant } from '@/domain/participant/types';
+import { participantsCollection } from '../firestore';
+import { participantMapper } from './mapper';
 
 export function streamParticipant(
   sessionId: string,
   uid: string,
   callback: (participant: Participant | undefined) => void,
-  errorCallback: (error: Error) => void
+  errorCallback: (error: Error) => void,
 ) {
   const q = query(
     participantsCollection,
-    where("sessionId", "==", sessionId),
-    where("uid", "==", uid),
-    limit(1)
+    where('sessionId', '==', sessionId),
+    where('uid', '==', uid),
+    limit(1),
   );
 
   const unsubscribe = onSnapshot(
@@ -27,7 +27,7 @@ export function streamParticipant(
     },
     (error) => {
       errorCallback(error);
-    }
+    },
   );
 
   return unsubscribe;

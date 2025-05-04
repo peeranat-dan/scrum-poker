@@ -1,11 +1,11 @@
-import { type ZodSchema, ZodError } from "zod";
+import { type ZodSchema, ZodError } from 'zod';
 
 export class ValidationError extends Error {
-  issues: ZodError["issues"];
+  issues: ZodError['issues'];
 
-  public constructor(issues: ZodError["issues"]) {
-    super("Validation failed");
-    this.name = "ValidationError";
+  public constructor(issues: ZodError['issues']) {
+    super('Validation failed');
+    this.name = 'ValidationError';
     this.issues = issues;
   }
 }

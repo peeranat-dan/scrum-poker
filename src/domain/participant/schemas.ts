@@ -1,8 +1,8 @@
-import { DomainEntitySchema } from "@/shared/zod/schemas/domain";
-import { z } from "zod";
+import { DomainEntitySchema } from '@/shared/zod/schemas/domain';
+import { z } from 'zod';
 
-export const participantRoles = ["owner", "admin", "player"] as const;
-export const participantStatuses = ["active", "left", "removed"] as const;
+export const participantRoles = ['owner', 'admin', 'player'] as const;
+export const participantStatuses = ['active', 'left', 'removed'] as const;
 
 export const BaseParticipantSchema = z.object({
   sessionId: z.string(),
@@ -12,6 +12,4 @@ export const BaseParticipantSchema = z.object({
   status: z.enum(participantStatuses),
 });
 
-export const ParticipantSchema = DomainEntitySchema.merge(
-  BaseParticipantSchema
-);
+export const ParticipantSchema = DomainEntitySchema.merge(BaseParticipantSchema);

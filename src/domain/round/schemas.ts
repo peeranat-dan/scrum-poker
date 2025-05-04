@@ -1,7 +1,7 @@
-import { DomainEntitySchema } from "@/shared/zod/schemas/domain";
-import { z } from "zod";
+import { DomainEntitySchema } from '@/shared/zod/schemas/domain';
+import { z } from 'zod';
 
-export const roundStatuses = ["in-progress", "revealed", "finished"] as const;
+export const roundStatuses = ['in-progress', 'revealed', 'finished'] as const;
 
 const BaseRoundSchema = z.object({
   sessionId: z.string(),

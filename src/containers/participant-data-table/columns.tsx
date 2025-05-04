@@ -1,7 +1,7 @@
-import { type ParticipantRole } from "@/data/participant/types";
-import { type ColumnDef } from "@tanstack/react-table";
+import { type ParticipantRole } from '@/data/participant/types';
+import { type ColumnDef } from '@tanstack/react-table';
 
-import ParticipantDeletionButton from "../participant-deletion-button";
+import ParticipantDeletionButton from '../participant-deletion-button';
 
 export type ParticipantRow = {
   id: string;
@@ -13,25 +13,22 @@ export type ParticipantRow = {
 
 export const columns: ColumnDef<ParticipantRow>[] = [
   {
-    accessorKey: "name",
-    header: "Name",
+    accessorKey: 'name',
+    header: 'Name',
   },
   {
-    accessorKey: "updatedAt",
-    header: "Joined at",
+    accessorKey: 'updatedAt',
+    header: 'Joined at',
   },
   {
-    id: "actions",
+    id: 'actions',
     maxSize: 40,
     size: 40,
     cell: ({ row }) => {
       const participant = row.original;
 
       return (
-        <ParticipantDeletionButton
-          disabled={participant.role === "owner"}
-          id={participant.id}
-        />
+        <ParticipantDeletionButton disabled={participant.role === 'owner'} id={participant.id} />
       );
     },
   },

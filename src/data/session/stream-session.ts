@@ -1,12 +1,12 @@
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from 'firebase/firestore';
 
-import { type Session } from "@/domain/session/types"; // This is exception for streaming
-import { sessionsCollection } from "../firestore";
+import { type Session } from '@/domain/session/types'; // This is exception for streaming
+import { sessionsCollection } from '../firestore';
 
 export function streamSession(
   sessionId: string,
   callback: (session: Session) => void,
-  errorCallback: (error: Error) => void
+  errorCallback: (error: Error) => void,
 ) {
   const unsubscribe = onSnapshot(
     doc(sessionsCollection, sessionId),
@@ -24,11 +24,11 @@ export function streamSession(
         });
         return;
       }
-      errorCallback(new Error("Session not found"));
+      errorCallback(new Error('Session not found'));
     },
     (error) => {
       errorCallback(error);
-    }
+    },
   );
 
   return unsubscribe;

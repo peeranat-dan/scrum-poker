@@ -1,16 +1,11 @@
-import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { useGame } from "@/providers/game";
-import { useParticipant } from "@/providers/participant";
-import { copyJoinLink } from "@/shared/utils/copy-join-link";
-import { useMemo } from "react";
-import { toast } from "sonner";
-import SessionLeaveButton from "./session-leave-button";
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { useGame } from '@/providers/game';
+import { useParticipant } from '@/providers/participant';
+import { copyJoinLink } from '@/shared/utils/copy-join-link';
+import { useMemo } from 'react';
+import { toast } from 'sonner';
+import SessionLeaveButton from './session-leave-button';
 
 export default function GameActions() {
   const { participant } = useParticipant();
@@ -20,40 +15,34 @@ export default function GameActions() {
     if (participant?.sessionId) {
       copyJoinLink(participant.sessionId);
     }
-    toast.success("Join link copied to clipboard");
+    toast.success('Join link copied to clipboard');
   };
 
   const participantsWithNoVotes = useMemo(
-    () =>
-      participants.filter(
-        (participant) => typeof participant.vote === "undefined"
-      ),
-    [participants]
+    () => participants.filter((participant) => typeof participant.vote === 'undefined'),
+    [participants],
   );
 
   const shouldDisableRevealVoteButton = participantsWithNoVotes.length > 0;
 
-  if (participant?.role === "owner") {
+  if (participant?.role === 'owner') {
     return (
-      <div className="flex gap-2">
-        {round?.status === "in-progress" ? (
+      <div className='flex gap-2'>
+        {round?.status === 'in-progress' ? (
           <TooltipProvider>
             <Tooltip open={shouldDisableRevealVoteButton}>
               <TooltipTrigger asChild>
-                <Button
-                  onClick={revealRound}
-                  disabled={shouldDisableRevealVoteButton}
-                >
+                <Button onClick={revealRound} disabled={shouldDisableRevealVoteButton}>
                   Reveal Vote
                 </Button>
               </TooltipTrigger>
-              <TooltipContent side="bottom">
+              <TooltipContent side='bottom'>
                 <p>Person who hasn't vote</p>
-                <ul className="m-0 px-4 py-1">
+                <ul className='m-0 px-4 py-1'>
                   {participantsWithNoVotes.map((p) => (
                     <li key={p.id}>
                       <span>{p.displayName}</span>
-                      <span> {p.id === participant.id ? "(You)" : ""}</span>
+                      <span> {p.id === participant.id ? '(You)' : ''}</span>
                     </li>
                   ))}
                 </ul>
@@ -63,7 +52,7 @@ export default function GameActions() {
         ) : (
           <Button onClick={startNewRound}>Start New Round</Button>
         )}
-        <Button onClick={handleCopyJoinLink} variant="ghost">
+        <Button onClick={handleCopyJoinLink} variant='ghost'>
           Invite Players
         </Button>
       </div>
@@ -71,7 +60,7 @@ export default function GameActions() {
   }
 
   return (
-    <div className="flex gap-2">
+    <div className='flex gap-2'>
       <Button onClick={handleCopyJoinLink}>Invite Players</Button>
       <SessionLeaveButton />
     </div>

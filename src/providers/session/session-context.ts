@@ -1,6 +1,4 @@
-import { createContext } from "react";
-import { type SessionProviderState } from "./types";
+import { createContext } from 'react';
+import { type SessionProviderState } from './types';
 
-export const SessionContext = createContext<SessionProviderState | undefined>(
-  undefined
-);
+export const SessionContext = createContext<SessionProviderState | undefined>(undefined);

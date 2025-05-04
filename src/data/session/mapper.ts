@@ -1,19 +1,15 @@
-import {
-  Timestamp,
-  type DocumentData,
-  type DocumentSnapshot,
-} from "firebase/firestore";
+import { Timestamp, type DocumentData, type DocumentSnapshot } from 'firebase/firestore';
 
-import { type SessionDoc } from "@/data/session/types";
-import { SessionSchema } from "@/domain/session/schemas";
-import { type Session } from "@/domain/session/types";
-import { assertValid } from "@/shared/zod/utils";
+import { type SessionDoc } from '@/data/session/types';
+import { SessionSchema } from '@/domain/session/schemas';
+import { type Session } from '@/domain/session/types';
+import { assertValid } from '@/shared/zod/utils';
 
 function toSession(doc: DocumentSnapshot<SessionDoc, DocumentData>): Session {
   const data = doc.data();
 
   if (!data) {
-    throw new Error("Session not found");
+    throw new Error('Session not found');
   }
 
   return assertValid(SessionSchema, {

@@ -1,5 +1,5 @@
-import { DomainEntitySchema } from "@/shared/zod/schemas/domain";
-import { z } from "zod";
+import { DomainEntitySchema } from '@/shared/zod/schemas/domain';
+import { z } from 'zod';
 
 export const BaseVoteSchema = z.object({
   roundId: z.string(),

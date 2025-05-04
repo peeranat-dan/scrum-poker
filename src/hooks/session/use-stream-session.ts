@@ -1,6 +1,6 @@
-import { streamSession } from "@/data/session/stream-session";
-import { type Session } from "@/domain/session/types";
-import { useEffect, useState } from "react";
+import { streamSession } from '@/data/session/stream-session';
+import { type Session } from '@/domain/session/types';
+import { useEffect, useState } from 'react';
 
 export function useStreamSession(sessionId: string) {
   const [session, setSession] = useState<Session | undefined>();
@@ -18,7 +18,7 @@ export function useStreamSession(sessionId: string) {
       (error) => {
         setError(error);
         setLoading(false);
-      }
+      },
     );
     return () => unsubscribe();
   }, [sessionId]);
