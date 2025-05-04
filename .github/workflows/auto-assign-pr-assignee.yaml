@@ -1,0 +1,25 @@
+name: Auto Assign PR to PR Creator
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  auto-assign-pr-assignee:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Assign PR to Creator
+        run: |
+          PR_CREATOR="${{ github.event.pull_request.user.login }}"
+          PR_NUMBER="${{ github.event.number }}"
+          REPO_OWNER="${{ github.repository_owner }}"
+          REPO_NAME="${{ github.repository }}"
+          REPO_NAME=${REPO_NAME#*/}  # Extract repository name without owner
+          echo "Assigning PR #$PR_NUMBER to $PR_CREATOR"
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/issues/$PR_NUMBER/assignees" \
+            -d "{\"assignees\":[\"$PR_CREATOR\"]}"

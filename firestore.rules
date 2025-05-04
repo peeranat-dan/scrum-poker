@@ -2,18 +2,86 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(ownerId) {
+      return isSignedIn() && request.auth.uid == ownerId;
+    }
 
-    // This rule allows anyone with your Firestore database reference to view, edit,
-    // and delete all data in your Firestore database. It is useful for getting
-    // started, but it is configured to expire after 30 days because it
-    // leaves your app open to attackers. At that time, all client
-    // requests to your Firestore database will be denied.
-    //
-    // Make sure to write security rules for your app before that time, or else
-    // all client requests to your Firestore database will be denied until you Update
-    // your rules
-    match /{document=**} {
-      allow read, write: if request.time < timestamp.date(2025, 5, 12);
+    function isValidParticipant() {
+      return request.resource.data.uid == request.auth.uid
+          && request.resource.data.createdAt is timestamp;
+    }
+
+    function getSessionOwner(sessionId) {
+      return get(/databases/$(database)/documents/sessions/$(sessionId)).data.ownerId;
+    }
+    
+    match /sessions/{sessionId} {
+      // Allow anyone to read sessions without authentication
+      allow read: if true;
+      
+      // Only authenticated users can create a session and must set themselves as owner
+      allow create: if isSignedIn() 
+                   && request.resource.data.ownerId == request.auth.uid
+                   && request.resource.data.createdAt is timestamp;
+
+      // Only the session owner can update the session
+      allow update: if isOwner(resource.data.ownerId);
+      
+      // Only the session owner can delete the session
+      allow delete: if isOwner(resource.data.ownerId);
+    }
+
+     // Participants collection
+    match /participants/{participantId} {
+      // Allow anyone to read sessions without authentication
+      allow read: if true;
+      
+      // Users can create their own participant entry for a session
+      allow create: if isSignedIn() 
+                   && isValidParticipant()
+                   && exists(/databases/$(database)/documents/sessions/$(request.resource.data.sessionId));
+      
+      // Participants can update their own entries or session owner can update any participant
+      allow update: if isSignedIn() 
+                   && (request.auth.uid == resource.data.uid 
+                      || isOwner(getSessionOwner(resource.data.sessionId)));
+      
+      // Only session owner can delete participants
+      allow delete: if isSignedIn() 
+                   && isOwner(getSessionOwner(resource.data.sessionId));
+    }
+
+    // Rounds collection
+    match /rounds/{roundId} {
+      // Allow anyone to read sessions without authentication
+      allow read: if true;
+      
+      // Only session owner can create rounds
+      allow create: if isSignedIn() 
+                   && isOwner(getSessionOwner(request.resource.data.sessionId));
+      
+      // Only session owner can update rounds
+      allow update: if isSignedIn() 
+                   && isOwner(getSessionOwner(resource.data.sessionId));
+    }
+    
+    // Votes collection
+    match /votes/{voteId} {
+      // Allow anyone to read sessions without authentication
+      allow read: if true;
+      
+      // Users can create their own votes
+      allow create: if isSignedIn();
+            
+      // Users can update their own votes
+      allow update: if isSignedIn() 
+                   && get(/databases/$(database)/documents/participants/$(request.resource.data.participantId)).data.uid == request.auth.uid
+                   && get(/databases/$(database)/documents/participants/$(request.resource.data.participantId)).data.status == "active";
     }
   }
 }

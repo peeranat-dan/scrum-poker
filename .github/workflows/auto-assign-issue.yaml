@@ -1,0 +1,17 @@
+name: Assign User to Issue
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  assign:
+    if: github.event.comment.body == '/assign'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign issue to commenter
+        uses: bdougie/take-action@main
+        with:
+          message: Thanks for taking this issue! Let us know if you have any questions!
+          trigger: /assign
+          token: ${{ secrets.GITHUB_TOKEN }}
