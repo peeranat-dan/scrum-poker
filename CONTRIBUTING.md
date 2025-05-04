@@ -62,6 +62,29 @@ Use these rules to decide where to contribute:
 - ✅ Creating a new flow or process (e.g. createSession)? → `services/`
 - ✅ Adding common utility like date formatting? → `shared/`
 
+## Commit Convention
+
+We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for commit messages. Please follow the following format:
+
+```
+<type>(<scope>): <subject>
+```
+
+- `<type>`: The type of the commit. It can be one of the following:
+  - `feat`: A new feature.
+  - `fix`: A bug fix.
+  - `docs`: Documentation only changes.
+  - `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).
+  - `refactor`: A code change that neither fixes a bug nor adds a feature.
+  - `perf`: A code change that improves performance.
+  - `test`: Adding missing tests or correcting existing tests.
+  - `chore`: Changes to the build process or auxiliary tools and libraries such as documentation generation.
+  - `revert`: Reverts a previous commit.
+- `<scope>`: The scope of the commit. It can be any word that describes the scope of the commit.
+- `<subject>`: A brief description of the commit. It should be no longer than 50 characters.
+
+If you are interested in the detailed specification you can visit https://www.conventionalcommits.org/.
+
 ## Development
 
 1. Fork the repository by clicking the "Fork" button at the top right corner of the repository page.
@@ -92,29 +115,15 @@ pnpm dev
 
 7. Open your browser and navigate to `http://localhost:5173` to access the application.
 
+## How to start working on an issue
+
+1. Go to issues page and find an issue that you want to work on.
+2. Comment `/assign` in that post to assign the issue to yourself.
+3. Create a new branch from the `develop` branch.
+4. Make your changes and commit them.
+5. Push your changes to your forked repository.
+6. Create a pull request from your forked repository to the `develop` branch.
+
 ## Feature Requests
 
 You can create a new feature request by opening a new issue in the repository. Please provide a clear and detailed description of the feature you would like to see implemented. If you are interested in implementing the feature yourself, please mention that in the issue.
-
-## Commit Convention
-
-We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for commit messages. Please follow the following format:
-
-```
-<type>(<scope>): <subject>
-```
-
-- `<type>`: The type of the commit. It can be one of the following:
-  - `feat`: A new feature.
-  - `fix`: A bug fix.
-  - `docs`: Documentation only changes.
-  - `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).
-  - `refactor`: A code change that neither fixes a bug nor adds a feature.
-  - `perf`: A code change that improves performance.
-  - `test`: Adding missing tests or correcting existing tests.
-  - `chore`: Changes to the build process or auxiliary tools and libraries such as documentation generation.
-  - `revert`: Reverts a previous commit.
-- `<scope>`: The scope of the commit. It can be any word that describes the scope of the commit.
-- `<subject>`: A brief description of the commit. It should be no longer than 50 characters.
-
-If you are interested in the detailed specification you can visit https://www.conventionalcommits.org/.
