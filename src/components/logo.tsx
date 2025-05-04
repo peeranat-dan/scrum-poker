@@ -1,7 +1,7 @@
 export default function Logo() {
   return (
-    <div className="text-2xl font-mono group">
-      <span className="transition-all group-hover:rotate-180 inline-block group-hover:text-primary">
+    <div className='group font-mono text-2xl'>
+      <span className='group-hover:text-primary inline-block transition-all group-hover:rotate-180'>
         E
       </span>
       -mate

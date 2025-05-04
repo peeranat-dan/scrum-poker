@@ -1,45 +1,45 @@
-import "@fontsource-variable/jetbrains-mono/index.css";
-import "@fontsource-variable/noto-sans-thai/index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router";
+import '@fontsource-variable/jetbrains-mono/index.css';
+import '@fontsource-variable/noto-sans-thai/index.css';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 
-import "./index.css";
-import BaseLayout from "./layouts/base";
-import GameLayout from "./layouts/game";
-import GameSettingsLayout from "./layouts/game-settings";
-import NotFoundPage from "./pages/404";
-import GamePage from "./pages/game/[gameId]";
-import GameSettingsPage from "./pages/game/[gameId]/settings";
-import GameSettingsGeneralPage from "./pages/game/[gameId]/settings/general";
-import GameSettingsPlayersListPage from "./pages/game/[gameId]/settings/players";
-import HomePage from "./pages/home";
-import JoinPage from "./pages/join/[gameId]";
-import LogoutPage from "./pages/logout";
-import NewGamePage from "./pages/new-game";
-import { AuthProvider } from "./providers/auth";
-import { ThemeProvider } from "./providers/theme";
+import './index.css';
+import BaseLayout from './layouts/base';
+import GameLayout from './layouts/game';
+import GameSettingsLayout from './layouts/game-settings';
+import NotFoundPage from './pages/404';
+import GamePage from './pages/game/[gameId]';
+import GameSettingsPage from './pages/game/[gameId]/settings';
+import GameSettingsGeneralPage from './pages/game/[gameId]/settings/general';
+import GameSettingsPlayersListPage from './pages/game/[gameId]/settings/players';
+import HomePage from './pages/home';
+import JoinPage from './pages/join/[gameId]';
+import LogoutPage from './pages/logout';
+import NewGamePage from './pages/new-game';
+import { AuthProvider } from './providers/auth';
+import { ThemeProvider } from './providers/theme';
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     Component: BaseLayout,
     children: [
       { index: true, Component: HomePage },
       {
-        path: "new-game",
+        path: 'new-game',
         Component: NewGamePage,
       },
       {
-        path: "logout",
+        path: 'logout',
         Component: LogoutPage,
       },
       {
-        path: "*",
+        path: '*',
         Component: NotFoundPage,
       },
     ],
@@ -48,11 +48,11 @@ const router = createBrowserRouter([
     Component: GameLayout,
     children: [
       {
-        path: "game/:gameId",
+        path: 'game/:gameId',
         Component: GamePage,
       },
       {
-        path: "game/:gameId/settings",
+        path: 'game/:gameId/settings',
         Component: GameSettingsLayout,
         children: [
           {
@@ -60,26 +60,26 @@ const router = createBrowserRouter([
             Component: GameSettingsPage,
           },
           {
-            path: "general",
+            path: 'general',
             Component: GameSettingsGeneralPage,
           },
           {
-            path: "players",
+            path: 'players',
             Component: GameSettingsPlayersListPage,
           },
         ],
       },
       {
-        path: "join/:gameId",
+        path: 'join/:gameId',
         Component: JoinPage,
       },
     ],
   },
 ]);
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme='system' storageKey='vite-ui-theme'>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <RouterProvider router={router} />
@@ -87,5 +87,5 @@ createRoot(document.getElementById("root")!).render(
         </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
-  </StrictMode>
+  </StrictMode>,
 );

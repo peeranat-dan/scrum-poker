@@ -1,14 +1,14 @@
-import { VoteSchema } from "@/domain/vote/schemas";
-import { type Vote } from "@/domain/vote/types";
-import { assertValid } from "@/shared/zod/utils";
-import { type DocumentData, type DocumentSnapshot } from "firebase/firestore";
-import { type VoteDoc } from "./types";
+import { VoteSchema } from '@/domain/vote/schemas';
+import { type Vote } from '@/domain/vote/types';
+import { assertValid } from '@/shared/zod/utils';
+import { type DocumentData, type DocumentSnapshot } from 'firebase/firestore';
+import { type VoteDoc } from './types';
 
 function toVote(doc: DocumentSnapshot<VoteDoc, DocumentData>): Vote {
   const data = doc.data();
 
   if (!data) {
-    throw new Error("Vote not found");
+    throw new Error('Vote not found');
   }
 
   return assertValid(VoteSchema, {

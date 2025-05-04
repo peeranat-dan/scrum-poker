@@ -9,8 +9,8 @@ on:
     inputs:
       increment:
         required: true
-        description: "Increment version (major, minor, patch)"
-        default: "patch"
+        description: 'Increment version (major, minor, patch)'
+        default: 'patch'
         type: choice
         options:
           - major
@@ -30,7 +30,7 @@ jobs:
       - name: Set node
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:

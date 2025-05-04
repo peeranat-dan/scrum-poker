@@ -1,6 +1,6 @@
-import { streamVotes } from "@/data/vote/stream-votes";
-import { type Vote } from "@/domain/vote/types";
-import { useEffect, useState } from "react";
+import { streamVotes } from '@/data/vote/stream-votes';
+import { type Vote } from '@/domain/vote/types';
+import { useEffect, useState } from 'react';
 
 export function useStreamVotes(roundId: string) {
   const [votes, setVotes] = useState<Vote[]>([]);

@@ -8,12 +8,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { useTerminateSession } from "@/hooks/session/use-terminate-session";
-import { useSession } from "@/providers/session";
-import { Bomb } from "lucide-react";
-import { useCallback } from "react";
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { useTerminateSession } from '@/hooks/session/use-terminate-session';
+import { useSession } from '@/providers/session';
+import { Bomb } from 'lucide-react';
+import { useCallback } from 'react';
 
 export default function SessionTerminationButton() {
   const { id } = useSession();
@@ -27,7 +27,7 @@ export default function SessionTerminationButton() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" className="w-full md:w-fit">
+        <Button variant='destructive' className='w-full md:w-fit'>
           <Bomb />
           <span>Terminate session</span>
         </Button>
@@ -36,14 +36,13 @@ export default function SessionTerminationButton() {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently terminate your
-            session.
+            This action cannot be undone. This will permanently terminate your session.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Button variant="destructive" onClick={handleTerminateSession}>
+            <Button variant='destructive' onClick={handleTerminateSession}>
               Terminate session
             </Button>
           </AlertDialogAction>

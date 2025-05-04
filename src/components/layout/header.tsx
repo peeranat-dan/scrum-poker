@@ -1,21 +1,18 @@
-import { Link } from "react-router";
-import Logo from "../logo";
-import { ThemeToggle } from "../theme-toggle";
-import { buttonVariants } from "../ui/button-variants";
+import { Link } from 'react-router';
+import Logo from '../logo';
+import { ThemeToggle } from '../theme-toggle';
+import { buttonVariants } from '../ui/button-variants';
 
 export default function Header() {
   return (
-    <header className="sticky left-0 top-0 z-50 w-full border-b px-6 md:px-8 bg-background/80 backdrop-blur">
-      <div className="container flex h-[3.5rem] items-center justify-between mx-auto">
-        <Link to="/" className="flex items-center gap-2">
+    <header className='bg-background/80 sticky top-0 left-0 z-50 w-full border-b px-6 backdrop-blur md:px-8'>
+      <div className='container mx-auto flex h-[3.5rem] items-center justify-between'>
+        <Link to='/' className='flex items-center gap-2'>
           <Logo />
         </Link>
-        <div className="ml-auto flex h-full items-center gap-2">
+        <div className='ml-auto flex h-full items-center gap-2'>
           <ThemeToggle />
-          <Link
-            className={buttonVariants({ variant: "secondary" })}
-            to="/new-game"
-          >
+          <Link className={buttonVariants({ variant: 'secondary' })} to='/new-game'>
             Start new game
           </Link>
         </div>

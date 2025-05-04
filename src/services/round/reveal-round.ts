@@ -1,6 +1,6 @@
-import { updateRound } from "@/data/round/update-round";
-import { searchVotes } from "@/data/vote/search-votes";
-import { calculateAverage } from "@/lib/math";
+import { updateRound } from '@/data/round/update-round';
+import { searchVotes } from '@/data/vote/search-votes';
+import { calculateAverage } from '@/lib/math';
 
 export async function revealRound(roundId: string) {
   const votes = await searchVotes({
@@ -10,9 +10,7 @@ export async function revealRound(roundId: string) {
   });
 
   // Filter out invalid votes (0, -1, -2)
-  const filteredVotes = votes.filter(
-    (vote) => ![0, -1, -2].includes(vote.value)
-  );
+  const filteredVotes = votes.filter((vote) => ![0, -1, -2].includes(vote.value));
 
   const voteValues = filteredVotes.map((vote) => vote.value);
 
@@ -20,6 +18,6 @@ export async function revealRound(roundId: string) {
 
   await updateRound(roundId, {
     averageVote,
-    status: "revealed",
+    status: 'revealed',
   });
 }

@@ -2,8 +2,8 @@ import {
   signInAnonymously as firebaseSignInAnonymously,
   signOut as firebaseSignOut,
   getAuth,
-} from "firebase/auth";
-import { app } from "./firebase";
+} from 'firebase/auth';
+import { app } from './firebase';
 
 const auth = getAuth(app);
 

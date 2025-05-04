@@ -1,10 +1,10 @@
-import { getRound } from "@/data/round/get-round";
-import { findVote } from "@/data/vote/find-vote";
-import { canCastOrUpdateVote } from "@/domain/vote/rules";
+import { getRound } from '@/data/round/get-round';
+import { findVote } from '@/data/vote/find-vote';
+import { canCastOrUpdateVote } from '@/domain/vote/rules';
 
-import { castVote } from "./cast-vote";
-import { type CastVoteInput } from "./types";
-import { updateVoteValue } from "./update-vote-value";
+import { castVote } from './cast-vote';
+import { type CastVoteInput } from './types';
+import { updateVoteValue } from './update-vote-value';
 
 export async function castOrUpdateVote(input: CastVoteInput) {
   // NOTE: We do not validate the input here because it is validated in the castVote and updateVoteValue functions

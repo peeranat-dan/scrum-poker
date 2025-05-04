@@ -1,4 +1,4 @@
-import Big from "big.js";
+import Big from 'big.js';
 
 /**
  * Calculate the average of an array of numbers.

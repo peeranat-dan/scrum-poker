@@ -1,8 +1,8 @@
-import { buildQueryConstraints } from "@/shared/firestore/utils";
-import { getDocs, query } from "firebase/firestore";
-import { participantsCollection } from "../firestore";
-import { participantMapper } from "./mapper";
-import { type FindParticipantInput } from "./types";
+import { buildQueryConstraints } from '@/shared/firestore/utils';
+import { getDocs, query } from 'firebase/firestore';
+import { participantsCollection } from '../firestore';
+import { participantMapper } from './mapper';
+import { type FindParticipantInput } from './types';
 
 export async function findParticipant(input: FindParticipantInput) {
   const constraints = buildQueryConstraints({
@@ -16,7 +16,5 @@ export async function findParticipant(input: FindParticipantInput) {
   const q = query(participantsCollection, ...constraints);
   const snapshot = await getDocs(q);
 
-  return snapshot.empty
-    ? null
-    : participantMapper.toParticipant(snapshot.docs[0]);
+  return snapshot.empty ? null : participantMapper.toParticipant(snapshot.docs[0]);
 }

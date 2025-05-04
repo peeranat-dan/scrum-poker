@@ -1,10 +1,10 @@
-import Loading from "@/components/loading";
-import { useStreamParticipant } from "@/hooks/participant/use-stream-participant";
-import { useUpdateParticipantName } from "@/hooks/participant/use-update-participant-name";
-import { useQueryClient } from "@tanstack/react-query";
-import { useCallback, useMemo } from "react";
-import { ParticipantContext } from "./participant-context";
-import { type ParticipantProviderProps } from "./types";
+import Loading from '@/components/loading';
+import { useStreamParticipant } from '@/hooks/participant/use-stream-participant';
+import { useUpdateParticipantName } from '@/hooks/participant/use-update-participant-name';
+import { useQueryClient } from '@tanstack/react-query';
+import { useCallback, useMemo } from 'react';
+import { ParticipantContext } from './participant-context';
+import { type ParticipantProviderProps } from './types';
 
 export function ParticipantProvider({
   children,
@@ -13,10 +13,7 @@ export function ParticipantProvider({
 }: Readonly<ParticipantProviderProps>) {
   const queryClient = useQueryClient();
 
-  const { participant, loading: isLoading } = useStreamParticipant(
-    sessionId,
-    uid
-  );
+  const { participant, loading: isLoading } = useStreamParticipant(sessionId, uid);
 
   const updateParticipantNameMutation = useUpdateParticipantName();
 
@@ -31,13 +28,13 @@ export function ParticipantProvider({
         {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: ["participant", sessionId, uid],
+              queryKey: ['participant', sessionId, uid],
             });
           },
-        }
+        },
       );
     },
-    [participant, queryClient, sessionId, uid, updateParticipantNameMutation]
+    [participant, queryClient, sessionId, uid, updateParticipantNameMutation],
   );
 
   const value = useMemo(
@@ -45,16 +42,12 @@ export function ParticipantProvider({
       participant: participant,
       updateParticipantName: updateParticipantName,
     }),
-    [participant, updateParticipantName]
+    [participant, updateParticipantName],
   );
 
   if (isLoading) {
     return <Loading fullscreen />;
   }
 
-  return (
-    <ParticipantContext.Provider value={value}>
-      {children}
-    </ParticipantContext.Provider>
-  );
+  return <ParticipantContext.Provider value={value}>{children}</ParticipantContext.Provider>;
 }

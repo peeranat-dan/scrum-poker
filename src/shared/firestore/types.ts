@@ -1,4 +1,4 @@
-import { type Timestamp, type WhereFilterOp } from "firebase/firestore";
+import { type Timestamp, type WhereFilterOp } from 'firebase/firestore';
 
 type FilterCondition<Value> = { op: WhereFilterOp; value: Value } | Value;
 
@@ -10,7 +10,7 @@ export interface FirestoreSearchInput<T extends Record<string, unknown>> {
   filter: FirestoreFilter<T>;
   order?: {
     field: keyof T;
-    direction: "asc" | "desc";
+    direction: 'asc' | 'desc';
   };
   paging?: {
     limit: number;

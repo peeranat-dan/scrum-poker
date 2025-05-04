@@ -1,9 +1,9 @@
-import { getDocs, query } from "firebase/firestore";
+import { getDocs, query } from 'firebase/firestore';
 
-import { buildQueryConstraints } from "@/shared/firestore/utils";
-import { votesCollection } from "../firestore";
-import { voteMapper } from "./mapper";
-import { type SearchVoteInput } from "./types";
+import { buildQueryConstraints } from '@/shared/firestore/utils';
+import { votesCollection } from '../firestore';
+import { voteMapper } from './mapper';
+import { type SearchVoteInput } from './types';
 
 export async function searchVotes(input: SearchVoteInput) {
   const constraints = buildQueryConstraints(input);

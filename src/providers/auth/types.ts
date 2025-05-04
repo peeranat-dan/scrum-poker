@@ -1,4 +1,4 @@
-import { type User, type UserCredential } from "@/shared/firebase/types";
+import { type User, type UserCredential } from '@/shared/firebase/types';
 
 export interface AuthProviderProps {
   children: React.ReactNode;

@@ -6,13 +6,13 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { useAuth } from "@/providers/auth";
-import { useParticipant } from "@/providers/participant";
-import { useQueryClient } from "@tanstack/react-query";
-import { useMemo } from "react";
-import { generatePath, useNavigate } from "react-router";
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/providers/auth';
+import { useParticipant } from '@/providers/participant';
+import { useQueryClient } from '@tanstack/react-query';
+import { useMemo } from 'react';
+import { generatePath, useNavigate } from 'react-router';
 
 // TODO: rename this
 export default function ParticipationRemovedModal() {
@@ -22,22 +22,22 @@ export default function ParticipationRemovedModal() {
   const { signOut } = useAuth();
 
   const shouldOpenModal = useMemo(() => {
-    return participant?.status === "removed";
+    return participant?.status === 'removed';
   }, [participant?.status]);
 
   const handleBackToHome = async () => {
     queryClient.resetQueries();
     await signOut();
-    navigate("/");
+    navigate('/');
   };
 
   const handleJoinAgain = async () => {
     queryClient.resetQueries();
     await signOut();
     navigate(
-      generatePath("/join/:gameId", {
-        gameId: participant?.sessionId ?? "",
-      })
+      generatePath('/join/:gameId', {
+        gameId: participant?.sessionId ?? '',
+      }),
     );
   };
 
@@ -46,17 +46,13 @@ export default function ParticipationRemovedModal() {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>You've been removed</AlertDialogTitle>
-          <AlertDialogDescription>
-            You've been removed from the game.
-          </AlertDialogDescription>
+          <AlertDialogDescription>You've been removed from the game.</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <Button onClick={handleBackToHome} variant="outline">
+          <Button onClick={handleBackToHome} variant='outline'>
             Back to Home
           </Button>
-          <AlertDialogAction onClick={handleJoinAgain}>
-            Join again
-          </AlertDialogAction>
+          <AlertDialogAction onClick={handleJoinAgain}>Join again</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

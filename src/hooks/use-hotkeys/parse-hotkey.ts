@@ -16,42 +16,31 @@ type CheckHotkeyMatch = (event: KeyboardEvent) => boolean;
 export function parseHotkey(hotkey: string): Hotkey {
   const keys = hotkey
     .toLowerCase()
-    .split("+")
+    .split('+')
     .map((part) => part.trim());
 
   const modifiers: KeyboardModifiers = {
-    alt: keys.includes("alt"),
-    ctrl: keys.includes("ctrl"),
-    meta: keys.includes("meta"),
-    mod: keys.includes("mod"),
-    shift: keys.includes("shift"),
-    plus: keys.includes("[plus]"),
+    alt: keys.includes('alt'),
+    ctrl: keys.includes('ctrl'),
+    meta: keys.includes('meta'),
+    mod: keys.includes('mod'),
+    shift: keys.includes('shift'),
+    plus: keys.includes('[plus]'),
   };
 
-  const reservedKeys = ["alt", "ctrl", "meta", "shift", "mod"];
+  const reservedKeys = ['alt', 'ctrl', 'meta', 'shift', 'mod'];
 
   const freeKey = keys.find((key) => !reservedKeys.includes(key));
 
   return {
     ...modifiers,
-    key: freeKey === "[plus]" ? "+" : freeKey,
+    key: freeKey === '[plus]' ? '+' : freeKey,
   };
 }
 
-function isExactHotkey(
-  hotkey: Hotkey,
-  event: KeyboardEvent,
-  usePhysicalKeys?: boolean
-): boolean {
+function isExactHotkey(hotkey: Hotkey, event: KeyboardEvent, usePhysicalKeys?: boolean): boolean {
   const { alt, ctrl, meta, mod, shift, key } = hotkey;
-  const {
-    altKey,
-    ctrlKey,
-    metaKey,
-    shiftKey,
-    key: pressedKey,
-    code: pressedCode,
-  } = event;
+  const { altKey, ctrlKey, metaKey, shiftKey, key: pressedKey, code: pressedCode } = event;
 
   if (alt !== altKey) {
     return false;
@@ -76,7 +65,7 @@ function isExactHotkey(
   if (
     key &&
     ((!usePhysicalKeys && pressedKey.toLowerCase() === key.toLowerCase()) ||
-      pressedCode.replace("Key", "").toLowerCase() === key.toLowerCase())
+      pressedCode.replace('Key', '').toLowerCase() === key.toLowerCase())
   ) {
     return true;
   }
@@ -84,10 +73,7 @@ function isExactHotkey(
   return false;
 }
 
-export function getHotkeyMatcher(
-  hotkey: string,
-  usePhysicalKeys?: boolean
-): CheckHotkeyMatch {
+export function getHotkeyMatcher(hotkey: string, usePhysicalKeys?: boolean): CheckHotkeyMatch {
   return (event) => isExactHotkey(parseHotkey(hotkey), event, usePhysicalKeys);
 }
 
@@ -100,13 +86,9 @@ type HotkeyItem = [string, (event: unknown) => void, HotkeyItemOptions?];
 
 export function getHotkeyHandler(hotkeys: HotkeyItem[]) {
   return (event: React.KeyboardEvent<HTMLElement> | KeyboardEvent) => {
-    const _event = "nativeEvent" in event ? event.nativeEvent : event;
+    const _event = 'nativeEvent' in event ? event.nativeEvent : event;
     hotkeys.forEach(
-      ([
-        hotkey,
-        handler,
-        options = { preventDefault: true, usePhysicalKeys: false },
-      ]) => {
+      ([hotkey, handler, options = { preventDefault: true, usePhysicalKeys: false }]) => {
         if (getHotkeyMatcher(hotkey, options.usePhysicalKeys)(_event)) {
           if (options.preventDefault) {
             event.preventDefault();
@@ -114,7 +96,7 @@ export function getHotkeyHandler(hotkeys: HotkeyItem[]) {
 
           handler(_event);
         }
-      }
+      },
     );
   };
 }

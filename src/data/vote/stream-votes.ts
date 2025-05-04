@@ -1,17 +1,10 @@
-import { type Vote } from "@/domain/vote/types";
-import { onSnapshot, query, where } from "firebase/firestore";
-import { votesCollection } from "../firestore";
-import { voteMapper } from "./mapper";
+import { type Vote } from '@/domain/vote/types';
+import { onSnapshot, query, where } from 'firebase/firestore';
+import { votesCollection } from '../firestore';
+import { voteMapper } from './mapper';
 
-export function streamVotes(
-  roundId: string,
-  callback: (votes: Vote[]) => void
-) {
-  const q = query(
-    votesCollection,
-    where("roundId", "==", roundId),
-    where("updatedAt", "!=", null)
-  );
+export function streamVotes(roundId: string, callback: (votes: Vote[]) => void) {
+  const q = query(votesCollection, where('roundId', '==', roundId), where('updatedAt', '!=', null));
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     const votes: Vote[] = [];
 

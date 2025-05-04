@@ -1,19 +1,19 @@
-import Loading from "@/components/loading";
-import { useStreamParticipants } from "@/hooks/participant/use-stream-participants";
-import { useRevealRound } from "@/hooks/round/use-reveal-round";
-import { useStartNewRound } from "@/hooks/round/use-start-new-round";
-import { useStreamActiveRound } from "@/hooks/round/use-stream-active-round";
-import { useCastOrUpdateVote } from "@/hooks/vote/use-cast-or-update-vote";
-import { useGetParticipantVoteByRoundId } from "@/hooks/vote/use-get-participant-vote-by-round-id";
-import { useStreamVotes } from "@/hooks/vote/use-stream-votes";
-import { getCards } from "@/shared/card/utils";
-import { useQueryClient } from "@tanstack/react-query";
-import { useCallback, useMemo } from "react";
-import { useParticipant } from "../participant";
-import { useSession } from "../session";
-import { GameContext } from "./game-context";
-import { type GameProviderProps } from "./types";
-import { mapParticipantsToVotes } from "./utils";
+import Loading from '@/components/loading';
+import { useStreamParticipants } from '@/hooks/participant/use-stream-participants';
+import { useRevealRound } from '@/hooks/round/use-reveal-round';
+import { useStartNewRound } from '@/hooks/round/use-start-new-round';
+import { useStreamActiveRound } from '@/hooks/round/use-stream-active-round';
+import { useCastOrUpdateVote } from '@/hooks/vote/use-cast-or-update-vote';
+import { useGetParticipantVoteByRoundId } from '@/hooks/vote/use-get-participant-vote-by-round-id';
+import { useStreamVotes } from '@/hooks/vote/use-stream-votes';
+import { getCards } from '@/shared/card/utils';
+import { useQueryClient } from '@tanstack/react-query';
+import { useCallback, useMemo } from 'react';
+import { useParticipant } from '../participant';
+import { useSession } from '../session';
+import { GameContext } from './game-context';
+import { type GameProviderProps } from './types';
+import { mapParticipantsToVotes } from './utils';
 
 export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const queryClient = useQueryClient();
@@ -22,13 +22,12 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const revealRoundMutation = useRevealRound();
 
   const { round } = useStreamActiveRound(session.id);
-  const { data: voteData, isLoading: isVoteLoading } =
-    useGetParticipantVoteByRoundId({
-      roundId: round?.id ?? "",
-      participantId: participant?.id ?? "",
-    });
+  const { data: voteData, isLoading: isVoteLoading } = useGetParticipantVoteByRoundId({
+    roundId: round?.id ?? '',
+    participantId: participant?.id ?? '',
+  });
   const { participants } = useStreamParticipants(session.id);
-  const { votes } = useStreamVotes(round?.id ?? "");
+  const { votes } = useStreamVotes(round?.id ?? '');
 
   const castOrUpdateVoteMutation = useCastOrUpdateVote();
   const startNewRoundMutation = useStartNewRound();
@@ -37,20 +36,20 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     async (value: number) => {
       await castOrUpdateVoteMutation.mutateAsync(
         {
-          participantId: participant?.id ?? "",
-          roundId: round?.id ?? "",
+          participantId: participant?.id ?? '',
+          roundId: round?.id ?? '',
           value,
         },
         {
           onSuccess: () => {
             queryClient.refetchQueries({
-              queryKey: ["vote", round?.id, participant?.id],
+              queryKey: ['vote', round?.id, participant?.id],
             });
           },
-        }
+        },
       );
     },
-    [castOrUpdateVoteMutation, participant?.id, round?.id, queryClient]
+    [castOrUpdateVoteMutation, participant?.id, round?.id, queryClient],
   );
 
   const revealRound = useCallback(async () => {
@@ -79,16 +78,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       revealRound: revealRound,
       startNewRound: startNewRound,
     }),
-    [
-      cards,
-      participants,
-      votes,
-      round,
-      voteData,
-      castVote,
-      revealRound,
-      startNewRound,
-    ]
+    [cards, participants, votes, round, voteData, castVote, revealRound, startNewRound],
   );
 
   if (isVoteLoading || !round || participants.length === 0) {

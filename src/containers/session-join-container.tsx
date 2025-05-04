@@ -1,11 +1,11 @@
-import SessionJoinForm from "@/components/form/session-join.form";
-import { useCreateParticipant } from "@/hooks/participant/use-create-participant";
-import { useAuth } from "@/providers/auth";
-import { useSession } from "@/providers/session";
-import { type JoinSessionInput, JoinSessionSchema } from "@/types/schema.types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { generatePath, useNavigate } from "react-router";
+import SessionJoinForm from '@/components/form/session-join.form';
+import { useCreateParticipant } from '@/hooks/participant/use-create-participant';
+import { useAuth } from '@/providers/auth';
+import { useSession } from '@/providers/session';
+import { type JoinSessionInput, JoinSessionSchema } from '@/types/schema.types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { generatePath, useNavigate } from 'react-router';
 
 export default function SessionJoinContainer() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export default function SessionJoinContainer() {
   const { id: sessionId } = useSession();
   const form = useForm<JoinSessionInput>({
     defaultValues: {
-      name: "",
+      name: '',
     },
     resolver: zodResolver(JoinSessionSchema),
   });
@@ -27,13 +27,13 @@ export default function SessionJoinContainer() {
     const participant = await createParticipantMutation.mutateAsync({
       sessionId: sessionId,
       uid: user.user.uid,
-      role: "player",
+      role: 'player',
       displayName: data.name,
     });
 
     // STEP 3: Navigate to game
     if (participant) {
-      navigate(generatePath("/game/:gameId", { gameId: sessionId }));
+      navigate(generatePath('/game/:gameId', { gameId: sessionId }));
     }
   };
 

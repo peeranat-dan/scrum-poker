@@ -1,16 +1,14 @@
-import { ParticipantSchema } from "@/domain/participant/schemas";
-import { type Participant } from "@/domain/participant/types";
-import { assertValid } from "@/shared/zod/utils";
-import { type DocumentData, type DocumentSnapshot } from "firebase/firestore";
-import { type ParticipantDoc } from "./types";
+import { ParticipantSchema } from '@/domain/participant/schemas';
+import { type Participant } from '@/domain/participant/types';
+import { assertValid } from '@/shared/zod/utils';
+import { type DocumentData, type DocumentSnapshot } from 'firebase/firestore';
+import { type ParticipantDoc } from './types';
 
-function toParticipant(
-  doc: DocumentSnapshot<ParticipantDoc, DocumentData>
-): Participant {
+function toParticipant(doc: DocumentSnapshot<ParticipantDoc, DocumentData>): Participant {
   const data = doc.data();
 
   if (!data) {
-    throw new Error("Participant not found");
+    throw new Error('Participant not found');
   }
 
   return assertValid(ParticipantSchema, {

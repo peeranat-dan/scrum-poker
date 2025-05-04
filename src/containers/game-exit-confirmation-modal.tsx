@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -6,24 +6,24 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { useParticipant } from "@/providers/participant";
-import { useSession } from "@/providers/session";
-import { useMemo } from "react";
-import { useBeforeUnload, useBlocker } from "react-router";
+} from '@/components/ui/dialog';
+import { useParticipant } from '@/providers/participant';
+import { useSession } from '@/providers/session';
+import { useMemo } from 'react';
+import { useBeforeUnload, useBlocker } from 'react-router';
 
 export default function GameExitConfirmationModal() {
   const { status: sessionStatus } = useSession();
   const { participant } = useParticipant();
 
   const shouldOpenModal = useMemo(() => {
-    return sessionStatus === "active" && participant?.status === "active";
+    return sessionStatus === 'active' && participant?.status === 'active';
   }, [participant?.status, sessionStatus]);
 
   // NOTE: Block for client side navigation
   const blocker = useBlocker(({ nextLocation, currentLocation }) => {
     if (
-      nextLocation.pathname.includes("/settings") ||
+      nextLocation.pathname.includes('/settings') ||
       nextLocation.pathname === currentLocation.pathname
     ) {
       return false;
@@ -40,7 +40,7 @@ export default function GameExitConfirmationModal() {
   });
 
   return (
-    <Dialog open={blocker.state === "blocked"} onOpenChange={blocker.proceed}>
+    <Dialog open={blocker.state === 'blocked'} onOpenChange={blocker.proceed}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Leave the game already?</DialogTitle>

@@ -5,7 +5,7 @@ on:
     branches:
       - develop
     paths:
-      - "firestore.rules"
+      - 'firestore.rules'
 
 jobs:
   deploy-firestore-rules:
@@ -19,12 +19,12 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
-      - uses: "google-github-actions/auth@v2"
+      - uses: 'google-github-actions/auth@v2'
         with:
-          credentials_json: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_NPRD_SCRUM_POKER }}"
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NPRD_SCRUM_POKER }}'
       - name: Deploy firestore rules
         run: firebase deploy -f --only firestore:rules --project nprd-scrum-poker

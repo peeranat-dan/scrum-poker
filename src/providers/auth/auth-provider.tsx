@@ -1,10 +1,10 @@
-import { auth } from "@/data/auth";
-import { useAnonymousLogin } from "@/hooks/auth/use-anonymous-login";
-import { useSignOut } from "@/hooks/auth/use-sign-out";
-import { type User } from "@/shared/firebase/types";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { AuthContext } from "./auth-context";
-import { type AuthProviderProps } from "./types";
+import { auth } from '@/data/auth';
+import { useAnonymousLogin } from '@/hooks/auth/use-anonymous-login';
+import { useSignOut } from '@/hooks/auth/use-sign-out';
+import { type User } from '@/shared/firebase/types';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { AuthContext } from './auth-context';
+import { type AuthProviderProps } from './types';
 
 export function AuthProvider({ children }: Readonly<AuthProviderProps>) {
   const [user, setUser] = useState<User | null>(null);
@@ -36,7 +36,7 @@ export function AuthProvider({ children }: Readonly<AuthProviderProps>) {
       signInAnonymously,
       signOut,
     }),
-    [user, isLoading, signInAnonymously, signOut]
+    [user, isLoading, signInAnonymously, signOut],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

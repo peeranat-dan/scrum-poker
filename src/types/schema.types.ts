@@ -1,18 +1,18 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 const sessionNameSchema = z
   .string()
   .trim()
-  .min(1, "Session name is required")
-  .max(20, "Session name is too long");
+  .min(1, 'Session name is required')
+  .max(20, 'Session name is too long');
 
 const playerNameSchema = z
   .string()
   .trim()
-  .min(1, "Display name is required")
-  .max(20, "Display name is too long");
+  .min(1, 'Display name is required')
+  .max(20, 'Display name is too long');
 
-const votingSystemSchema = z.enum(["fibonacci", "t-shirt"]);
+const votingSystemSchema = z.enum(['fibonacci', 't-shirt']);
 
 export const CreateSessionSchema = z.object({
   name: sessionNameSchema,

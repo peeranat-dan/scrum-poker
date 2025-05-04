@@ -1,28 +1,27 @@
-import { useHotkeys } from "@/hooks/use-hotkeys/use-hotkeys";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { ThemeContext } from "./theme-context";
-import { type Theme, type ThemeProviderProps } from "./types";
+import { useHotkeys } from '@/hooks/use-hotkeys/use-hotkeys';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { ThemeContext } from './theme-context';
+import { type Theme, type ThemeProviderProps } from './types';
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
-  storageKey = "vite-ui-theme",
+  defaultTheme = 'system',
+  storageKey = 'vite-ui-theme',
   ...props
 }: Readonly<ThemeProviderProps>) {
   const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
   );
 
   useEffect(() => {
     const root = window.document.documentElement;
 
-    root.classList.remove("light", "dark");
+    root.classList.remove('light', 'dark');
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
+    if (theme === 'system') {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
 
       root.classList.add(systemTheme);
       return;
@@ -32,18 +31,17 @@ export function ThemeProvider({
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-      setTheme(systemTheme === "dark" ? "light" : "dark");
+    if (theme === 'system') {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+      setTheme(systemTheme === 'dark' ? 'light' : 'dark');
     } else {
-      setTheme(theme === "dark" ? "light" : "dark");
+      setTheme(theme === 'dark' ? 'light' : 'dark');
     }
   }, [theme]);
 
-  useHotkeys([["mod+shift+l", toggleTheme]]);
+  useHotkeys([['mod+shift+l', toggleTheme]]);
 
   const value = useMemo(
     () => ({
@@ -53,7 +51,7 @@ export function ThemeProvider({
         setTheme(theme);
       },
     }),
-    [theme, setTheme, storageKey]
+    [theme, setTheme, storageKey],
   );
 
   return (
