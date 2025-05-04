@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useHotkeys } from "@/hooks/use-hotkeys/use-hotkeys";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ThemeContext } from "./theme-context";
 import { type Theme, type ThemeProviderProps } from "./types";
 
@@ -29,6 +30,20 @@ export function ThemeProvider({
 
     root.classList.add(theme);
   }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    if (theme === "system") {
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "dark"
+        : "light";
+      setTheme(systemTheme === "dark" ? "light" : "dark");
+    } else {
+      setTheme(theme === "dark" ? "light" : "dark");
+    }
+  }, [theme]);
+
+  useHotkeys([["mod+shift+l", toggleTheme]]);
 
   const value = useMemo(
     () => ({
