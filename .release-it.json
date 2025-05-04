@@ -1,0 +1,29 @@
+{
+    "$schema": "https://unpkg.com/release-it@19/schema/release-it.json",
+    "plugins": {
+        "@release-it/conventional-changelog": {
+            "infile": "CHANGELOG.md",
+            "preset": {
+                "name": "angular",
+                "type": [
+                    {
+                        "type": "feat",
+                        "section": "Features"
+                    },
+                    {
+                        "type": "fix",
+                        "section": "Bug Fixes"
+                    }
+                ]
+            }
+        },
+        "release-it-pnpm": {}
+    },
+    "git": {
+        "commitMessage": "chore: release ${version}",
+        "requireBranch": "main"
+    },
+    "npm": {
+        "publish": false
+    }
+}
