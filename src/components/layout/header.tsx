@@ -1,3 +1,4 @@
+import config from '@/config';
 import { Link } from 'react-router';
 import { Icons } from '../icons/icons';
 import Logo from '../logo';
@@ -14,7 +15,7 @@ export default function Header() {
         </Link>
         <div className='ml-auto flex h-full items-center gap-1 md:gap-2'>
           <Button asChild variant='ghost' size='icon'>
-            <Link to={import.meta.env.VITE_GITHUB_URL} target='_blank' rel='noopener noreferrer'>
+            <Link to={config.app.githubUrl} target='_blank' rel='noopener noreferrer'>
               <Icons.gitHub />
             </Link>
           </Button>

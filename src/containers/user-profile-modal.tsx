@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import config from '@/config';
 import { useParticipant } from '@/providers/participant';
 import { type UserProfileInput, UserProfileSchema } from '@/types/schema.types';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,13 +18,13 @@ export default function UserProfileModal() {
   const form = useForm<UserProfileInput>({
     resolver: zodResolver(UserProfileSchema),
     defaultValues: {
-      displayName: participant?.displayName ?? import.meta.env.VITE_GAME_DEFAULT_PARTICIPANT_NAME,
+      displayName: participant?.displayName ?? config.game.defaultParticipantName,
     },
   });
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (participant?.displayName === import.meta.env.VITE_GAME_DEFAULT_PARTICIPANT_NAME) {
+    if (participant?.displayName === config.game.defaultParticipantName) {
       setIsOpen(true);
     }
   }, [participant]);
