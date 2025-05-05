@@ -11,7 +11,7 @@ export async function updateVoteValue(input: UpdateVoteValueInput) {
   const { id, value } = assertValid(UpdateVoteValueSchema, input);
 
   const vote = await getVote(id);
-  const round = await getRound(vote.roundId);
+  const round = await getRound(vote?.roundId ?? '');
 
   canUpdateVoteValue(round, vote);
 

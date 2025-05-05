@@ -6,7 +6,7 @@ import { type Round } from '../types';
 describe('round rules', () => {
   describe('assertRoundExists', () => {
     it('throws error when round is null', () => {
-      expect(() => assertRoundExists(null)).toThrowError(new Error('No previous round found'));
+      expect(() => assertRoundExists(null)).toThrowError(new Error('Round not found'));
     });
 
     it('does not throw when round exists', () => {
@@ -17,7 +17,7 @@ describe('round rules', () => {
 
   describe('canStartNewRound', () => {
     it('throws error when round is null', () => {
-      expect(() => canStartNewRound(null)).toThrowError(new Error('No previous round found'));
+      expect(() => canStartNewRound(null)).toThrowError(new Error('Round not found'));
     });
 
     it('throws error when round is not revealed', () => {

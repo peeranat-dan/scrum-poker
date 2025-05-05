@@ -11,5 +11,9 @@ export async function searchParticipants(input: SearchParticipantInput) {
   const q = query(participantsCollection, ...constraints);
   const snapshot = await getDocs(q);
 
+  if (snapshot.empty) {
+    return [];
+  }
+
   return snapshot.docs.map((doc) => participantMapper.toParticipant(doc));
 }
