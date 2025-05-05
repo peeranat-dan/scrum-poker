@@ -7,6 +7,20 @@ on:
     tags:
       - '*.*.*'
 jobs:
+  check_for_firestore_changes:
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.changed-firestore-files.outputs.any_changed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify Changed files
+        uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c # v46
+        id: changed-firestore-files
+        with:
+          files: |
+            firestore.rules
+            firestore.indexes.json
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
@@ -30,3 +44,15 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NPRD_SCRUM_POKER_PROD }}
           channelId: live
           projectId: nprd-scrum-poker-prod
+  deploy_firestore:
+    runs-on: ubuntu-latest
+    if: ${{ needs.check_for_firestore_changes.outputs.should_run == 'true' }}
+    needs: check_for_firestore_changes
+    steps:
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+      - uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NPRD_SCRUM_POKER_PROD }}'
+      - name: Deploy firestore rules and indexes
+        run: firebase deploy -f --only firestore --project nprd-scrum-poker-prod
