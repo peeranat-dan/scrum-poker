@@ -1,7 +1,7 @@
 import { type Round } from '../round/types';
 import { type Vote } from './types';
 
-export function canCastOrUpdateVote(round: Round) {
+export function canCastOrUpdateVote(round: Round | null) {
   if (!round) {
     throw new Error('Round not found');
   }
@@ -11,7 +11,7 @@ export function canCastOrUpdateVote(round: Round) {
   return true;
 }
 
-export function canCastVote(round: Round) {
+export function canCastVote(round: Round | null) {
   if (!round) {
     throw new Error('Round not found');
   }
@@ -21,7 +21,7 @@ export function canCastVote(round: Round) {
   return true;
 }
 
-export function canUpdateVoteValue(round: Round, vote: Vote) {
+export function canUpdateVoteValue(round: Round, vote: Vote | null) {
   if (!vote) {
     throw new Error('Vote not found');
   }
