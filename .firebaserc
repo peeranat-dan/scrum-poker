@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "nprd-scrum-poker"
+    "default": "nprd-scrum-poker",
+    "prod": "nprd-scrum-poker-prod"
   }
 }
