@@ -11,7 +11,9 @@
     "preview": "vite preview",
     "prepare": "husky",
     "predeploy:web": "pnpm build",
-    "deploy:web": "firebase deploy --only hosting",
+    "deploy:web": "firebase use default && firebase deploy --only hosting",
+    "predeploy:web-prod": "pnpm build --mode prod",
+    "deploy:web-prod": "firebase use prod && firebase deploy --only hosting",
     "release": "release-it",
     "format": "prettier --write ."
   },
