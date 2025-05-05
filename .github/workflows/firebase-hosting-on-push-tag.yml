@@ -22,11 +22,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - run: |
-          echo "${{ secrets.CLIENT_ENV }}" > .env
+          echo "${{ secrets.PROD_CLIENT_ENV }}" > .env
       - run: pnpm build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NPRD_SCRUM_POKER }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NPRD_SCRUM_POKER_PROD }}
           channelId: live
-          projectId: nprd-scrum-poker
+          projectId: nprd-scrum-poker-prod
