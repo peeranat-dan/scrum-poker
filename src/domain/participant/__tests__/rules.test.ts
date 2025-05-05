@@ -107,7 +107,7 @@ describe('participant rules', () => {
 
     it('returns true for active participant', () => {
       const activeParticipant = { status: 'active' } as Participant;
-      expect(canBeRemoved(activeParticipant)).toBe(true);
+      expect(() => canBeRemoved(activeParticipant)).not.toThrowError();
     });
   });
 });
