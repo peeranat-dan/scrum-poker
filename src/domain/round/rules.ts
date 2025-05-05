@@ -1,7 +1,7 @@
 import { type Round } from './types';
 
 export function assertRoundExists(round: Round | null): asserts round is Round {
-  if (!round) throw new Error('No previous round found');
+  if (!round) throw new Error('Round not found');
 }
 
 /**
