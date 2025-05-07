@@ -34,10 +34,11 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
 
   const castVote = useCallback(
     async (value: number) => {
+      if (!participant || !round) return;
       await castOrUpdateVoteMutation.mutateAsync(
         {
-          participantId: participant?.id ?? '',
-          roundId: round?.id ?? '',
+          participantId: participant.id,
+          roundId: round.id,
           value,
         },
         {
@@ -49,7 +50,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
         },
       );
     },
-    [castOrUpdateVoteMutation, participant?.id, round?.id, queryClient],
+    [participant, round, castOrUpdateVoteMutation, queryClient],
   );
 
   const revealRound = useCallback(async () => {
