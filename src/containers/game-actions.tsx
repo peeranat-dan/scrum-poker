@@ -8,7 +8,7 @@ import SessionLeaveButton from './session-leave-button';
 
 export default function GameActions() {
   const { participant } = useParticipant();
-  const { round, revealRound, startNewRound, participants } = useGame();
+  const { round, revealRound, revoteRound, startNewRound, participants } = useGame();
 
   const handleCopyJoinLink = () => {
     if (participant?.sessionId) {
@@ -26,25 +26,29 @@ export default function GameActions() {
 
   if (participant?.role === 'owner') {
     return (
-      <div className='flex items-center justify-center gap-2'>
+      <>
         {round?.status === 'in-progress' ? (
-          <Button onClick={revealRound} disabled={shouldDisableRevealVoteButton}>
+          <Button onClick={revealRound} disabled={shouldDisableRevealVoteButton} className='w-full'>
             Reveal Vote
           </Button>
         ) : (
-          <Button onClick={startNewRound}>Start New Round</Button>
+          <>
+            <Button onClick={startNewRound} className='flex-1'>
+              Start New Round
+            </Button>
+            <Button onClick={revoteRound} variant='outline'>
+              Revote
+            </Button>
+          </>
         )}
-        <Button onClick={handleCopyJoinLink} variant='ghost'>
-          Invite Players
-        </Button>
-      </div>
+      </>
     );
   }
 
   return (
-    <div className='flex items-center justify-center gap-2'>
+    <>
       <Button onClick={handleCopyJoinLink}>Invite Players</Button>
       <SessionLeaveButton />
-    </div>
+    </>
   );
 }
