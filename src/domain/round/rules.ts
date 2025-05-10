@@ -16,3 +16,11 @@ export function canStartNewRound(latestRound: Round | null): asserts latestRound
     throw new Error('Latest round is not revealed');
   }
 }
+
+export function canRevoteRound(round: Round | null): asserts round is Round {
+  assertRoundExists(round);
+
+  if (round.status !== 'revealed') {
+    throw new Error('Round is not revealed');
+  }
+}
