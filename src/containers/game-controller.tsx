@@ -57,7 +57,7 @@ export default function GameController() {
             </div>
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className='gap-2'>
           <GameActions />
         </CardFooter>
       </Card>
