@@ -15,7 +15,10 @@
     "predeploy:web-prod": "pnpm build --mode prod",
     "deploy:web-prod": "firebase use prod && firebase deploy --only hosting",
     "release": "release-it",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test:e2e": "playwright test",
+    "test:e2e:staging": "TEST_ENV=staging playwright test",
+    "test:e2e:prod": "TEST_ENV=production playwright test"
   },
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.2.5",
@@ -56,6 +59,7 @@
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@eslint/js": "^9.26.0",
+    "@playwright/test": "^1.52.0",
     "@release-it/conventional-changelog": "^10.0.1",
     "@tanstack/eslint-plugin-query": "^5.74.7",
     "@types/big.js": "^6.2.2",
