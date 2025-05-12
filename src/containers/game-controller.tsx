@@ -20,8 +20,8 @@ export default function GameController() {
   );
 
   return (
-    <div>
-      <Card className='relative w-full overflow-hidden sm:w-[350px]'>
+    <div className='w-full'>
+      <Card className='relative mx-auto w-full overflow-hidden sm:w-[350px]'>
         <CardHeader>
           <CardTitle>{sessionName}</CardTitle>
         </CardHeader>
