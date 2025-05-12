@@ -3,7 +3,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { useGame } from '@/providers/game';
 import { useParticipant } from '@/providers/participant';
 import { useSession } from '@/providers/session';
-import { InfoIcon } from 'lucide-react';
+import { InfoIcon, ThumbsUpIcon } from 'lucide-react';
 import { useMemo } from 'react';
 import GameActions from './game-actions';
 
@@ -40,15 +40,23 @@ export default function GameController() {
                       <InfoIcon className='size-4' />
                     </TooltipTrigger>
                     <TooltipContent side='bottom'>
-                      <p>Person who hasn't vote</p>
-                      <ul className='m-0 px-4 py-1'>
-                        {participantsWithNoVotes.map((p) => (
-                          <li key={p.id}>
-                            <span>{p.displayName}</span>
-                            <span> {p.id === participant?.id ? '(You)' : ''}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      {participantsWithNoVotes.length ? (
+                        <>
+                          <p>Person who hasn't vote</p>
+                          <ul className='m-0 px-4 py-1'>
+                            {participantsWithNoVotes.map((p) => (
+                              <li key={p.id}>
+                                <span>{p.displayName}</span>
+                                <span> {p.id === participant?.id ? '(You)' : ''}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      ) : (
+                        <div className='flex items-center gap-2'>
+                          Everyone has voted <ThumbsUpIcon className='size-4' />
+                        </div>
+                      )}
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
