@@ -40,8 +40,10 @@ export default function GameParticipants() {
           <div
             className={cn(
               'bg-card text-foreground flex aspect-[2/3] w-24 shrink-0 items-center justify-center rounded-md border text-center font-mono text-2xl font-semibold shadow-md',
+              'origin-[center_bottom] rotate-y-[360deg] transition-all',
               getCardColor(cards, participant.vote, round?.status),
               typeof participant.vote === 'undefined' && 'bg-accent text-accent-foreground',
+              round?.status === 'revealed' && 'rotate-y-0',
             )}
           >
             {getVoteValue(cards, participant.vote, round?.status)}
