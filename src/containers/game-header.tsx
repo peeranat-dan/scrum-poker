@@ -38,9 +38,10 @@ export default function GameHeader() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger onClick={handleCopyJoinLink}>
-              <div className='bg-primary/30 dark:bg-accent hidden cursor-pointer items-center gap-2 rounded-full px-4 py-2 md:flex'>
+              <div className='bg-primary/30 dark:bg-accent flex cursor-pointer items-center gap-2 rounded-full px-4 py-2'>
                 <Link className='h-4 w-4' />
-                <span className='font-mono text-sm'>{id}</span>
+                <span className='hidden font-mono text-sm md:block'>{id}</span>
+                <span className='block font-mono text-sm md:hidden'>{id.substring(0, 8)}</span>
               </div>
             </TooltipTrigger>
             <TooltipContent>
