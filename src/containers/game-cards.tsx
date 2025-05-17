@@ -15,6 +15,13 @@ export default function GameCards() {
             card.color,
             vote?.value === card.value && 'scale-110 hover:scale-110',
           )}
+          role='button'
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.code === 'Enter' || e.key === ' ' || e.code === 'Space') {
+              castVote(card.value);
+            }
+          }}
         >
           {card.displayValue}
         </li>
