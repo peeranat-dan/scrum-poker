@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Separator } from '@/components/ui/separator';
 import { useGame } from '@/providers/game';
 import { useParticipant } from '@/providers/participant';
 import { useSession } from '@/providers/session';
@@ -27,17 +28,19 @@ export default function GameController() {
           <CardTitle>{sessionName}</CardTitle>
         </CardHeader>
         <CardContent className='flex flex-col items-center justify-center gap-4'>
-          <div className='flex w-full items-center gap-4'>
-            <div className='flex basis-1/2 flex-col gap-2'>
+          <div className='flex h-16 w-full items-center gap-4'>
+            <div className='flex basis-1/2 flex-col gap-2 text-center'>
+              <p className='text-lg font-semibold'>{participants.length}</p>
               <p className='text-sm font-semibold'>Players</p>
-              <p className='text-sm'>{participants.length}</p>
             </div>
-            <div className='flex basis-1/2 flex-col gap-2'>
-              <div className='flex items-center gap-1'>
+            <Separator orientation='vertical' />
+            <div className='flex basis-1/2 flex-col gap-2 text-center'>
+              <p className='text-lg font-semibold'>{votes.length}</p>
+              <div className='flex items-center justify-center gap-1'>
                 <p className='text-sm font-semibold'>Votes</p>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button variant='ghost' size='icon'>
+                    <Button variant='ghost' size='icon' className='size-6'>
                       <InfoIcon className='size-4' />
                     </Button>
                   </PopoverTrigger>
@@ -55,14 +58,13 @@ export default function GameController() {
                         </ul>
                       </>
                     ) : (
-                      <div className='flex items-center gap-2'>
+                      <div className='flex items-center gap-2 text-sm'>
                         Everyone has voted <ThumbsUpIcon className='size-4' />
                       </div>
                     )}
                   </PopoverContent>
                 </Popover>
               </div>
-              <p className='text-sm'>{votes.length}</p>
             </div>
           </div>
         </CardContent>
