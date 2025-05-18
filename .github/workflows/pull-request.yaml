@@ -26,6 +26,7 @@ jobs:
             tsconfig
             vite.config.ts
             vitest.config.ts
+            .github/workflows/pull-request.yaml
 
   build:
     name: Build
