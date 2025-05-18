@@ -12,7 +12,9 @@ export function streamSession(
     doc(sessionsCollection, sessionId),
     (doc) => {
       if (doc.exists()) {
-        const data = doc.data();
+        const data = doc.data({
+          serverTimestamps: 'estimate',
+        });
         callback({
           id: doc.id,
           name: data.name,

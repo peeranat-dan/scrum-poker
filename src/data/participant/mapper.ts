@@ -5,7 +5,9 @@ import { type DocumentData, type DocumentSnapshot } from 'firebase/firestore';
 import { type ParticipantDoc } from './types';
 
 function toParticipant(doc: DocumentSnapshot<ParticipantDoc, DocumentData>): Participant {
-  const data = doc.data();
+  const data = doc.data({
+    serverTimestamps: 'estimate',
+  });
 
   if (!data) {
     throw new Error('Participant not found');
