@@ -6,7 +6,9 @@ import { assertValid } from '@/shared/zod/utils';
 import { type RoundDoc } from './types';
 
 function toRound(doc: DocumentSnapshot<RoundDoc, DocumentData>): Round {
-  const data = doc.data();
+  const data = doc.data({
+    serverTimestamps: 'estimate',
+  });
 
   if (!data) {
     throw new Error('Round not found');
