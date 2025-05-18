@@ -3,7 +3,7 @@ import { cn } from '@/lib/cn';
 import { useGame } from '@/providers/game';
 import { type Card } from '@/shared/card/types';
 import { useParticipant } from '../providers/participant';
-import ParticipantEditNameButton from './participant-edit-name-button';
+import EditUserProfileButton from './edit-user-profile-button';
 
 function getVoteValue(cards: Card[], voteValue?: number, roundStatus?: RoundStatus) {
   if (!roundStatus) {
@@ -42,8 +42,8 @@ export default function GameParticipants() {
           </div>
           <div className='relative'>
             {participant.id === currentParticipant?.id && (
-              <div className='absolute -top-0 -right-0 z-10'>
-                <ParticipantEditNameButton />
+              <div className='absolute top-0 right-0 z-10'>
+                <EditUserProfileButton />
               </div>
             )}
             <div
