@@ -124,6 +124,7 @@ jobs:
         with:
           recreate: true
           path: formatted-trivy-result.md
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Clean up Trivy result file
         run: rm -f trivy.txt formatted-trivy-result.md
