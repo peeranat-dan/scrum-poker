@@ -10,10 +10,14 @@ import config from '@/config';
 import { useParticipant } from '@/providers/participant';
 import { type UserProfileInput, UserProfileSchema } from '@/types/schema.types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function UserProfileModal() {
+interface UserProfileModalProps {
+  isOpen?: boolean;
+  setIsOpen?: (isOpen: boolean) => void;
+}
+
+export default function UserProfileModal({ isOpen, setIsOpen }: UserProfileModalProps = {}) {
   const { participant, updateParticipantName } = useParticipant();
   const form = useForm<UserProfileInput>({
     resolver: zodResolver(UserProfileSchema),
@@ -21,21 +25,14 @@ export default function UserProfileModal() {
       displayName: participant?.displayName ?? config.game.defaultParticipantName,
     },
   });
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    if (participant?.displayName === config.game.defaultParticipantName) {
-      setIsOpen(true);
-    }
-  }, [participant]);
 
   const onSubmit = (data: UserProfileInput) => {
     updateParticipantName(data.displayName);
-    setIsOpen(false);
+    setIsOpen?.(false);
   };
 
   return (
-    <Dialog defaultOpen={isOpen} open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit your profile</DialogTitle>

@@ -2,7 +2,6 @@ import GameArea from '@/containers/game-area';
 import GameController from '@/containers/game-controller';
 import GameExitConfirmationModal from '@/containers/game-exit-confirmation-modal';
 import GameParticipants from '@/containers/game-participants';
-import UserProfileModal from '@/containers/user-profile-modal';
 import { useParticipant } from '@/providers/participant';
 import { generatePath, Navigate, useParams } from 'react-router';
 
@@ -23,7 +22,6 @@ export default function GamePage() {
       <div className='no-scrollbar fixed bottom-0 flex w-full items-center justify-center overflow-x-scroll lg:absolute'>
         <GameArea />
       </div>
-      <UserProfileModal />
       <GameExitConfirmationModal />
     </div>
   );
