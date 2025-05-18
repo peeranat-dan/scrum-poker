@@ -104,27 +104,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Trivy vulnerability scanner in repo mode
-        uses: aquasecurity/trivy-action@0.30.0
+        uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: 'fs'
           ignore-unfixed: true
-          output: trivy.txt
+          format: 'sarif'
+          output: 'trivy-results.sarif'
           severity: 'CRITICAL'
 
-      - name: Format Trivy Scan Result
-        run: |
-          if [ -s trivy.txt ]; then
-            echo -e "## Vulnerability Scan Results\n<details><summary>Details</summary>\n\n\`\`\`\n$(cat trivy.txt)\n\`\`\`\n</details>" > formatted-trivy-result.md
-          else
-            echo -e "## Vulnerability Scan Results\nNo vulnerabilities were detected." > formatted-trivy-result.md
-          fi
-
-      - name: Comment PR with Trivy scan results
-        uses: marocchino/sticky-pull-request-comment@v2
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          recreate: true
-          path: formatted-trivy-result.md
-          GITHUB_TOKEN: ${{ secrets.SCRUM_POKER_TOKEN }}
-
-      - name: Clean up Trivy result file
-        run: rm -f trivy.txt formatted-trivy-result.md
+          sarif_file: 'trivy-results.sarif'
