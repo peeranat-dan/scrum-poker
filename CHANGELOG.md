@@ -1,5 +1,7 @@
 # Changelog
 
+# [1.1.0](https://github.com/peeranat-dan/scrum-poker/compare/1.0.0...1.1.0) (2025-05-19)
+
 # 1.0.0 (2025-05-04)
 
 
