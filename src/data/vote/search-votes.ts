@@ -11,5 +11,9 @@ export async function searchVotes(input: SearchVoteInput) {
   const q = query(votesCollection, ...constraints);
   const snapshot = await getDocs(q);
 
+  if (snapshot.empty) {
+    return [];
+  }
+
   return snapshot.docs.map((doc) => voteMapper.toVote(doc));
 }

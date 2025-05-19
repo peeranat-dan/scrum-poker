@@ -1,6 +1,7 @@
 import Loading from '@/components/loading';
 import { useStreamParticipants } from '@/hooks/participant/use-stream-participants';
 import { useRevealRound } from '@/hooks/round/use-reveal-round';
+import { useRevoteRound } from '@/hooks/round/use-revote-round';
 import { useStartNewRound } from '@/hooks/round/use-start-new-round';
 import { useStreamActiveRound } from '@/hooks/round/use-stream-active-round';
 import { useCastOrUpdateVote } from '@/hooks/vote/use-cast-or-update-vote';
@@ -20,6 +21,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
   const session = useSession();
   const { participant } = useParticipant();
   const revealRoundMutation = useRevealRound();
+  const revoteRoundMutation = useRevoteRound();
 
   const { round } = useStreamActiveRound(session.id);
   const { data: voteData, isLoading: isVoteLoading } = useGetParticipantVoteByRoundId({
@@ -34,10 +36,11 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
 
   const castVote = useCallback(
     async (value: number) => {
+      if (!participant || !round) return;
       await castOrUpdateVoteMutation.mutateAsync(
         {
-          participantId: participant?.id ?? '',
-          roundId: round?.id ?? '',
+          participantId: participant.id,
+          roundId: round.id,
           value,
         },
         {
@@ -49,7 +52,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
         },
       );
     },
-    [castOrUpdateVoteMutation, participant?.id, round?.id, queryClient],
+    [participant, round, castOrUpdateVoteMutation, queryClient],
   );
 
   const revealRound = useCallback(async () => {
@@ -57,6 +60,12 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       revealRoundMutation.mutateAsync(round.id);
     }
   }, [revealRoundMutation, round]);
+
+  const revoteRound = useCallback(async () => {
+    if (round) {
+      revoteRoundMutation.mutateAsync(round.id);
+    }
+  }, [revoteRoundMutation, round]);
 
   const startNewRound = useCallback(async () => {
     if (round) {
@@ -77,8 +86,19 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       castVote: castVote,
       revealRound: revealRound,
       startNewRound: startNewRound,
+      revoteRound: revoteRound,
     }),
-    [cards, participants, votes, round, voteData, castVote, revealRound, startNewRound],
+    [
+      cards,
+      participants,
+      votes,
+      round,
+      voteData,
+      castVote,
+      revealRound,
+      startNewRound,
+      revoteRound,
+    ],
   );
 
   if (isVoteLoading || !round || participants.length === 0) {

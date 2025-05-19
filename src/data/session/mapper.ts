@@ -6,7 +6,9 @@ import { type Session } from '@/domain/session/types';
 import { assertValid } from '@/shared/zod/utils';
 
 function toSession(doc: DocumentSnapshot<SessionDoc, DocumentData>): Session {
-  const data = doc.data();
+  const data = doc.data({
+    serverTimestamps: 'estimate',
+  });
 
   if (!data) {
     throw new Error('Session not found');

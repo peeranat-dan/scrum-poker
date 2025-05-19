@@ -30,3 +30,7 @@ dist-ssr
 
 .firebase
 
+# Playwright
+/test-results/
+/playwright-report/
+/e2e/**-snapshots

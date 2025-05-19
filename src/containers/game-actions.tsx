@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useGame } from '@/providers/game';
 import { useParticipant } from '@/providers/participant';
 import { copyJoinLink } from '@/shared/utils/copy-join-link';
@@ -9,7 +8,7 @@ import SessionLeaveButton from './session-leave-button';
 
 export default function GameActions() {
   const { participant } = useParticipant();
-  const { round, revealRound, startNewRound, participants } = useGame();
+  const { round, revealRound, revoteRound, startNewRound, participants } = useGame();
 
   const handleCopyJoinLink = () => {
     if (participant?.sessionId) {
@@ -27,42 +26,29 @@ export default function GameActions() {
 
   if (participant?.role === 'owner') {
     return (
-      <div className='flex gap-2'>
+      <>
         {round?.status === 'in-progress' ? (
-          <TooltipProvider>
-            <Tooltip open={shouldDisableRevealVoteButton}>
-              <TooltipTrigger asChild>
-                <Button onClick={revealRound} disabled={shouldDisableRevealVoteButton}>
-                  Reveal Vote
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side='bottom'>
-                <p>Person who hasn't vote</p>
-                <ul className='m-0 px-4 py-1'>
-                  {participantsWithNoVotes.map((p) => (
-                    <li key={p.id}>
-                      <span>{p.displayName}</span>
-                      <span> {p.id === participant.id ? '(You)' : ''}</span>
-                    </li>
-                  ))}
-                </ul>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <Button onClick={revealRound} disabled={shouldDisableRevealVoteButton} className='w-full'>
+            Reveal Vote
+          </Button>
         ) : (
-          <Button onClick={startNewRound}>Start New Round</Button>
+          <>
+            <Button onClick={startNewRound} className='flex-1'>
+              Start New Round
+            </Button>
+            <Button onClick={revoteRound} variant='outline'>
+              Revote
+            </Button>
+          </>
         )}
-        <Button onClick={handleCopyJoinLink} variant='ghost'>
-          Invite Players
-        </Button>
-      </div>
+      </>
     );
   }
 
   return (
-    <div className='flex gap-2'>
+    <>
       <Button onClick={handleCopyJoinLink}>Invite Players</Button>
       <SessionLeaveButton />
-    </div>
+    </>
   );
 }

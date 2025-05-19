@@ -13,7 +13,7 @@ export function canManageSession(participant: Participant) {
   return participant.role === 'owner' || participant.role === 'admin';
 }
 
-export function canRejoinSession(participant: Participant, session: Session | null) {
+export function canRejoinSession(participant: Participant | null, session: Session | null) {
   assertParticipantExists(participant);
   if (participant.status !== 'left') {
     throw new Error('Participant has not left the session');
@@ -27,7 +27,7 @@ export function canRejoinSession(participant: Participant, session: Session | nu
   return true;
 }
 
-export function canLeaveSession(participant: Participant, session: Session | null) {
+export function canLeaveSession(participant: Participant | null, session: Session | null) {
   assertParticipantExists(participant);
   if (participant.status !== 'active') {
     throw new Error('Participant is not active, cannot leave the session');
@@ -41,11 +41,10 @@ export function canLeaveSession(participant: Participant, session: Session | nul
   return true;
 }
 
-export function canBeRemoved(participant: Participant) {
+export function canBeRemoved(participant: Participant | null): asserts participant is Participant {
   assertParticipantExists(participant);
 
   if (participant.status !== 'active') {
     throw new Error('Participant is not active, cannot be removed');
   }
-  return true;
 }

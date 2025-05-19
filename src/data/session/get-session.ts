@@ -7,7 +7,7 @@ export async function getSession(id: string) {
   const sessionDoc = await getDoc(doc(sessionsCollection, id));
 
   if (!sessionDoc.exists()) {
-    throw new Error('Session not found');
+    return null;
   }
 
   return sessionMapper.toSession(sessionDoc);

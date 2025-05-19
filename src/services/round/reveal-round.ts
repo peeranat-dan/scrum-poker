@@ -10,7 +10,11 @@ export async function revealRound(roundId: string) {
   });
 
   // Filter out invalid votes (0, -1, -2)
-  const filteredVotes = votes.filter((vote) => ![0, -1, -2].includes(vote.value));
+  const filteredVotes = votes
+    .filter((vote) => ![0, -1, -2].includes(vote.value))
+    .filter(
+      (vote, index) => votes.findIndex((v) => v.participantId === vote.participantId) === index,
+    );
 
   const voteValues = filteredVotes.map((vote) => vote.value);
 

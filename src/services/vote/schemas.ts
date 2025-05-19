@@ -2,8 +2,8 @@ import { VoteSchema } from '@/domain/vote/schemas';
 import { z } from 'zod';
 
 export const CastVoteSchema = z.object({
-  roundId: z.string(),
-  participantId: z.string(),
+  roundId: z.string().min(1),
+  participantId: z.string().min(1),
   value: z.number(),
 });
 

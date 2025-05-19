@@ -5,7 +5,9 @@ import { type DocumentData, type DocumentSnapshot } from 'firebase/firestore';
 import { type VoteDoc } from './types';
 
 function toVote(doc: DocumentSnapshot<VoteDoc, DocumentData>): Vote {
-  const data = doc.data();
+  const data = doc.data({
+    serverTimestamps: 'estimate',
+  });
 
   if (!data) {
     throw new Error('Vote not found');
