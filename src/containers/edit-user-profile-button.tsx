@@ -14,7 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Edit } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button } from '../components/ui/button';
+import { Button } from '@/components/ui/button';
 
 export default function EditUserProfileButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
