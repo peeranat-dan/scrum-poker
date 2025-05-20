@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1](https://github.com/peeranat-dan/scrum-poker/compare/1.0.0...1.1.1) (2025-05-20)
+
+### Bug Fixes
+
+- **round:** remove inactive users from average calculation ([#165](https://github.com/peeranat-dan/scrum-poker/issues/165)) ([9d530ff](https://github.com/peeranat-dan/scrum-poker/commit/9d530ff37b01c4690a7e548257efb6ad2b23854e))
+
 # [1.1.0](https://github.com/peeranat-dan/scrum-poker/compare/1.0.0...1.1.0) (2025-05-20)
 
 ### Bug Fixes
@@ -8,7 +14,6 @@
 - check for participant and round before casting vote ([1af98ab](https://github.com/peeranat-dan/scrum-poker/commit/1af98ab66050e1ae146ee8886d28ae41886c9cdd))
 - **data:** add server timestamps estimation to document data retrieval ([#154](https://github.com/peeranat-dan/scrum-poker/issues/154)) ([687571d](https://github.com/peeranat-dan/scrum-poker/commit/687571d140e780684c002d5c1ef5297d6e2a4840))
 - **game:** change tooltip message when everyone has voted ([#141](https://github.com/peeranat-dan/scrum-poker/issues/141)) ([2c7aebe](https://github.com/peeranat-dan/scrum-poker/commit/2c7aebe9bc7fb9797863532a38e77ce580268c00))
-- **round:** remove inactive users from average calculation ([#165](https://github.com/peeranat-dan/scrum-poker/issues/165)) ([9d530ff](https://github.com/peeranat-dan/scrum-poker/commit/9d530ff37b01c4690a7e548257efb6ad2b23854e))
 
 ### Features
 
