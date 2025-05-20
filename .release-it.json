@@ -16,12 +16,10 @@
           }
         ]
       }
-    },
-    "release-it-pnpm": {}
+    }
   },
   "git": {
-    "commitMessage": "chore: release ${version}",
-    "requireBranch": "main"
+    "requireCleanWorkingDir": false
   },
   "npm": {
     "publish": false
