@@ -1,11 +1,15 @@
 import { type Timestamp, type WhereFilterOp } from 'firebase/firestore';
 
-type FilterCondition<Value> = { op: WhereFilterOp; value: Value } | Value;
+type FilterCondition<Value> =
+  | { op: 'in' | 'not-in'; value: Value[] }
+  | { op: Exclude<WhereFilterOp, 'in' | 'not-in'>; value: Value }
+  | Value;
 
 type FirestoreFilter<T> = {
   [K in keyof T]?: FilterCondition<T[K]>;
+} & {
+  id?: FilterCondition<string>;
 };
-
 export interface FirestoreSearchInput<T extends Record<string, unknown>> {
   filter: FirestoreFilter<T>;
   order?: {
