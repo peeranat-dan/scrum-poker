@@ -1,3 +1,4 @@
+import { searchParticipants } from '@/data/participant/search-participants';
 import { updateRound } from '@/data/round/update-round';
 import { searchVotes } from '@/data/vote/search-votes';
 import { calculateAverage } from '@/lib/math';
@@ -6,17 +7,28 @@ export async function revealRound(roundId: string) {
   const votes = await searchVotes({
     filter: {
       roundId,
+      value: {
+        op: '>=',
+        value: 0,
+      },
     },
   });
 
-  // Filter out invalid votes (0, -1, -2)
-  const filteredVotes = votes
-    .filter((vote) => ![0, -1, -2].includes(vote.value))
-    .filter(
-      (vote, index) => votes.findIndex((v) => v.participantId === vote.participantId) === index,
-    );
+  const participants = await searchParticipants({
+    filter: {
+      id: {
+        op: 'in',
+        value: votes.map((vote) => vote.participantId),
+      },
+      status: 'active',
+    },
+  });
 
-  const voteValues = filteredVotes.map((vote) => vote.value);
+  const validVotes = votes.filter((vote) =>
+    participants.some((participant) => participant.id === vote.participantId),
+  );
+
+  const voteValues = validVotes.map((vote) => vote.value);
 
   const averageVote = calculateAverage(voteValues);
 
