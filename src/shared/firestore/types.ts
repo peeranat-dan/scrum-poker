@@ -7,8 +7,9 @@ type FilterCondition<Value> =
 
 type FirestoreFilter<T> = {
   [K in keyof T]?: FilterCondition<T[K]>;
+} & {
+  id?: FilterCondition<string>;
 };
-
 export interface FirestoreSearchInput<T extends Record<string, unknown>> {
   filter: FirestoreFilter<T>;
   order?: {

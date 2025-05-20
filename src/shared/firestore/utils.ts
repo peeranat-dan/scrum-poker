@@ -1,4 +1,4 @@
-import { limit, orderBy, where, type QueryConstraint } from 'firebase/firestore';
+import { documentId, limit, orderBy, where, type QueryConstraint } from 'firebase/firestore';
 import { type FirestoreSearchInput } from './types';
 
 /**
@@ -19,7 +19,13 @@ export function buildQueryConstraints<T extends Record<string, unknown>>(
   const constraints: QueryConstraint[] = [];
 
   for (const [field, condition] of Object.entries(filter)) {
-    if (condition !== undefined || condition !== null) {
+    if (field === 'id') {
+      if (typeof condition === 'object' && condition && 'op' in condition && 'value' in condition) {
+        constraints.push(where(documentId(), condition.op, condition.value));
+      } else {
+        constraints.push(where(documentId(), '==', condition));
+      }
+    } else if (condition !== undefined || condition !== null) {
       if (typeof condition === 'object' && condition && 'op' in condition && 'value' in condition) {
         constraints.push(where(field as string, condition.op, condition.value));
       } else {
