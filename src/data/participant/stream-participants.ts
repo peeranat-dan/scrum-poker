@@ -11,7 +11,7 @@ export function streamParticipants(
     participantsCollection,
     where('sessionId', '==', sessionId),
     where('status', '==', 'active'),
-    orderBy('createdAt'),
+    orderBy('displayName'),
   );
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     const participants: Participant[] = [];

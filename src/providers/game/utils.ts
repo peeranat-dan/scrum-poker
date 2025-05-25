@@ -9,10 +9,7 @@ export function mapParticipantsToVotes(participants: Participant[], votes: Vote[
     },
     {} as Record<string, Vote>,
   );
-  const sortedParticipantsByUpdatedAt = participants.sort(
-    (a, b) => a.updatedAt.getTime() - b.updatedAt.getTime(),
-  );
-  const votesByParticipant = sortedParticipantsByUpdatedAt.map((participant) => {
+  const votesByParticipant = participants.map((participant) => {
     const vote = votesByParticipantId[participant.id];
     return {
       ...participant,
