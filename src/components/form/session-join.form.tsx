@@ -1,4 +1,5 @@
 import { type JoinSessionInput } from '@/types/schema.types';
+import { Loader2 } from 'lucide-react';
 import { type UseFormReturn } from 'react-hook-form';
 import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
@@ -29,6 +30,7 @@ export default function SessionJoinForm({ form, onSubmit }: Readonly<SessionJoin
           )}
         />
         <Button className='w-full' type='submit' disabled={isSubmitting}>
+          {isSubmitting ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : null}
           Join Session
         </Button>
       </form>
