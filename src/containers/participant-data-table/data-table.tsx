@@ -25,7 +25,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className='overflow-hidden rounded-md border'>
+    <div className='no-scrollbar overflow-x-hidden rounded-md border'>
       <Table>
         <TableHeader className='bg-muted'>
           {table.getHeaderGroups().map((headerGroup) => (
