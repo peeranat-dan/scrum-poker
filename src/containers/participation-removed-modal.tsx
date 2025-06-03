@@ -11,8 +11,8 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/providers/auth';
 import { useParticipant } from '@/providers/participant';
 import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
 import { useMemo } from 'react';
-import { generatePath, useNavigate } from 'react-router';
 
 // TODO: rename this
 export default function ParticipationRemovedModal() {
@@ -28,17 +28,13 @@ export default function ParticipationRemovedModal() {
   const handleBackToHome = async () => {
     queryClient.resetQueries();
     await signOut();
-    navigate('/');
+    navigate({ to: '/' });
   };
 
   const handleJoinAgain = async () => {
     queryClient.resetQueries();
     await signOut();
-    navigate(
-      generatePath('/join/:gameId', {
-        gameId: participant?.sessionId ?? '',
-      }),
-    );
+    navigate({ to: '/join/$gameId', params: { gameId: participant?.sessionId ?? '' } });
   };
 
   return (
