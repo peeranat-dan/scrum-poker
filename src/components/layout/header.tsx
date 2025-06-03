@@ -1,5 +1,6 @@
 import config from '@/config';
-import { Link } from 'react-router';
+
+import { Link } from '@tanstack/react-router';
 import { Icons } from '../icons/icons';
 import Logo from '../logo';
 import { ThemeToggle } from '../theme-toggle';

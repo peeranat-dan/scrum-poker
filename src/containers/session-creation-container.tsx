@@ -5,8 +5,8 @@ import { useCreateSession } from '@/hooks/session/use-create-session';
 import { useAuth } from '@/providers/auth';
 import { type CreateSessionInput, CreateSessionSchema } from '@/types/schema.types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
-import { generatePath, useNavigate } from 'react-router';
 
 export default function SessionCreationContainer() {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ export default function SessionCreationContainer() {
     const round = await createRoundMutation.mutateAsync(session.id);
 
     if (session && user && participant && round) {
-      navigate(generatePath('/game/:gameId', { gameId: session.id }));
+      navigate({ to: '/game/$gameId', params: { gameId: session.id } });
     }
   };
 

@@ -2,17 +2,13 @@ import GameArea from '@/containers/game-area';
 import GameController from '@/containers/game-controller';
 import GameExitConfirmationModal from '@/containers/game-exit-confirmation-modal';
 import GameParticipants from '@/containers/game-participants';
-import { useParticipant } from '@/providers/participant';
-import { generatePath, Navigate, useParams } from 'react-router';
+import { createFileRoute } from '@tanstack/react-router';
 
-export default function GamePage() {
-  const { gameId } = useParams<{ gameId: string }>();
-  const { participant } = useParticipant();
+export const Route = createFileRoute('/game/$gameId')({
+  component: RouteComponent,
+});
 
-  if (!participant) {
-    return <Navigate to={generatePath('/join/:gameId', { gameId: gameId ?? '' })} />;
-  }
-
+function RouteComponent() {
   return (
     <div className='relative flex w-full flex-col items-center justify-center px-4 lg:px-0'>
       <div className='no-scrollbar fixed top-[var(--header-height)] flex w-full items-center justify-center overflow-x-scroll lg:absolute lg:top-0'>

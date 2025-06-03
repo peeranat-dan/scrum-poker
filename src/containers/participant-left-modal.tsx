@@ -11,9 +11,9 @@ import { Button } from '@/components/ui/button';
 import { buttonVariants } from '@/components/ui/button-variants';
 import { useRejoinSession } from '@/hooks/participant/use-rejoin-session';
 import { useParticipant } from '@/providers/participant';
+import { Link } from '@tanstack/react-router';
 import { Loader2 } from 'lucide-react';
 import { useMemo } from 'react';
-import { Link } from 'react-router';
 
 export default function ParticipantLeftModal() {
   const { participant } = useParticipant();

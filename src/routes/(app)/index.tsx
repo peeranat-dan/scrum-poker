@@ -2,10 +2,14 @@ import { Icons } from '@/components/icons/icons';
 import { Button } from '@/components/ui/button';
 import config from '@/config';
 import HeroParticles from '@/containers/hero-particles';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router';
 
-export default function HomePage() {
+export const Route = createFileRoute('/(app)/')({
+  component: Index,
+});
+
+function Index() {
   return (
     <div className='flex w-full flex-col'>
       <section className='relative py-12 text-center md:py-24 lg:py-32'>
@@ -20,11 +24,8 @@ export default function HomePage() {
               <br className='hidden md:block' />
               with ease. Built with React, Tailwind, and shadcn/ui.
             </p>
-            <Button asChild size='lg' className='w-full sm:w-fit'>
-              <Link to='/new-game'>
-                Start new game
-                <ArrowRight />
-              </Link>
+            <Button size='lg' className='w-full sm:w-fit'>
+              Start new game
             </Button>
           </div>
           <HeroParticles />
@@ -103,7 +104,7 @@ export default function HomePage() {
               </Button>
               <Button variant='outline' asChild>
                 <Link to={config.app.githubUrl} target='_blank' rel='noopener noreferrer'>
-                  <Icons.gitHub className='mr-2 h-4 w-4' />
+                  <Icons.gitHub className='h-4 w-4' />
                   Star on GitHub
                 </Link>
               </Button>
