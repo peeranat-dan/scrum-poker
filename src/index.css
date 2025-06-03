@@ -194,4 +194,8 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  .h-sc {
+    @apply h-[calc(100vh-var(--header-height))];
+  }
 }

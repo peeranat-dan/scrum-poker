@@ -61,6 +61,8 @@ export default function GameActions() {
     );
   }
 
+  console.log(participant);
+
   return (
     <>
       <Button onClick={handleCopyJoinLink}>Invite Players</Button>

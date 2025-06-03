@@ -1,16 +1,19 @@
 import SessionJoinForm from '@/components/form/session-join.form';
 import { useCreateParticipant } from '@/hooks/participant/use-create-participant';
 import { useAuth } from '@/providers/auth';
-import { useSession } from '@/providers/session';
 import { type JoinSessionInput, JoinSessionSchema } from '@/types/schema.types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
-import { generatePath, useNavigate } from 'react-router';
 
-export default function SessionJoinContainer() {
+interface SessionJoinContainerProps {
+  sessionId: string;
+}
+
+export default function SessionJoinContainer({ sessionId }: Readonly<SessionJoinContainerProps>) {
   const navigate = useNavigate();
   const { signInAnonymously } = useAuth();
-  const { id: sessionId } = useSession();
+
   const form = useForm<JoinSessionInput>({
     defaultValues: {
       name: '',
@@ -33,7 +36,12 @@ export default function SessionJoinContainer() {
 
     // STEP 3: Navigate to game
     if (participant) {
-      navigate(generatePath('/game/:gameId', { gameId: sessionId }));
+      navigate({
+        to: '/game/$gameId',
+        params: {
+          gameId: sessionId,
+        },
+      });
     }
   };
 

@@ -9,8 +9,8 @@ import {
 } from '@/components/ui/dialog';
 import { useParticipant } from '@/providers/participant';
 import { useSession } from '@/providers/session';
+import { useBlocker } from '@tanstack/react-router';
 import { useMemo } from 'react';
-import { useBeforeUnload, useBlocker } from 'react-router';
 
 export default function GameExitConfirmationModal() {
   const { status: sessionStatus } = useSession();
@@ -21,26 +21,15 @@ export default function GameExitConfirmationModal() {
   }, [participant?.status, sessionStatus]);
 
   // NOTE: Block for client side navigation
-  const blocker = useBlocker(({ nextLocation, currentLocation }) => {
-    if (
-      nextLocation.pathname.includes('/settings') ||
-      nextLocation.pathname === currentLocation.pathname
-    ) {
-      return false;
-    }
-    return shouldOpenModal;
+  const blocker = useBlocker({
+    shouldBlockFn: () => shouldOpenModal,
+    withResolver: true,
   });
 
   // NOTE: Block for refreshing the page
-  useBeforeUnload((event) => {
-    if (!shouldOpenModal) {
-      return;
-    }
-    event.preventDefault();
-  });
 
   return (
-    <Dialog open={blocker.state === 'blocked'} onOpenChange={blocker.proceed}>
+    <Dialog open={blocker?.status === 'blocked'} onOpenChange={blocker.reset}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Leave the game already?</DialogTitle>
@@ -49,6 +38,9 @@ export default function GameExitConfirmationModal() {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
+          <Button onClick={blocker.proceed} variant='outline'>
+            Leave the game
+          </Button>
           <Button onClick={blocker.reset}>Stay on the page</Button>
         </DialogFooter>
       </DialogContent>

@@ -1,8 +1,12 @@
 import Header from '@/components/layout/header';
 import { Toaster } from '@/components/ui/sonner';
-import { Outlet } from '@tanstack/react-router';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 
-export default function BaseLayout() {
+export const Route = createFileRoute('/(app)')({
+  component: RouteComponent,
+});
+
+function RouteComponent() {
   return (
     <div className='relative flex min-h-dvh w-full flex-col'>
       <Header />
