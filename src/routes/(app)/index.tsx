@@ -107,7 +107,7 @@ function Index() {
               </Button>
               <Button variant='outline' asChild>
                 <Link to={config.app.githubUrl} target='_blank' rel='noopener noreferrer'>
-                  <Icons.gitHub className='h-4 w-4' />
+                  <Icons.GitHub className='h-4 w-4' />
                   Star on GitHub
                 </Link>
               </Button>

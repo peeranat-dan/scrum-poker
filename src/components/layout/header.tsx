@@ -17,7 +17,7 @@ export default function Header() {
         <div className='ml-auto flex h-full items-center gap-1 md:gap-2'>
           <Button asChild variant='ghost' size='icon'>
             <Link to={config.app.githubUrl} target='_blank' rel='noopener noreferrer'>
-              <Icons.gitHub />
+              <Icons.GitHub />
             </Link>
           </Button>
           <ThemeToggle />
