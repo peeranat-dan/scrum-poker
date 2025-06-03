@@ -7,6 +7,7 @@ import { copyJoinLink } from '@/shared/utils/copy-join-link';
 import { Link } from '@tanstack/react-router';
 import { LinkIcon } from 'lucide-react';
 import { toast } from 'sonner';
+import GameSettingsModal from './game-settings-modal';
 
 export default function GameHeader() {
   const { id } = useSession();
@@ -42,6 +43,7 @@ export default function GameHeader() {
 
         <div className='flex shrink-0 items-center gap-2'>
           <ThemeToggle />
+          {participant?.role === 'owner' ? <GameSettingsModal /> : null}
         </div>
       </div>
     </header>
