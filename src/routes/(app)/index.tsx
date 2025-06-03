@@ -24,8 +24,11 @@ function Index() {
               <br className='hidden md:block' />
               with ease. Built with React, Tailwind, and shadcn/ui.
             </p>
-            <Button size='lg' className='w-full sm:w-fit'>
-              Start new game
+            <Button size='lg' className='w-full sm:w-fit' asChild>
+              <Link to='/new-game'>
+                Start new game
+                <ArrowRight />
+              </Link>
             </Button>
           </div>
           <HeroParticles />
