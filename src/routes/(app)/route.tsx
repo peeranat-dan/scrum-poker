@@ -1,5 +1,5 @@
-import Header from '@/components/layout/header';
 import { Toaster } from '@/components/ui/sonner';
+import Header from '@/containers/header';
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/(app)')({
