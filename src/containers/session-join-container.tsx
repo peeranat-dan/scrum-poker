@@ -12,11 +12,11 @@ interface SessionJoinContainerProps {
 
 export default function SessionJoinContainer({ sessionId }: Readonly<SessionJoinContainerProps>) {
   const navigate = useNavigate();
-  const { signInAnonymously } = useAuth();
+  const { signInAnonymously, user: authUser } = useAuth();
 
   const form = useForm<JoinSessionInput>({
     defaultValues: {
-      name: '',
+      name: authUser?.displayName ?? '',
     },
     resolver: zodResolver(JoinSessionSchema),
   });
@@ -25,11 +25,11 @@ export default function SessionJoinContainer({ sessionId }: Readonly<SessionJoin
 
   const onSubmit = async (data: JoinSessionInput) => {
     // STEP 1: Anonymous login
-    const user = await signInAnonymously();
+    const user = authUser ?? (await signInAnonymously()).user;
     // STEP 2: Create Participant
     const participant = await createParticipantMutation.mutateAsync({
       sessionId: sessionId,
-      uid: user.user.uid,
+      uid: user.uid,
       role: 'player',
       displayName: data.name,
     });

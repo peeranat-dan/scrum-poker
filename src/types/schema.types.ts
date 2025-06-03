@@ -10,7 +10,7 @@ const playerNameSchema = z
   .string()
   .trim()
   .min(1, 'Display name is required')
-  .max(20, 'Display name is too long');
+  .max(30, 'Display name is too long');
 
 const votingSystemSchema = z.enum(['fibonacci', 't-shirt']);
 
