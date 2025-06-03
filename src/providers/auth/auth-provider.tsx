@@ -1,5 +1,6 @@
 import { auth } from '@/data/auth';
 import { useAnonymousLogin } from '@/hooks/auth/use-anonymous-login';
+import { useSignInWithGoogle } from '@/hooks/auth/use-sign-in-with-google';
 import { useSignOut } from '@/hooks/auth/use-sign-out';
 import { type User } from '@/shared/firebase/types';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -12,6 +13,7 @@ export function AuthProvider({ children }: Readonly<AuthProviderProps>) {
 
   const anonymousLoginMutation = useAnonymousLogin();
   const signOutMutation = useSignOut();
+  const signInWithGoogleMutation = useSignInWithGoogle();
 
   const signInAnonymously = useCallback(async () => {
     return await anonymousLoginMutation.mutateAsync();
@@ -20,6 +22,10 @@ export function AuthProvider({ children }: Readonly<AuthProviderProps>) {
   const signOut = useCallback(async () => {
     return await signOutMutation.mutateAsync();
   }, [signOutMutation]);
+
+  const signInWithGoogle = useCallback(async () => {
+    return await signInWithGoogleMutation.mutateAsync();
+  }, [signInWithGoogleMutation]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -35,8 +41,9 @@ export function AuthProvider({ children }: Readonly<AuthProviderProps>) {
       loading: isLoading,
       signInAnonymously,
       signOut,
+      signInWithGoogle,
     }),
-    [user, isLoading, signInAnonymously, signOut],
+    [user, isLoading, signInAnonymously, signOut, signInWithGoogle],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
