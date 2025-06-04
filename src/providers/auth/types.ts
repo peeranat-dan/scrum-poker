@@ -10,4 +10,5 @@ export interface AuthProviderState {
   signInAnonymously: () => Promise<UserCredential>;
   signOut: () => Promise<void>;
   signInWithGoogle: () => Promise<UserCredential>;
+  linkWithGoogle: () => Promise<UserCredential>;
 }

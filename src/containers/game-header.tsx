@@ -43,7 +43,7 @@ export default function GameHeader() {
 
         <div className='flex shrink-0 items-center gap-2'>
           <ThemeToggle />
-          {participant?.role === 'owner' ? <GameSettingsModal /> : null}
+          <GameSettingsModal />
         </div>
       </div>
     </header>

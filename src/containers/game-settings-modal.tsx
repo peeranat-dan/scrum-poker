@@ -17,26 +17,40 @@ import {
   SidebarMenuItem,
   SidebarProvider,
 } from '@/components/ui/sidebar';
+import { useParticipant } from '@/providers/participant';
 import { Settings2, Users2 } from 'lucide-react';
 import { useState } from 'react';
 import { type JSX } from 'react/jsx-runtime';
+import AccountSettings from './game-settings/account-settings';
 import GeneralSettings from './game-settings/general-settings';
 import PlayersSettings from './game-settings/players-settings';
 
-type SettingsModalItem = 'Players' | 'General';
+type SettingsModalItem = 'Players' | 'General' | 'Account';
 
 const settingsModalContent: Record<SettingsModalItem, () => JSX.Element> = {
   General: GeneralSettings,
   Players: PlayersSettings,
+  Account: AccountSettings,
 };
 
-const data: { name: SettingsModalItem; icon: React.ComponentType }[] = [
-  { name: 'General', icon: Settings2 },
-  { name: 'Players', icon: Users2 },
+const menus: {
+  name: SettingsModalItem;
+  icon: React.ComponentType;
+  role: ('player' | 'admin' | 'owner')[];
+}[] = [
+  { name: 'General', icon: Settings2, role: ['owner'] },
+  { name: 'Account', icon: Settings2, role: ['player', 'owner'] },
+  { name: 'Players', icon: Users2, role: ['owner'] },
 ];
 
 export default function GameSettingsModal() {
-  const [selected, setSelected] = useState<SettingsModalItem>('General');
+  const { participant } = useParticipant();
+
+  const filteredMenus = participant?.role
+    ? menus.filter((item) => item.role.includes(participant.role))
+    : [];
+
+  const [selected, setSelected] = useState<SettingsModalItem>(filteredMenus[0]?.name ?? 'General');
 
   const SettingsModalContent = settingsModalContent[selected];
 
@@ -56,7 +70,7 @@ export default function GameSettingsModal() {
               <SidebarGroup>
                 <SidebarGroupContent>
                   <SidebarMenu className='list-none'>
-                    {data.map((item) => (
+                    {filteredMenus.map((item) => (
                       <SidebarMenuItem key={item.name}>
                         <SidebarMenuButton asChild isActive={selected === item.name}>
                           <button className='cursor-pointer' onClick={() => setSelected(item.name)}>
@@ -79,7 +93,7 @@ export default function GameSettingsModal() {
             </header>
             <div className='flex h-full flex-1 flex-col gap-4 overflow-y-auto p-4'>
               <div className='block list-none md:hidden'>
-                {data.map((item) => (
+                {filteredMenus.map((item) => (
                   <SidebarMenuItem key={item.name}>
                     <SidebarMenuButton asChild isActive={selected === item.name}>
                       <button onClick={() => setSelected(item.name)}>
