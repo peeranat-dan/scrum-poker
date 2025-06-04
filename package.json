@@ -54,7 +54,7 @@
     "sonner": "^2.0.4",
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.8",
-    "tw-animate-css": "^1.3.2",
+    "tw-animate-css": "^1.3.3",
     "zod": "^3.25.42"
   },
   "devDependencies": {
