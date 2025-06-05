@@ -9,8 +9,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { useSession } from '@/providers/session';
 import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router';
 
 export default function TerminatedGameModal() {
   const navigate = useNavigate();
@@ -23,12 +23,12 @@ export default function TerminatedGameModal() {
 
   const handleBackToHome = () => {
     queryClient.resetQueries();
-    navigate('/');
+    navigate({ to: '/' });
   };
 
   const handleCreateAnotherGame = () => {
     queryClient.resetQueries();
-    navigate('/new-game');
+    navigate({ to: '/new-game' });
   };
 
   return (

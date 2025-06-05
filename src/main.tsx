@@ -4,87 +4,52 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import './index.css';
-import BaseLayout from './layouts/base';
-import GameLayout from './layouts/game';
-import GameSettingsLayout from './layouts/game-settings';
-import NotFoundPage from './pages/404';
-import GamePage from './pages/game/[gameId]';
-import GameSettingsPage from './pages/game/[gameId]/settings';
-import GameSettingsGeneralPage from './pages/game/[gameId]/settings/general';
-import GameSettingsPlayersListPage from './pages/game/[gameId]/settings/players';
-import HomePage from './pages/home';
-import JoinPage from './pages/join/[gameId]';
-import LogoutPage from './pages/logout';
-import NewGamePage from './pages/new-game';
-import { AuthProvider } from './providers/auth';
+import { AuthProvider, useAuth } from './providers/auth';
 import { ThemeProvider } from './providers/theme';
 
-const queryClient = new QueryClient();
+// Import the generated route tree
+import { createRouter, RouterProvider } from '@tanstack/react-router';
+import { routeTree } from './routeTree.gen';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    Component: BaseLayout,
-    children: [
-      { index: true, Component: HomePage },
-      {
-        path: 'new-game',
-        Component: NewGamePage,
-      },
-      {
-        path: 'logout',
-        Component: LogoutPage,
-      },
-      {
-        path: '*',
-        Component: NotFoundPage,
-      },
-    ],
+// Create a new router instance
+const router = createRouter({
+  routeTree,
+  context: {
+    auth: undefined!, // This will be set after we wrap the app in AuthContextProvider
   },
-  {
-    Component: GameLayout,
-    children: [
-      {
-        path: 'game/:gameId',
-        Component: GamePage,
-      },
-      {
-        path: 'game/:gameId/settings',
-        Component: GameSettingsLayout,
-        children: [
-          {
-            index: true,
-            Component: GameSettingsPage,
-          },
-          {
-            path: 'general',
-            Component: GameSettingsGeneralPage,
-          },
-          {
-            path: 'players',
-            Component: GameSettingsPlayersListPage,
-          },
-        ],
-      },
-      {
-        path: 'join/:gameId',
-        Component: JoinPage,
-      },
-    ],
-  },
-]);
+});
+
+// Register the router instance for type safety
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
+}
+
+function InnerApp() {
+  const auth = useAuth();
+
+  return <RouterProvider router={router} context={{ auth }} />;
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <InnerApp />
+    </AuthProvider>
+  );
+}
+
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider defaultTheme='system' storageKey='vite-ui-theme'>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </AuthProvider>
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ThemeProvider>
   </StrictMode>,

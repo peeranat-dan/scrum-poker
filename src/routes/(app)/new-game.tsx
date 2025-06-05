@@ -1,7 +1,12 @@
 import { Card, CardContent } from '@/components/ui/card';
 import SessionCreationContainer from '@/containers/session-creation-container';
+import { createFileRoute } from '@tanstack/react-router';
 
-export default function NewGamePage() {
+export const Route = createFileRoute('/(app)/new-game')({
+  component: RouteComponent,
+});
+
+function RouteComponent() {
   return (
     <div className='bg-muted flex min-h-svh w-full flex-col items-center justify-center'>
       <div className='flex w-full max-w-sm flex-col gap-6 px-4 md:max-w-3xl md:px-0'>

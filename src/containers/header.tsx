@@ -1,10 +1,8 @@
-import config from '@/config';
-import { Link } from 'react-router';
-import { Icons } from '../icons/icons';
-import Logo from '../logo';
-import { ThemeToggle } from '../theme-toggle';
-import { Button } from '../ui/button';
-import { buttonVariants } from '../ui/button-variants';
+import { Link } from '@tanstack/react-router';
+import Logo from '../components/logo';
+import { ThemeToggle } from '../components/theme-toggle';
+import { buttonVariants } from '../components/ui/button-variants';
+import UserInformationPanel from './user-information-panel';
 
 export default function Header() {
   return (
@@ -14,12 +12,8 @@ export default function Header() {
           <Logo />
         </Link>
         <div className='ml-auto flex h-full items-center gap-1 md:gap-2'>
-          <Button asChild variant='ghost' size='icon'>
-            <Link to={config.app.githubUrl} target='_blank' rel='noopener noreferrer'>
-              <Icons.gitHub />
-            </Link>
-          </Button>
           <ThemeToggle />
+          <UserInformationPanel />
           <Link className={buttonVariants({ variant: 'secondary' })} to='/new-game'>
             Start new game
           </Link>

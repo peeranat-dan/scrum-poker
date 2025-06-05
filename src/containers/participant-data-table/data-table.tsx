@@ -25,7 +25,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className='overflow-hidden rounded-md border'>
+    <div className='no-scrollbar overflow-x-hidden rounded-md border'>
       <Table>
         <TableHeader className='bg-muted'>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -42,7 +42,7 @@ export function DataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody className='bg-card'>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>

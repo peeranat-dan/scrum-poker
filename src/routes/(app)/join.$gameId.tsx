@@ -1,19 +1,43 @@
+import Loading from '@/components/loading';
 import { Card, CardContent } from '@/components/ui/card';
 import SessionJoinContainer from '@/containers/session-join-container';
-import { useParticipant } from '@/providers/participant';
-import { useSession } from '@/providers/session';
-import { generatePath, Navigate } from 'react-router';
+import { useGetParticipantBySessionIdAndUid } from '@/hooks/participant/use-get-participant-by-session-id-and-uid';
+import { useGetSession } from '@/hooks/session/use-get-session';
+import { useAuth } from '@/providers/auth';
+import { createFileRoute, Navigate, useParams } from '@tanstack/react-router';
 
-export default function JoinPage() {
-  const { id, name } = useSession();
-  const { participant } = useParticipant();
+export const Route = createFileRoute('/(app)/join/$gameId')({
+  component: RouteComponent,
+});
 
-  if (participant && participant.status === 'active') {
-    return <Navigate to={generatePath('/game/:gameId', { gameId: id })} replace />;
+function RouteComponent() {
+  const { gameId } = useParams({ from: '/(app)/join/$gameId' });
+  const { data: session, isLoading: isLoadingSession } = useGetSession(gameId);
+  const { user } = useAuth();
+
+  const { data: participant, isLoading: isLoadingParticipant } = useGetParticipantBySessionIdAndUid(
+    {
+      sessionId: gameId,
+      uid: user?.uid ?? '',
+    },
+  );
+
+  if (isLoadingSession || isLoadingParticipant) {
+    return <Loading fullscreen />;
   }
 
+  if (!session) {
+    return <Navigate to='/new-game' replace />;
+  }
+
+  if (participant) {
+    return <Navigate to={'/game/$gameId'} params={{ gameId }} replace />;
+  }
+
+  const { name } = session;
+
   return (
-    <div className='bg-muted flex w-full flex-col items-center justify-center'>
+    <div className='bg-muted flex h-[calc(100vh-var(--header-height))] w-full flex-col items-center justify-center'>
       <div className='flex w-full max-w-sm flex-col gap-6 px-4 md:max-w-3xl md:px-0'>
         <Card className='overflow-hidden p-0'>
           <CardContent className='grid p-0 md:grid-cols-2'>
@@ -29,7 +53,7 @@ export default function JoinPage() {
                   Introduce yourself to jump into this game session.
                 </p>
               </div>
-              <SessionJoinContainer />
+              <SessionJoinContainer sessionId={gameId} />
             </div>
             <div className='bg-muted relative hidden md:block'>
               <img

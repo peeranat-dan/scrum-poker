@@ -1,5 +1,5 @@
 import { getRound } from '@/data/round/get-round';
-import { addVote } from '@/data/vote/add-vote';
+import { upsertVote } from '@/data/vote/upsert-vote';
 import { canCastVote } from '@/domain/vote/rules';
 import { assertValid } from '@/shared/zod/utils';
 import { CastVoteSchema } from './schemas';
@@ -12,7 +12,7 @@ export async function castVote(input: CastVoteInput) {
 
   canCastVote(round);
 
-  const vote = addVote({
+  const vote = upsertVote({
     participantId,
     roundId,
     value,
