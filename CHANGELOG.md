@@ -1,5 +1,28 @@
 # Changelog
 
+# [1.2.0](https://github.com/peeranat-dan/scrum-poker/compare/1.1.1...1.2.0) (2025-06-05)
+
+### Bug Fixes
+
+- add loading state when joining session ([#170](https://github.com/peeranat-dan/scrum-poker/issues/170)) ([8f0e948](https://github.com/peeranat-dan/scrum-poker/commit/8f0e948c628b4678fd8b3a60362ff318950c49a6))
+- add navigation link and arrow icon to start game button ([#184](https://github.com/peeranat-dan/scrum-poker/issues/184)) ([0adeb82](https://github.com/peeranat-dan/scrum-poker/commit/0adeb82d895a7b99f5f99f8504c8733dec2d1f35))
+- redirect to join page after migrating to tanstack router ([#185](https://github.com/peeranat-dan/scrum-poker/issues/185)) ([506f16b](https://github.com/peeranat-dan/scrum-poker/commit/506f16b6c154225bb3f6884fbf01f81b914f7b8e))
+- **settings:** make participant data table scrollable ([#168](https://github.com/peeranat-dan/scrum-poker/issues/168)) ([b7d3dbe](https://github.com/peeranat-dan/scrum-poker/commit/b7d3dbe50f74128db1b284723ac151f9759fc785))
+- **vote:** fix race conditions when adding vote ([#194](https://github.com/peeranat-dan/scrum-poker/issues/194)) ([50554de](https://github.com/peeranat-dan/scrum-poker/commit/
+
+### Features
+
+- add link to google account functionality ([#191](https://github.com/peeranat-dan/scrum-poker/issues/191)) ([75e6cfa](https://github.com/peeranat-dan/scrum-poker/commit/75e6cfaa9ce141a2c3548c9d591bd55419dc2466))
+- add logout functionality in user avatar ([#190](https://github.com/peeranat-dan/scrum-poker/issues/190)) ([23fde6c](https://github.com/peeranat-dan/scrum-poker/commit/23fde6c4c2033c92d8d8dc3ba9062cee79de1668))
+- add sign in with google ([#187](https://github.com/peeranat-dan/scrum-poker/issues/187)) ([639b4ed](https://github.com/peeranat-dan/scrum-poker/commit/639b4ed5ac416e7d057cb1df8cab0015bca10226))
+- **game:** add delay for reveal round action for 2 seconds ([#169](https://github.com/peeranat-dan/scrum-poker/issues/169)) ([e4b5a41](https://github.com/peeranat-dan/scrum-poker/commit/e4b5a41b089b27c355f2a1f7b6e9358ad2d8db8f))
+- **game:** add game settings modal with general and players configuration ([#183](https://github.com/peeranat-dan/scrum-poker/issues/183)) ([65ca63b](https://github.com/peeranat-dan/scrum-poker/commit/65ca63b96847d29e2c6ab25391f97286cd51da5e))
+- **game:** add sort participant by their display names ([#167](https://github.com/peeranat-dan/scrum-poker/issues/167)) ([ffa34ad](https://github.com/peeranat-dan/scrum-poker/commit/ffa34ad09cc7c6d32e2d78dbbfc7e64f25468b0b))
+
+### Reverts
+
+- Revert "fix(vote): use composite key for vote document to prevent race condit…" (#193) ([96c3aa9](https://github.com/peeranat-dan/scrum-poker/commit/96c3aa91afdab08b4a0c5f098bb4f4a5c2ce03ee)), closes [#193](https://github.com/peeranat-dan/scrum-poker/issues/193)
+
 ## [1.1.1](https://github.com/peeranat-dan/scrum-poker/compare/1.0.0...1.1.1) (2025-05-20)
 
 ### Bug Fixes
