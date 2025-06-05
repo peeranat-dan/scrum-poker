@@ -10,6 +10,8 @@ export type VoteDoc = Prettify<FirestoreDoc<BaseVoteDoc>>;
 
 export type AddVoteInput = BaseVoteDoc;
 
+export type UpsertVoteInput = BaseVoteDoc;
+
 export type UpdateVoteInput = Partial<BaseVoteDoc>;
 
 export type SearchVoteInput = Prettify<FirestoreSearchInput<VoteDoc>>;
