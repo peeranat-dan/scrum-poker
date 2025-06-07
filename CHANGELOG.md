@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/peeranat-dan/scrum-poker/compare/1.2.0...1.2.1) (2025-06-07)
+
+
+### Bug Fixes
+
+* handle null createdAt in vote upsert and return mapped vote data ([#195](https://github.com/peeranat-dan/scrum-poker/issues/195)) ([da52e51](https://github.com/peeranat-dan/scrum-poker/commit/da52e51a6aedd253e9ed1704c68181320a6c017c))
+
 # [1.2.0](https://github.com/peeranat-dan/scrum-poker/compare/1.1.1...1.2.0) (2025-06-05)
 
 ### Bug Fixes
