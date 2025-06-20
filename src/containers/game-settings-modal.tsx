@@ -85,7 +85,7 @@ export default function GameSettingsModal() {
               </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-          <main className='flex flex-1 flex-col overflow-hidden'>
+          <main className='flex flex-1 flex-col overflow-hidden h-dvh md:h-[500px]'>
             <header className='flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12'>
               <div className='flex items-center gap-2 px-4'>
                 <h2 className='text-lg font-semibold'>Settings</h2>
