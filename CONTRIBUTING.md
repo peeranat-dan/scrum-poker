@@ -101,20 +101,26 @@ git clone https://github.com/<your-username>/scrum-poker.git
 cd scrum-poker
 ```
 
-4. Install the dependencies.
+4. Install Firebase CLI
+
+```bash
+npm install -g firebase-tools
+```
+
+5. Install the dependencies.
 
 ```bash
 pnpm install
 ```
 
-5. Add all the required environment variables to the `.env` file. You can find the required environment variables in the `.env.example` file.
-6. Start the development server.
+6. Add all the required environment variables to the `.env` file. You can find the required environment variables in the `.env.example` file.
+7. Start the development server.
 
 ```bash
 pnpm dev
 ```
 
-7. Open your browser and navigate to `http://localhost:5173` to access the application.
+8. Open your browser and navigate to `http://localhost:5173` to access the application.
 
 ## How to start working on an issue
 
