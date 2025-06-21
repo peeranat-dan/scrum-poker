@@ -8,6 +8,7 @@ E-mate is a web application that simplifies the process of planning poker sessio
 
 - Node 22.14.0
 - pnpm 9.14.2
+- Firebase CLI
 
 ## Installation
 
