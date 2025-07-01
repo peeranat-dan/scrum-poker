@@ -1,5 +1,19 @@
 # Changelog
 
+# [1.3.0](https://github.com/peeranat-dan/scrum-poker/compare/1.2.1...1.3.0) (2025-07-01)
+
+
+### Bug Fixes
+
+* **game-settings:** remove account settings in game settings modal ([#222](https://github.com/peeranat-dan/scrum-poker/issues/222)) ([f831fbd](https://github.com/peeranat-dan/scrum-poker/commit/f831fbdd35d0fbc803a386a3c635178f88446bac))
+* **game:** fix height for allowing overflow scrolling ([#206](https://github.com/peeranat-dan/scrum-poker/issues/206)) ([c89758c](https://github.com/peeranat-dan/scrum-poker/commit/c89758c3fa1419610039881d169b8a6c343a4586))
+* prevent app freeze when returning from background ([#209](https://github.com/peeranat-dan/scrum-poker/issues/209)) ([c0b7b33](https://github.com/peeranat-dan/scrum-poker/commit/c0b7b3391295c3b028a2110e77de850a6f6630f2))
+
+
+### Features
+
+* add toggle show and hide cards in game cards ([#207](https://github.com/peeranat-dan/scrum-poker/issues/207)) ([c2e49ad](https://github.com/peeranat-dan/scrum-poker/commit/c2e49ad1f367a32c47f922aae4bbf00604964742))
+
 ## [1.2.1](https://github.com/peeranat-dan/scrum-poker/compare/1.2.0...1.2.1) (2025-06-07)
 
 
