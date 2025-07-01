@@ -21,16 +21,16 @@ import { useParticipant } from '@/providers/participant';
 import { Settings2, Users2 } from 'lucide-react';
 import { useState } from 'react';
 import { type JSX } from 'react/jsx-runtime';
-import AccountSettings from './game-settings/account-settings';
 import GeneralSettings from './game-settings/general-settings';
 import PlayersSettings from './game-settings/players-settings';
 
-type SettingsModalItem = 'Players' | 'General' | 'Account';
+type SettingsModalItem = 'Players' | 'General';
+//  | 'Account';
 
 const settingsModalContent: Record<SettingsModalItem, () => JSX.Element> = {
   General: GeneralSettings,
   Players: PlayersSettings,
-  Account: AccountSettings,
+  // Account: AccountSettings,
 };
 
 const menus: {
@@ -39,7 +39,7 @@ const menus: {
   role: ('player' | 'admin' | 'owner')[];
 }[] = [
   { name: 'General', icon: Settings2, role: ['owner'] },
-  { name: 'Account', icon: Settings2, role: ['player', 'owner'] },
+  // { name: 'Account', icon: Settings2, role: ['player', 'owner'] },
   { name: 'Players', icon: Users2, role: ['owner'] },
 ];
 
@@ -85,7 +85,7 @@ export default function GameSettingsModal() {
               </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-          <main className='flex flex-1 flex-col overflow-hidden'>
+          <main className='flex h-dvh flex-1 flex-col overflow-hidden md:h-[500px]'>
             <header className='flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12'>
               <div className='flex items-center gap-2 px-4'>
                 <h2 className='text-lg font-semibold'>Settings</h2>

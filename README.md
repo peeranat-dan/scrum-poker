@@ -8,6 +8,7 @@ E-mate is a web application that simplifies the process of planning poker sessio
 
 - Node 22.14.0
 - pnpm 9.14.2
+- Firebase CLI
 
 ## Installation
 
@@ -54,6 +55,9 @@ pnpm dev
 7. **Vote Results:** All players can see the results of the voting session including the average vote and the number of votes for each option.
 8. **Reset Vote:** Room owner can reset the voting session.
 9. **Terminate Session:** Room owner can terminate the session.
+10. **Account Settings:**
+    - Link with Google
+    - Sign out
 
 ## Contributing
 
