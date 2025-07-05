@@ -57,9 +57,11 @@ export default function GameSettingsModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size='icon' variant='secondary'>
-          <Settings2 />
-        </Button>
+        {filteredMenus.length > 0 ? (
+          <Button size='icon' variant='secondary'>
+            <Settings2 />
+          </Button>
+        ) : null}
       </DialogTrigger>
       <DialogContent className='overflow-hidden p-0 md:max-h-[500px] md:max-w-[700px] lg:max-w-[800px]'>
         <DialogTitle className='sr-only'>Settings</DialogTitle>
