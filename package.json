@@ -79,7 +79,7 @@
     "prettier": "3.6.0",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "release-it": "^19.0.3",
-    "release-it-pnpm": "^4.6.5",
+    "release-it-pnpm": "^4.6.6",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.33.1",
     "vite": "^6.3.5",
