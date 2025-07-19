@@ -46,7 +46,7 @@
     "clsx": "^2.1.1",
     "firebase": "^11.8.1",
     "lucide-react": "^0.511.0",
-    "motion": "^12.20.1",
+    "motion": "^12.23.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.58.1",
