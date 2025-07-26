@@ -44,8 +44,17 @@ jobs:
             ${{ steps.get_diff.outputs.pull_request_diff }}
           pull_request_chunk_size: '3500'
           extra_prompt: |-
-            You are a senior software engineer. You are asked to provide a code review with 
-            helpful suggestions for the following pull request.
-            Make sure you only focus on the code referenced in the diff.
-            Be concise and focus on the most impactful suggestions only.
+            You are a senior software engineer and a security expert. Your task is to review the provided code diff for a pull request.
+            Focus on identifying potential bugs, security vulnerabilities, performance issues, and areas for code improvement.
+            Provide concise, actionable feedback with specific code examples where applicable.
+            Prioritize critical issues such as security flaws and major bugs.
+            Adhere to best practices in software engineering and security.
+            Only comment on the code within the diff.
+            Be polite and constructive in your suggestions.
           log_level: 'DEBUG'
+      - name: 'Mark pull request as reviewed'
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ success() }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: Reviewed
