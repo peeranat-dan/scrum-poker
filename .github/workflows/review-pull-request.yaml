@@ -52,7 +52,14 @@ jobs:
             Only comment on the code within the diff.
             Be polite and constructive in your suggestions.
           log_level: 'DEBUG'
-      - name: 'Mark pull request as reviewed'
+      - name: 'Remove \"Code Review\" label'
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{ success() }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: Code Review
+
+      - name: 'Add \"Reviewed\" label'
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ success() }}
         with:
