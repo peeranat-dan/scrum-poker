@@ -2,12 +2,45 @@ import { Button } from '@/components/ui/button';
 import { useDisclosure } from '@/hooks/use-disclosure';
 import { cn } from '@/lib/cn';
 import { useGame } from '@/providers/game';
+import { useParticipant } from '@/providers/participant';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useCallback, useEffect } from 'react';
+
+const CARD_SHOW_KEY = 'scrum-poker-cards-shown';
 
 export default function GameCards() {
   const { cards, castVote, vote } = useGame();
+  const { participant } = useParticipant();
 
-  const [isCardShown, { toggle: toggleShowCard }] = useDisclosure(true);
+  const getInitialCardState = useCallback(() => {
+    if (typeof window === 'undefined') return true; // SSR safety
+    try {
+      const saved = localStorage.getItem(CARD_SHOW_KEY);
+      if (saved === null) return true;
+
+      const parsed = JSON.parse(saved);
+      return typeof parsed === 'boolean' ? parsed : true;
+    } catch {
+      return true;
+    }
+  }, []);
+
+  const [isCardShown, { toggle: toggleShowCard }] = useDisclosure(getInitialCardState());
+
+  useEffect(() => {
+    localStorage.setItem(CARD_SHOW_KEY, JSON.stringify(isCardShown));
+  }, [isCardShown]);
+
+  // Don't show cards if user cannot vote (spectators)
+  const userCanVote = participant?.role !== 'spectator' && participant?.status === 'active';
+
+  if (!userCanVote) {
+    return (
+      <div className='flex w-full flex-col items-center justify-center p-4'>
+        <p className='text-muted-foreground text-sm'>You are watching as a spectator</p>
+      </div>
+    );
+  }
 
   return (
     <div className={cn('flex w-full flex-col items-center justify-center')}>

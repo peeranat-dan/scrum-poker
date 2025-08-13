@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.1](https://github.com/peeranat-dan/scrum-poker/compare/1.3.0...1.3.1) (2025-08-13)
+
+
+### Bug Fixes
+
+* **game:** add more safety to game cards showing logic ([#242](https://github.com/peeranat-dan/scrum-poker/issues/242)) ([4a239e1](https://github.com/peeranat-dan/scrum-poker/commit/4a239e1b43995eb403527bd46aa30758f16e0705))
+* **game:** persist game cards showing logic across tabs ([#241](https://github.com/peeranat-dan/scrum-poker/issues/241)) ([896cf82](https://github.com/peeranat-dan/scrum-poker/commit/896cf82885e321b8e2e1903eebcc36536e3f783a))
+
+
+### Features
+
+* **participant:** add spectator mode for non-voting participants ([#244](https://github.com/peeranat-dan/scrum-poker/issues/244)) ([7c8e0f1](https://github.com/peeranat-dan/scrum-poker/commit/7c8e0f117c7f922761695827fdda4f8ba79f5ab7)), closes [#243](https://github.com/peeranat-dan/scrum-poker/issues/243)
+
 # [1.3.0](https://github.com/peeranat-dan/scrum-poker/compare/1.2.1...1.3.0) (2025-07-01)
 
 

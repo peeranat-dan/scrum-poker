@@ -2,6 +2,7 @@ import Loading from '@/components/loading';
 import { Toaster } from '@/components/ui/sonner';
 import GameHeader from '@/containers/game-header';
 import ParticipantLeftModal from '@/containers/participant-left-modal';
+import ParticipationRemovedModal from '@/containers/participation-removed-modal';
 import TerminatedGameModal from '@/containers/terminated-game-modal';
 import { useGetParticipantBySessionIdAndUid } from '@/hooks/participant/use-get-participant-by-session-id-and-uid';
 import { useGetSession } from '@/hooks/session/use-get-session';
@@ -59,7 +60,7 @@ function RouteComponent() {
           </div>
           <TerminatedGameModal />
           <ParticipantLeftModal />
-          {/* <ParticipationRemovedModal /> */}
+          <ParticipationRemovedModal />
         </GameProvider>
       </ParticipantProvider>
     </SessionProvider>
