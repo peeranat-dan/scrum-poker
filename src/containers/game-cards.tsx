@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { canVote } from '@/domain/participant/rules';
 import { useDisclosure } from '@/hooks/use-disclosure';
 import { cn } from '@/lib/cn';
 import { useGame } from '@/providers/game';
@@ -33,7 +32,7 @@ export default function GameCards() {
   }, [isCardShown]);
 
   // Don't show cards if user cannot vote (spectators)
-  const userCanVote = canVote(participant);
+  const userCanVote = participant?.role !== 'spectator' && participant?.status === 'active';
 
   if (!userCanVote) {
     return (

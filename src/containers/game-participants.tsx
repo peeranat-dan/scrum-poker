@@ -1,5 +1,4 @@
 import { type RoundStatus } from '@/data/round/types';
-import { isSpectator } from '@/domain/participant/rules';
 import { cn } from '@/lib/cn';
 import { useGame } from '@/providers/game';
 import { type Card } from '@/shared/card/types';
@@ -54,12 +53,10 @@ export default function GameParticipants() {
                 getCardColor(cards, participant.vote, round?.status),
                 typeof participant.vote === 'undefined' && 'bg-accent text-accent-foreground',
                 round?.status === 'revealed' && 'rotate-y-0',
-                isSpectator(participant) && 'bg-muted text-muted-foreground',
+                participant.role === 'spectator' && 'bg-muted text-muted-foreground',
               )}
             >
-              {isSpectator(participant)
-                ? '👁️'
-                : getVoteValue(cards, participant.vote, round?.status)}
+              {getVoteValue(cards, participant.vote, round?.status)}
             </div>
           </div>
         </li>
