@@ -48,3 +48,25 @@ export function canBeRemoved(participant: Participant | null): asserts participa
     throw new Error('Participant is not active, cannot be removed');
   }
 }
+
+export function canVote(participant: Participant | null): boolean {
+  if (!participant) {
+    return false;
+  }
+  return participant.role !== 'spectator' && participant.status === 'active';
+}
+
+export function isSpectator(participant: Participant | null): boolean {
+  if (!participant) {
+    return false;
+  }
+  return participant.role === 'spectator';
+}
+
+export function filterVotingParticipants(participants: Participant[]): Participant[] {
+  return participants.filter((participant) => participant.role !== 'spectator');
+}
+
+export function filterSpectators(participants: Participant[]): Participant[] {
+  return participants.filter((participant) => participant.role === 'spectator');
+}

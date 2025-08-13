@@ -7,6 +7,10 @@ import {
   canLeaveSession,
   canManageSession,
   canRejoinSession,
+  canVote,
+  filterSpectators,
+  filterVotingParticipants,
+  isSpectator,
 } from '../rules';
 import { type Participant } from '../types';
 
@@ -35,6 +39,11 @@ describe('participant rules', () => {
 
     it('returns false for player role', () => {
       const participant = { role: 'player' } as Participant;
+      expect(canManageSession(participant)).toBe(false);
+    });
+
+    it('returns false for spectator role', () => {
+      const participant = { role: 'spectator' } as Participant;
       expect(canManageSession(participant)).toBe(false);
     });
   });
@@ -108,6 +117,116 @@ describe('participant rules', () => {
     it('returns true for active participant', () => {
       const activeParticipant = { status: 'active' } as Participant;
       expect(() => canBeRemoved(activeParticipant)).not.toThrowError();
+    });
+  });
+
+  describe('canVote', () => {
+    it('returns false when participant is null', () => {
+      expect(canVote(null)).toBe(false);
+    });
+
+    it('returns false for spectator role', () => {
+      const spectator = { role: 'spectator', status: 'active' } as Participant;
+      expect(canVote(spectator)).toBe(false);
+    });
+
+    it('returns false for inactive participant', () => {
+      const inactivePlayer = { role: 'player', status: 'left' } as Participant;
+      expect(canVote(inactivePlayer)).toBe(false);
+    });
+
+    it('returns true for active player', () => {
+      const activePlayer = { role: 'player', status: 'active' } as Participant;
+      expect(canVote(activePlayer)).toBe(true);
+    });
+
+    it('returns true for active admin', () => {
+      const activeAdmin = { role: 'admin', status: 'active' } as Participant;
+      expect(canVote(activeAdmin)).toBe(true);
+    });
+
+    it('returns true for active owner', () => {
+      const activeOwner = { role: 'owner', status: 'active' } as Participant;
+      expect(canVote(activeOwner)).toBe(true);
+    });
+  });
+
+  describe('isSpectator', () => {
+    it('returns false when participant is null', () => {
+      expect(isSpectator(null)).toBe(false);
+    });
+
+    it('returns true for spectator role', () => {
+      const spectator = { role: 'spectator' } as Participant;
+      expect(isSpectator(spectator)).toBe(true);
+    });
+
+    it('returns false for non-spectator roles', () => {
+      const player = { role: 'player' } as Participant;
+      const admin = { role: 'admin' } as Participant;
+      const owner = { role: 'owner' } as Participant;
+      
+      expect(isSpectator(player)).toBe(false);
+      expect(isSpectator(admin)).toBe(false);
+      expect(isSpectator(owner)).toBe(false);
+    });
+  });
+
+  describe('filterVotingParticipants', () => {
+    it('filters out spectators from participant list', () => {
+      const participants = [
+        { id: '1', role: 'player' } as Participant,
+        { id: '2', role: 'spectator' } as Participant,
+        { id: '3', role: 'admin' } as Participant,
+        { id: '4', role: 'spectator' } as Participant,
+        { id: '5', role: 'owner' } as Participant,
+      ];
+
+      const result = filterVotingParticipants(participants);
+      
+      expect(result).toHaveLength(3);
+      expect(result.map(p => p.id)).toEqual(['1', '3', '5']);
+      expect(result.every(p => p.role !== 'spectator')).toBe(true);
+    });
+
+    it('returns empty array when all participants are spectators', () => {
+      const participants = [
+        { id: '1', role: 'spectator' } as Participant,
+        { id: '2', role: 'spectator' } as Participant,
+      ];
+
+      const result = filterVotingParticipants(participants);
+      
+      expect(result).toHaveLength(0);
+    });
+  });
+
+  describe('filterSpectators', () => {
+    it('returns only spectators from participant list', () => {
+      const participants = [
+        { id: '1', role: 'player' } as Participant,
+        { id: '2', role: 'spectator' } as Participant,
+        { id: '3', role: 'admin' } as Participant,
+        { id: '4', role: 'spectator' } as Participant,
+        { id: '5', role: 'owner' } as Participant,
+      ];
+
+      const result = filterSpectators(participants);
+      
+      expect(result).toHaveLength(2);
+      expect(result.map(p => p.id)).toEqual(['2', '4']);
+      expect(result.every(p => p.role === 'spectator')).toBe(true);
+    });
+
+    it('returns empty array when no spectators present', () => {
+      const participants = [
+        { id: '1', role: 'player' } as Participant,
+        { id: '2', role: 'admin' } as Participant,
+      ];
+
+      const result = filterSpectators(participants);
+      
+      expect(result).toHaveLength(0);
     });
   });
 });

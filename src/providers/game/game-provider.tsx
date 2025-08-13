@@ -1,4 +1,5 @@
 import Loading from '@/components/loading';
+import { filterVotingParticipants } from '@/domain/participant/rules';
 import { useStreamParticipants } from '@/hooks/participant/use-stream-participants';
 import { useRevealRound } from '@/hooks/round/use-reveal-round';
 import { useRevoteRound } from '@/hooks/round/use-revote-round';
@@ -77,10 +78,14 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     return getCards(session.votingSystem);
   }, [session.votingSystem]);
 
+  const votingParticipants = useMemo(() => {
+    return filterVotingParticipants(participants);
+  }, [participants]);
+
   const value = useMemo(
     () => ({
       cards: cards,
-      participants: mapParticipantsToVotes(participants, votes) ?? [],
+      participants: mapParticipantsToVotes(votingParticipants, votes) ?? [],
       round: round,
       vote: voteData,
       castVote: castVote,
@@ -90,7 +95,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     }),
     [
       cards,
-      participants,
+      votingParticipants,
       votes,
       round,
       voteData,
@@ -101,7 +106,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     ],
   );
 
-  if (isVoteLoading || !round || participants.length === 0) {
+  if (isVoteLoading || !round || votingParticipants.length === 0) {
     return <Loading fullscreen />;
   }
 

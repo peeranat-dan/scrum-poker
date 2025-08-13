@@ -1,7 +1,9 @@
 import { Button } from '@/components/ui/button';
+import { canVote } from '@/domain/participant/rules';
 import { useDisclosure } from '@/hooks/use-disclosure';
 import { cn } from '@/lib/cn';
 import { useGame } from '@/providers/game';
+import { useParticipant } from '@/providers/participant';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useCallback, useEffect } from 'react';
 
@@ -9,6 +11,8 @@ const CARD_SHOW_KEY = 'scrum-poker-cards-shown';
 
 export default function GameCards() {
   const { cards, castVote, vote } = useGame();
+  const { participant } = useParticipant();
+  const canVoteInSession = canVote(participant);
 
   const getInitialCardState = useCallback(() => {
     if (typeof window === 'undefined') return true; // SSR safety
@@ -28,6 +32,21 @@ export default function GameCards() {
   useEffect(() => {
     localStorage.setItem(CARD_SHOW_KEY, JSON.stringify(isCardShown));
   }, [isCardShown]);
+
+  if (!canVoteInSession) {
+    return (
+      <div className="flex w-full flex-col items-center justify-center p-8">
+        <div className="text-center">
+          <p className="text-lg font-medium text-muted-foreground">
+            👁️ You are watching as a spectator
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
+            You can observe the voting but cannot participate
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={cn('flex w-full flex-col items-center justify-center')}>
