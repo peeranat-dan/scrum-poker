@@ -2,7 +2,7 @@ import { type Session } from '../session/types';
 import { type Participant } from './types';
 
 export function assertParticipantExists(
-  participant: Participant | null,
+  participant: Participant | null | undefined,
 ): asserts participant is Participant {
   if (!participant) {
     throw new Error('Participant not found');
@@ -49,12 +49,12 @@ export function canBeRemoved(participant: Participant | null): asserts participa
   }
 }
 
-export function canVote(participant: Participant | null) {
+export function canVote(participant: Participant | undefined | null) {
   assertParticipantExists(participant);
   return participant.role !== 'spectator' && participant.status === 'active';
 }
 
 export function isSpectator(participant: Participant | null) {
-  if (!participant) return false;
+  assertParticipantExists(participant);
   return participant.role === 'spectator';
 }

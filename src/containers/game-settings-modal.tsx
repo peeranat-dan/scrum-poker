@@ -36,7 +36,7 @@ const settingsModalContent: Record<SettingsModalItem, () => JSX.Element> = {
 const menus: {
   name: SettingsModalItem;
   icon: React.ComponentType;
-  role: ('player' | 'admin' | 'owner')[];
+  role: ('player' | 'admin' | 'owner' | 'spectator')[];
 }[] = [
   { name: 'General', icon: Settings2, role: ['owner'] },
   // { name: 'Account', icon: Settings2, role: ['player', 'owner'] },
@@ -56,11 +56,13 @@ export default function GameSettingsModal() {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button size='icon' variant='secondary'>
-          <Settings2 />
-        </Button>
-      </DialogTrigger>
+      {filteredMenus.length > 0 ? (
+        <DialogTrigger asChild>
+          <Button size='icon' variant='secondary'>
+            <Settings2 />
+          </Button>
+        </DialogTrigger>
+      ) : null}
       <DialogContent className='overflow-hidden p-0 md:max-h-[500px] md:max-w-[700px] lg:max-w-[800px]'>
         <DialogTitle className='sr-only'>Settings</DialogTitle>
         <DialogDescription className='sr-only'>Customize your settings here.</DialogDescription>

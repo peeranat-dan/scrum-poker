@@ -40,9 +40,6 @@ export default function GameParticipants() {
         <li key={participant.id} className='flex flex-col items-center gap-2'>
           <div className='max-w-[96px] truncate text-center text-sm font-semibold'>
             {participant.displayName}
-            {isSpectator(participant) && (
-              <div className='text-xs text-muted-foreground'>(Spectator)</div>
-            )}
           </div>
           <div className='relative'>
             {participant.id === currentParticipant?.id && (
@@ -60,7 +57,9 @@ export default function GameParticipants() {
                 isSpectator(participant) && 'bg-muted text-muted-foreground',
               )}
             >
-              {isSpectator(participant) ? '👁️' : getVoteValue(cards, participant.vote, round?.status)}
+              {isSpectator(participant)
+                ? '👁️'
+                : getVoteValue(cards, participant.vote, round?.status)}
             </div>
           </div>
         </li>
