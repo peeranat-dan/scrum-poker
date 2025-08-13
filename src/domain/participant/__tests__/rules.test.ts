@@ -170,8 +170,8 @@ describe('participant rules', () => {
       expect(isSpectator(participant)).toBe(false);
     });
 
-    it('returns false for null participant', () => {
-      expect(isSpectator(null)).toBe(false);
+    it('throws when participant is null', () => {
+      expect(() => isSpectator(null)).toThrowError(new Error('Participant not found'));
     });
   });
 });
