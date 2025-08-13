@@ -10,6 +10,7 @@ export const BaseParticipantSchema = z.object({
   displayName: z.string(),
   role: z.enum(participantRoles),
   status: z.enum(participantStatuses),
+  winStreak: z.number().optional().default(0),
 });
 
 export const ParticipantSchema = DomainEntitySchema.merge(BaseParticipantSchema);
