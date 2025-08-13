@@ -1,3 +1,4 @@
+import { WinStreakBadge } from '@/components/win-streak-badge';
 import { type RoundStatus } from '@/data/round/types';
 import { cn } from '@/lib/cn';
 import { useGame } from '@/providers/game';
@@ -44,6 +45,11 @@ export default function GameParticipants() {
             {participant.id === currentParticipant?.id && (
               <div className='absolute top-0 right-0 z-10'>
                 <EditUserProfileButton />
+              </div>
+            )}
+            {participant.winStreak && participant.winStreak > 0 && (
+              <div className='absolute top-0 left-0 z-10 -translate-x-1/2 -translate-y-1/2'>
+                <WinStreakBadge streak={participant.winStreak} />
               </div>
             )}
             <div
