@@ -3,11 +3,30 @@ import { useDisclosure } from '@/hooks/use-disclosure';
 import { cn } from '@/lib/cn';
 import { useGame } from '@/providers/game';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useEffect } from 'react';
+
+const CARD_SHOW_KEY = 'scrum-poker-cards-shown';
 
 export default function GameCards() {
   const { cards, castVote, vote } = useGame();
 
-  const [isCardShown, { toggle: toggleShowCard }] = useDisclosure(true);
+  const getInitialCardState = () => {
+    try {
+      const saved = localStorage.getItem(CARD_SHOW_KEY);
+      if (saved === null) return true;
+      
+      const parsed = JSON.parse(saved);
+      return typeof parsed === 'boolean' ? parsed : true;
+    } catch {
+      return true;
+    }
+  };
+
+  const [isCardShown, { toggle: toggleShowCard }] = useDisclosure(getInitialCardState());
+
+  useEffect(() => {
+    localStorage.setItem(CARD_SHOW_KEY, JSON.stringify(isCardShown));
+  }, [isCardShown]);
 
   return (
     <div className={cn('flex w-full flex-col items-center justify-center')}>
