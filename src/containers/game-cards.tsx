@@ -3,24 +3,25 @@ import { useDisclosure } from '@/hooks/use-disclosure';
 import { cn } from '@/lib/cn';
 import { useGame } from '@/providers/game';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 const CARD_SHOW_KEY = 'scrum-poker-cards-shown';
 
 export default function GameCards() {
   const { cards, castVote, vote } = useGame();
 
-  const getInitialCardState = () => {
+  const getInitialCardState = useCallback(() => {
+    if (typeof window === 'undefined') return true; // SSR safety
     try {
       const saved = localStorage.getItem(CARD_SHOW_KEY);
       if (saved === null) return true;
-      
+
       const parsed = JSON.parse(saved);
       return typeof parsed === 'boolean' ? parsed : true;
     } catch {
       return true;
     }
-  };
+  }, []);
 
   const [isCardShown, { toggle: toggleShowCard }] = useDisclosure(getInitialCardState());
 
