@@ -22,8 +22,8 @@ export async function revealRound(roundId: string) {
       },
       status: 'active',
       role: {
-        op: '!=',
-        value: 'spectator',
+        op: 'in',
+        value: ['admin', 'owner', 'player'],
       },
     },
   });
