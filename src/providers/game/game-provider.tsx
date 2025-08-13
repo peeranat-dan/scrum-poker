@@ -77,10 +77,14 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     return getCards(session.votingSystem);
   }, [session.votingSystem]);
 
+  const nonSpectatorParticipants = useMemo(() => {
+    return participants.filter((participant) => participant.role !== 'spectator');
+  }, [participants]);
+
   const value = useMemo(
     () => ({
       cards: cards,
-      participants: mapParticipantsToVotes(participants, votes) ?? [],
+      participants: mapParticipantsToVotes(nonSpectatorParticipants, votes) ?? [],
       round: round,
       vote: voteData,
       castVote: castVote,
@@ -90,7 +94,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     }),
     [
       cards,
-      participants,
+      nonSpectatorParticipants,
       votes,
       round,
       voteData,
@@ -101,7 +105,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     ],
   );
 
-  if (isVoteLoading || !round || participants.length === 0) {
+  if (isVoteLoading || !round || nonSpectatorParticipants.length === 0) {
     return <Loading fullscreen />;
   }
 

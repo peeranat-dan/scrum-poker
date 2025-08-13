@@ -4,6 +4,7 @@ import { type UseFormReturn } from 'react-hook-form';
 import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
 interface SessionJoinFormProps {
   onSubmit: (data: JoinSessionInput) => void;
@@ -25,6 +26,27 @@ export default function SessionJoinForm({ form, onSubmit }: Readonly<SessionJoin
               <FormControl>
                 <Input placeholder='Michael Jackson' {...field} />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='role'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Join as</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder='Select your role' />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value='player'>Player (can vote)</SelectItem>
+                  <SelectItem value='spectator'>Spectator (watch only)</SelectItem>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}

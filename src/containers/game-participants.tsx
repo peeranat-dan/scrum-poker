@@ -53,6 +53,7 @@ export default function GameParticipants() {
                 getCardColor(cards, participant.vote, round?.status),
                 typeof participant.vote === 'undefined' && 'bg-accent text-accent-foreground',
                 round?.status === 'revealed' && 'rotate-y-0',
+                participant.role === 'spectator' && 'bg-muted text-muted-foreground',
               )}
             >
               {getVoteValue(cards, participant.vote, round?.status)}

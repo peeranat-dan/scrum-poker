@@ -17,6 +17,7 @@ export default function SessionJoinContainer({ sessionId }: Readonly<SessionJoin
   const form = useForm<JoinSessionInput>({
     defaultValues: {
       name: authUser?.displayName ?? '',
+      role: 'player',
     },
     resolver: zodResolver(JoinSessionSchema),
   });
@@ -30,7 +31,7 @@ export default function SessionJoinContainer({ sessionId }: Readonly<SessionJoin
     const participant = await createParticipantMutation.mutateAsync({
       sessionId: sessionId,
       uid: user.uid,
-      role: 'player',
+      role: data.role,
       displayName: data.name,
     });
 

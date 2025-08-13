@@ -21,6 +21,10 @@ export async function revealRound(roundId: string) {
         value: votes.map((vote) => vote.participantId),
       },
       status: 'active',
+      role: {
+        op: 'in',
+        value: ['admin', 'owner', 'player'],
+      },
     },
   });
 

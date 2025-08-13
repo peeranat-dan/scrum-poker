@@ -1,6 +1,6 @@
 import { type FirestoreDoc, type FirestoreSearchInput } from '@/shared/firestore/types';
 
-export const participantRoles = ['owner', 'admin', 'player'] as const;
+export const participantRoles = ['owner', 'admin', 'player', 'spectator'] as const;
 export const participantStatuses = ['active', 'left', 'removed'] as const;
 
 export type ParticipantRole = (typeof participantRoles)[number];

@@ -29,6 +29,7 @@ export type UserProfileInput = z.infer<typeof UserProfileSchema>;
 
 export const JoinSessionSchema = z.object({
   name: playerNameSchema,
+  role: z.enum(['player', 'spectator']),
 });
 
 export type JoinSessionInput = z.infer<typeof JoinSessionSchema>;
