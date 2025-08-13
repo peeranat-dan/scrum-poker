@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { isSpectator } from '@/domain/participant/rules';
 import { useGame } from '@/providers/game';
 import { useParticipant } from '@/providers/participant';
 import { copyJoinLink } from '@/shared/utils/copy-join-link';
@@ -30,11 +31,23 @@ export default function GameActions() {
   };
 
   const participantsWithNoVotes = useMemo(
-    () => participants.filter((participant) => typeof participant.vote === 'undefined'),
+    () => participants.filter((participant) => 
+      !isSpectator(participant) && typeof participant.vote === 'undefined'
+    ),
     [participants],
   );
 
   const shouldDisableRevealVoteButton = participantsWithNoVotes.length > 0;
+
+  // Spectators have limited actions
+  if (isSpectator(participant)) {
+    return (
+      <>
+        <Button onClick={handleCopyJoinLink}>Invite Players</Button>
+        <SessionLeaveButton />
+      </>
+    );
+  }
 
   if (participant?.role === 'owner') {
     return (

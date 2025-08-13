@@ -7,6 +7,8 @@ import {
   canLeaveSession,
   canManageSession,
   canRejoinSession,
+  canVote,
+  isSpectator,
 } from '../rules';
 import { type Participant } from '../types';
 
@@ -35,6 +37,11 @@ describe('participant rules', () => {
 
     it('returns false for player role', () => {
       const participant = { role: 'player' } as Participant;
+      expect(canManageSession(participant)).toBe(false);
+    });
+
+    it('returns false for spectator role', () => {
+      const participant = { role: 'spectator' } as Participant;
       expect(canManageSession(participant)).toBe(false);
     });
   });
@@ -108,6 +115,63 @@ describe('participant rules', () => {
     it('returns true for active participant', () => {
       const activeParticipant = { status: 'active' } as Participant;
       expect(() => canBeRemoved(activeParticipant)).not.toThrowError();
+    });
+  });
+
+  describe('canVote', () => {
+    it('returns true for active player', () => {
+      const participant = { role: 'player', status: 'active' } as Participant;
+      expect(canVote(participant)).toBe(true);
+    });
+
+    it('returns true for active owner', () => {
+      const participant = { role: 'owner', status: 'active' } as Participant;
+      expect(canVote(participant)).toBe(true);
+    });
+
+    it('returns true for active admin', () => {
+      const participant = { role: 'admin', status: 'active' } as Participant;
+      expect(canVote(participant)).toBe(true);
+    });
+
+    it('returns false for spectator regardless of status', () => {
+      const activeSpectator = { role: 'spectator', status: 'active' } as Participant;
+      expect(canVote(activeSpectator)).toBe(false);
+    });
+
+    it('returns false for inactive player', () => {
+      const inactivePlayer = { role: 'player', status: 'left' } as Participant;
+      expect(canVote(inactivePlayer)).toBe(false);
+    });
+
+    it('throws when participant is null', () => {
+      expect(() => canVote(null)).toThrowError(new Error('Participant not found'));
+    });
+  });
+
+  describe('isSpectator', () => {
+    it('returns true for spectator role', () => {
+      const participant = { role: 'spectator' } as Participant;
+      expect(isSpectator(participant)).toBe(true);
+    });
+
+    it('returns false for player role', () => {
+      const participant = { role: 'player' } as Participant;
+      expect(isSpectator(participant)).toBe(false);
+    });
+
+    it('returns false for owner role', () => {
+      const participant = { role: 'owner' } as Participant;
+      expect(isSpectator(participant)).toBe(false);
+    });
+
+    it('returns false for admin role', () => {
+      const participant = { role: 'admin' } as Participant;
+      expect(isSpectator(participant)).toBe(false);
+    });
+
+    it('returns false for null participant', () => {
+      expect(isSpectator(null)).toBe(false);
     });
   });
 });

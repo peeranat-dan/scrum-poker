@@ -1,4 +1,5 @@
 import { type RoundStatus } from '@/data/round/types';
+import { isSpectator } from '@/domain/participant/rules';
 import { cn } from '@/lib/cn';
 import { useGame } from '@/providers/game';
 import { type Card } from '@/shared/card/types';
@@ -39,6 +40,9 @@ export default function GameParticipants() {
         <li key={participant.id} className='flex flex-col items-center gap-2'>
           <div className='max-w-[96px] truncate text-center text-sm font-semibold'>
             {participant.displayName}
+            {isSpectator(participant) && (
+              <div className='text-xs text-muted-foreground'>(Spectator)</div>
+            )}
           </div>
           <div className='relative'>
             {participant.id === currentParticipant?.id && (
@@ -53,9 +57,10 @@ export default function GameParticipants() {
                 getCardColor(cards, participant.vote, round?.status),
                 typeof participant.vote === 'undefined' && 'bg-accent text-accent-foreground',
                 round?.status === 'revealed' && 'rotate-y-0',
+                isSpectator(participant) && 'bg-muted text-muted-foreground',
               )}
             >
-              {getVoteValue(cards, participant.vote, round?.status)}
+              {isSpectator(participant) ? '👁️' : getVoteValue(cards, participant.vote, round?.status)}
             </div>
           </div>
         </li>
