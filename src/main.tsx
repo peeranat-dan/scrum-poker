@@ -2,6 +2,7 @@ import '@fontsource-variable/jetbrains-mono/index.css';
 import '@fontsource-variable/noto-sans-thai/index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { H } from 'highlight.run';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -40,6 +41,13 @@ function App() {
       <InnerApp />
     </AuthProvider>
   );
+}
+
+if (!import.meta.env.DEV && import.meta.env.VITE_HIGHLIGHT_PROJECT_ID) {
+  H.init(import.meta.env.VITE_HIGHLIGHT_PROJECT_ID, {
+    serviceName: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    tracingOrigins: true,
+  });
 }
 
 const queryClient = new QueryClient();
