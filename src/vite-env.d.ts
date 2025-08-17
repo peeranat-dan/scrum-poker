@@ -15,6 +15,9 @@ interface ImportMetaEnv {
 
   // Game env
   readonly VITE_GAME_DEFAULT_PARTICIPANT_NAME: string;
+
+  // Highlight env
+  readonly VITE_HIGHLIGHT_PROJECT_ID: string;
 }
 
 interface ImportMeta {

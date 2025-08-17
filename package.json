@@ -23,6 +23,7 @@
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.2.5",
     "@fontsource-variable/noto-sans-thai": "^5.2.5",
+    "@highlight-run/react": "^20.0.1",
     "@hookform/resolvers": "^5.2.1",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-avatar": "^1.1.10",
@@ -45,6 +46,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^11.8.1",
+    "highlight.run": "^9.19.1",
     "lucide-react": "^0.511.0",
     "motion": "^12.23.12",
     "react": "^19.1.0",
