@@ -14,6 +14,9 @@ importers:
       '@fontsource-variable/noto-sans-thai':
         specifier: ^5.2.5
         version: 5.2.5
+      '@highlight-run/react':
+        specifier: ^20.0.1
+        version: 20.0.1(highlight.run@9.19.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hookform/resolvers':
         specifier: ^5.2.1
         version: 5.2.1(react-hook-form@7.58.1(react@19.1.0))
@@ -80,6 +83,9 @@ importers:
       firebase:
         specifier: ^11.8.1
         version: 11.8.1
+      highlight.run:
+        specifier: ^9.19.1
+        version: 9.19.1
       lucide-react:
         specifier: ^0.511.0
         version: 0.511.0(react@19.1.0)
@@ -828,6 +834,13 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
+  '@highlight-run/react@20.0.1':
+    resolution: {integrity: sha512-GM14EdcLwgVNQ5DgczNjbeTIlIzsVCV7BrsPF8muwLPVc97wFu4dJoN7zMUrtmUK+1yVx0niaNzIYnnwKuoPGw==}
+    peerDependencies:
+      highlight.run: 9.19.1
+      react: '>=16'
+      react-dom: '>=16'
+
   '@hookform/resolvers@5.2.1':
     resolution: {integrity: sha512-u0+6X58gkjMcxur1wRWokA7XsiiBJ6aK17aPZxhkoYiK5J+HcTx0Vhu9ovXe6H+dVpO6cjrn2FkJTryXEMlryQ==}
     peerDependencies:
@@ -999,6 +1012,15 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@launchdarkly/js-client-sdk-common@1.13.0':
+    resolution: {integrity: sha512-3u3nWLKfu7ADbrBlbYq1rDROXG1WcRGRGhHFyAjtDPCCh783sPIb1frC1n4tj6b64bustVrZvLR9dGrQlp6tJQ==}
+
+  '@launchdarkly/js-client-sdk@0.6.0':
+    resolution: {integrity: sha512-9aBgpGKXxaiPudNuQ9MoS8wFSIR1h0P2EFDP2veNJG7tBuxzDKfH3hzjW01C4/WyWN6bk7P7XKwisxw775klBQ==}
+
+  '@launchdarkly/js-sdk-common@2.17.0':
+    resolution: {integrity: sha512-HYQNc4xbE58hBOO1yZsqE+BHOC36AYrHPZ5hwvlHoZRSsaoYCPM+Q/n+O+N3JhWXTqGsu6SwUzqUzTyxg8prGg==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2927,6 +2949,9 @@ packages:
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
+
+  highlight.run@9.19.1:
+    resolution: {integrity: sha512-RdoSvvxtkz6JKksap3DLA6kr7nJbtN3bn63aoVVQCL057MJ/Q1ZqTqsrewQqJ8zZ/d3cgufAlX8CkIziRgC1VQ==}
 
   hosted-git-info@7.0.2:
     resolution: {integrity: sha512-puUZAUKT5m8Zzvs72XWy3HtvVbTWljRE66cP60bxJzAqf2DgICo7lYTY2IHUmLnNpjYvw5bvmoHvPc0QO2a62w==}
@@ -5119,6 +5144,12 @@ snapshots:
       protobufjs: 7.5.3
       yargs: 17.7.2
 
+  '@highlight-run/react@20.0.1(highlight.run@9.19.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      highlight.run: 9.19.1
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
   '@hookform/resolvers@5.2.1(react-hook-form@7.58.1(react@19.1.0))':
     dependencies:
       '@standard-schema/utils': 0.3.0
@@ -5275,6 +5306,16 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@launchdarkly/js-client-sdk-common@1.13.0':
+    dependencies:
+      '@launchdarkly/js-sdk-common': 2.17.0
+
+  '@launchdarkly/js-client-sdk@0.6.0':
+    dependencies:
+      '@launchdarkly/js-client-sdk-common': 1.13.0
+
+  '@launchdarkly/js-sdk-common@2.17.0': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -7332,6 +7373,11 @@ snapshots:
       uglify-js: 3.19.3
 
   has-flag@4.0.0: {}
+
+  highlight.run@9.19.1:
+    dependencies:
+      '@launchdarkly/js-client-sdk': 0.6.0
+      imurmurhash: 0.1.4
 
   hosted-git-info@7.0.2:
     dependencies:
