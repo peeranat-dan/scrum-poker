@@ -1,0 +1,10 @@
+# Compiled JavaScript files
+lib/
+*.js
+*.js.map
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Node.js dependency directory
+node_modules/

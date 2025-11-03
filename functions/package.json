@@ -1,0 +1,27 @@
+{
+  "name": "functions",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "pnpm build && firebase emulators:start --only functions",
+    "shell": "pnpm build && firebase functions:shell",
+    "start": "pnpm shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "firebase-admin": "^13.0.2",
+    "firebase-functions": "^6.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.6",
+    "typescript": "~5.8.3"
+  },
+  "private": true
+}

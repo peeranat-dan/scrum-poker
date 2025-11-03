@@ -30,6 +30,12 @@ cd scrum-poker
 pnpm install
 ```
 
+4. Install Firebase Functions dependencies:
+
+```bash
+cd functions && pnpm install && cd ..
+```
+
 ## Setup
 
 1. Create Firebase project
@@ -44,6 +50,35 @@ pnpm dev
 
 4. Open your browser and navigate to `http://localhost:5173` to access the application.
 
+## Deployment
+
+### Deploy Web Application
+
+```bash
+pnpm deploy:web  # Deploy to default environment
+pnpm deploy:web-prod  # Deploy to production
+```
+
+### Deploy Firebase Functions
+
+To deploy the OG image generation functions:
+
+```bash
+firebase deploy --only functions
+```
+
+Or deploy everything (hosting + functions):
+
+```bash
+firebase deploy
+```
+
+**Note:** Custom OG images require Firebase Functions to be deployed. The functions automatically:
+- Generate OG images when sessions are created
+- Update images when session names change
+- Delete images when sessions are deleted
+- Serve custom meta tags to social media bots
+
 ## Features
 
 1. **Create Session:** Create a new planning poker session with fibonacci or t-shirt sizes.
@@ -55,7 +90,8 @@ pnpm dev
 7. **Vote Results:** All players can see the results of the voting session including the average vote and the number of votes for each option.
 8. **Reset Vote:** Room owner can reset the voting session.
 9. **Terminate Session:** Room owner can terminate the session.
-10. **Account Settings:**
+10. **Custom OG Images:** Each game session automatically generates a custom Open Graph image for social media sharing, featuring the session name and E-mate logo.
+11. **Account Settings:**
     - Link with Google
     - Sign out
 
