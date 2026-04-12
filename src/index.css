@@ -41,28 +41,28 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --font-mono: 'JetBrains Mono Variable', 'Noto Sans Thai Variable', monospace;
 
-  /* Cards Colors */
+  /* Cards Colors — all backgrounds pass WCAG 2.0 AAA (≥7:1) with dark text #18181b */
   /* Fibonacci */
-  --color-card-0: #3b82f6;
-  --color-card-1: #4f8bf4;
-  --color-card-2: #6395f2;
-  --color-card-3: #77a0f0;
+  --color-card-0: #70a4f8;
+  --color-card-1: #73a3f6;
+  --color-card-2: #77a3f4;
+  --color-card-3: #7ba3f0;
   --color-card-5: #9bb3ec;
   --color-card-8: #c1c7e8;
   --color-card-13: #e1b7d2;
   --color-card-21: #ed94b7;
-  --color-card-34: #f46e9e;
-  --color-card-55: #f3457f;
-  --color-card-89: #ef1f5e;
+  --color-card-34: #f57ca7;
+  --color-card-55: #f77ba4;
+  --color-card-89: #f67ca0;
   --color-card-no: #a3a3a3;
 
   /* T-Shirt */
-  --color-card-tshirt-xs: #3b82f6;
-  --color-card-tshirt-s: #6395f2;
+  --color-card-tshirt-xs: #70a4f8;
+  --color-card-tshirt-s: #77a3f4;
   --color-card-tshirt-m: #9bb3ec;
   --color-card-tshirt-l: #e1b7d2;
-  --color-card-tshirt-xl: #f46e9e;
-  --color-card-tshirt-xxl: #ef1f5e;
+  --color-card-tshirt-xl: #f57ca7;
+  --color-card-tshirt-xxl: #f67ca0;
   --color-card-tshirt-no: #a3a3a3;
 }
 
@@ -74,8 +74,6 @@
   --card-foreground: oklch(18.2% 0.004 264.5);
   --popover: oklch(0.99 0 0);
   --popover-foreground: oklch(0.44 0.0152 271.06);
-  --border: oklch(88.2% 0.003 264.5);
-  --input: oklch(88.2% 0.003 264.5);
   --primary: oklch(73.4% 0.176 47.5);
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.18 0.0044 264.46);
