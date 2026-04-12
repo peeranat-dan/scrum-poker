@@ -48,6 +48,7 @@ export default function GameCards() {
         onClick={toggleShowCard}
         size='icon'
         variant='ghost'
+        aria-label={isCardShown ? 'Hide cards' : 'Show cards'}
         className={cn('transition-all duration-200', !isCardShown && 'translate-y-[125px]')}
       >
         {isCardShown ? <ChevronDown /> : <ChevronUp />}
@@ -61,10 +62,14 @@ export default function GameCards() {
         {cards.map((card) => (
           <li key={card.displayValue + card.value}>
             <button
+              type='button'
               onClick={() => castVote(card.value)}
+              aria-label={`Vote ${card.displayValue}`}
+              aria-pressed={vote?.value === card.value}
               className={cn(
                 'bg-card text-foreground flex aspect-[2/3] w-20 shrink-0 cursor-pointer items-center justify-center rounded-md border text-center font-mono text-2xl font-semibold shadow-md transition-all hover:scale-105',
                 card.color,
+                card.textColor,
                 vote?.value === card.value && 'scale-110 hover:scale-110',
               )}
             >

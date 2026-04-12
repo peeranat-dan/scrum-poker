@@ -28,12 +28,17 @@ export default function GameHeader() {
         </Link>
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger onClick={handleCopyJoinLink}>
-              <div className='bg-primary/30 dark:bg-accent flex cursor-pointer items-center gap-2 rounded-full px-4 py-2'>
+            <TooltipTrigger asChild>
+              <button
+                type='button'
+                onClick={handleCopyJoinLink}
+                aria-label='Copy join link to clipboard'
+                className='bg-primary/30 dark:bg-accent flex cursor-pointer items-center gap-2 rounded-full px-4 py-2'
+              >
                 <LinkIcon className='h-4 w-4' />
                 <span className='hidden font-mono text-sm md:block'>{id}</span>
                 <span className='block font-mono text-sm md:hidden'>{id.substring(0, 8)}</span>
-              </div>
+              </button>
             </TooltipTrigger>
             <TooltipContent>
               <p>Copy join link to clipboard</p>
