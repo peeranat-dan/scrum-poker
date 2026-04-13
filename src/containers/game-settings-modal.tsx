@@ -38,7 +38,7 @@ const menus: {
   icon: React.ComponentType;
   role: ('player' | 'admin' | 'owner' | 'spectator')[];
 }[] = [
-  { name: 'General', icon: Settings2, role: ['owner'] },
+  { name: 'General', icon: Settings2, role: ['owner', 'admin'] },
   // { name: 'Account', icon: Settings2, role: ['player', 'owner'] },
   { name: 'Players', icon: Users2, role: ['owner'] },
 ];
