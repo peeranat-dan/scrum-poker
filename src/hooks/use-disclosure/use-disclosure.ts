@@ -19,25 +19,27 @@ export function useDisclosure(
 ): UseDisclosureReturnValue {
   const [opened, setOpened] = useState(initialState);
 
+  const { onOpen, onClose } = options;
+
   const open = useCallback(() => {
     setOpened((isOpened) => {
       if (!isOpened) {
-        options.onOpen?.();
+        onOpen?.();
         return true;
       }
       return isOpened;
     });
-  }, [options.onOpen]);
+  }, [onOpen]);
 
   const close = useCallback(() => {
     setOpened((isOpened) => {
       if (isOpened) {
-        options.onClose?.();
+        onClose?.();
         return false;
       }
       return isOpened;
     });
-  }, [options.onClose]);
+  }, [onClose]);
 
   const toggle = useCallback(() => {
     if (opened) {
