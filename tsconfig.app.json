@@ -25,7 +25,6 @@
     /* etc */
     "erasableSyntaxOnly": true,
 
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
