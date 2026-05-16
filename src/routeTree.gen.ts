@@ -8,117 +8,163 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as LogoutRouteImport } from './routes/logout'
+import { Route as GameRouteRouteImport } from './routes/game/route'
+import { Route as appRouteRouteImport } from './routes/(app)/route'
+import { Route as appIndexRouteImport } from './routes/(app)/index'
+import { Route as GameGameIdRouteImport } from './routes/game/$gameId'
+import { Route as appNewGameRouteImport } from './routes/(app)/new-game'
+import { Route as appJoinGameIdRouteImport } from './routes/(app)/join.$gameId'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as LogoutImport } from './routes/logout'
-import { Route as GameRouteImport } from './routes/game/route'
-import { Route as appRouteImport } from './routes/(app)/route'
-import { Route as appIndexImport } from './routes/(app)/index'
-import { Route as GameGameIdImport } from './routes/game/$gameId'
-import { Route as appNewGameImport } from './routes/(app)/new-game'
-import { Route as appJoinGameIdImport } from './routes/(app)/join.$gameId'
-
-// Create/Update Routes
-
-const LogoutRoute = LogoutImport.update({
+const LogoutRoute = LogoutRouteImport.update({
   id: '/logout',
   path: '/logout',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const GameRouteRoute = GameRouteImport.update({
+const GameRouteRoute = GameRouteRouteImport.update({
   id: '/game',
   path: '/game',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const appRouteRoute = appRouteImport.update({
+const appRouteRoute = appRouteRouteImport.update({
   id: '/(app)',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const appIndexRoute = appIndexImport.update({
+const appIndexRoute = appIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => appRouteRoute,
 } as any)
-
-const GameGameIdRoute = GameGameIdImport.update({
+const GameGameIdRoute = GameGameIdRouteImport.update({
   id: '/$gameId',
   path: '/$gameId',
   getParentRoute: () => GameRouteRoute,
 } as any)
-
-const appNewGameRoute = appNewGameImport.update({
+const appNewGameRoute = appNewGameRouteImport.update({
   id: '/new-game',
   path: '/new-game',
   getParentRoute: () => appRouteRoute,
 } as any)
-
-const appJoinGameIdRoute = appJoinGameIdImport.update({
+const appJoinGameIdRoute = appJoinGameIdRouteImport.update({
   id: '/join/$gameId',
   path: '/join/$gameId',
   getParentRoute: () => appRouteRoute,
 } as any)
 
-// Populate the FileRoutesByPath interface
+export interface FileRoutesByFullPath {
+  '/game': typeof GameRouteRouteWithChildren
+  '/logout': typeof LogoutRoute
+  '/new-game': typeof appNewGameRoute
+  '/game/$gameId': typeof GameGameIdRoute
+  '/': typeof appIndexRoute
+  '/join/$gameId': typeof appJoinGameIdRoute
+}
+export interface FileRoutesByTo {
+  '/game': typeof GameRouteRouteWithChildren
+  '/logout': typeof LogoutRoute
+  '/new-game': typeof appNewGameRoute
+  '/game/$gameId': typeof GameGameIdRoute
+  '/': typeof appIndexRoute
+  '/join/$gameId': typeof appJoinGameIdRoute
+}
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  '/(app)': typeof appRouteRouteWithChildren
+  '/game': typeof GameRouteRouteWithChildren
+  '/logout': typeof LogoutRoute
+  '/(app)/new-game': typeof appNewGameRoute
+  '/game/$gameId': typeof GameGameIdRoute
+  '/(app)/': typeof appIndexRoute
+  '/(app)/join/$gameId': typeof appJoinGameIdRoute
+}
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/game'
+    | '/logout'
+    | '/new-game'
+    | '/game/$gameId'
+    | '/'
+    | '/join/$gameId'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/game'
+    | '/logout'
+    | '/new-game'
+    | '/game/$gameId'
+    | '/'
+    | '/join/$gameId'
+  id:
+    | '__root__'
+    | '/(app)'
+    | '/game'
+    | '/logout'
+    | '/(app)/new-game'
+    | '/game/$gameId'
+    | '/(app)/'
+    | '/(app)/join/$gameId'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  appRouteRoute: typeof appRouteRouteWithChildren
+  GameRouteRoute: typeof GameRouteRouteWithChildren
+  LogoutRoute: typeof LogoutRoute
+}
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/(app)': {
-      id: '/(app)'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof appRouteImport
-      parentRoute: typeof rootRoute
+    '/logout': {
+      id: '/logout'
+      path: '/logout'
+      fullPath: '/logout'
+      preLoaderRoute: typeof LogoutRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/game': {
       id: '/game'
       path: '/game'
       fullPath: '/game'
-      preLoaderRoute: typeof GameRouteImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof GameRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/logout': {
-      id: '/logout'
-      path: '/logout'
-      fullPath: '/logout'
-      preLoaderRoute: typeof LogoutImport
-      parentRoute: typeof rootRoute
-    }
-    '/(app)/new-game': {
-      id: '/(app)/new-game'
-      path: '/new-game'
-      fullPath: '/new-game'
-      preLoaderRoute: typeof appNewGameImport
-      parentRoute: typeof appRouteImport
-    }
-    '/game/$gameId': {
-      id: '/game/$gameId'
-      path: '/$gameId'
-      fullPath: '/game/$gameId'
-      preLoaderRoute: typeof GameGameIdImport
-      parentRoute: typeof GameRouteImport
+    '/(app)': {
+      id: '/(app)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof appRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/(app)/': {
       id: '/(app)/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof appIndexImport
-      parentRoute: typeof appRouteImport
+      preLoaderRoute: typeof appIndexRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/game/$gameId': {
+      id: '/game/$gameId'
+      path: '/$gameId'
+      fullPath: '/game/$gameId'
+      preLoaderRoute: typeof GameGameIdRouteImport
+      parentRoute: typeof GameRouteRoute
+    }
+    '/(app)/new-game': {
+      id: '/(app)/new-game'
+      path: '/new-game'
+      fullPath: '/new-game'
+      preLoaderRoute: typeof appNewGameRouteImport
+      parentRoute: typeof appRouteRoute
     }
     '/(app)/join/$gameId': {
       id: '/(app)/join/$gameId'
       path: '/join/$gameId'
       fullPath: '/join/$gameId'
-      preLoaderRoute: typeof appJoinGameIdImport
-      parentRoute: typeof appRouteImport
+      preLoaderRoute: typeof appJoinGameIdRouteImport
+      parentRoute: typeof appRouteRoute
     }
   }
 }
-
-// Create and export the route tree
 
 interface appRouteRouteChildren {
   appNewGameRoute: typeof appNewGameRoute
@@ -148,124 +194,11 @@ const GameRouteRouteWithChildren = GameRouteRoute._addFileChildren(
   GameRouteRouteChildren,
 )
 
-export interface FileRoutesByFullPath {
-  '/': typeof appIndexRoute
-  '/game': typeof GameRouteRouteWithChildren
-  '/logout': typeof LogoutRoute
-  '/new-game': typeof appNewGameRoute
-  '/game/$gameId': typeof GameGameIdRoute
-  '/join/$gameId': typeof appJoinGameIdRoute
-}
-
-export interface FileRoutesByTo {
-  '/game': typeof GameRouteRouteWithChildren
-  '/logout': typeof LogoutRoute
-  '/new-game': typeof appNewGameRoute
-  '/game/$gameId': typeof GameGameIdRoute
-  '/': typeof appIndexRoute
-  '/join/$gameId': typeof appJoinGameIdRoute
-}
-
-export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/(app)': typeof appRouteRouteWithChildren
-  '/game': typeof GameRouteRouteWithChildren
-  '/logout': typeof LogoutRoute
-  '/(app)/new-game': typeof appNewGameRoute
-  '/game/$gameId': typeof GameGameIdRoute
-  '/(app)/': typeof appIndexRoute
-  '/(app)/join/$gameId': typeof appJoinGameIdRoute
-}
-
-export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/game'
-    | '/logout'
-    | '/new-game'
-    | '/game/$gameId'
-    | '/join/$gameId'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/game'
-    | '/logout'
-    | '/new-game'
-    | '/game/$gameId'
-    | '/'
-    | '/join/$gameId'
-  id:
-    | '__root__'
-    | '/(app)'
-    | '/game'
-    | '/logout'
-    | '/(app)/new-game'
-    | '/game/$gameId'
-    | '/(app)/'
-    | '/(app)/join/$gameId'
-  fileRoutesById: FileRoutesById
-}
-
-export interface RootRouteChildren {
-  appRouteRoute: typeof appRouteRouteWithChildren
-  GameRouteRoute: typeof GameRouteRouteWithChildren
-  LogoutRoute: typeof LogoutRoute
-}
-
 const rootRouteChildren: RootRouteChildren = {
   appRouteRoute: appRouteRouteWithChildren,
   GameRouteRoute: GameRouteRouteWithChildren,
   LogoutRoute: LogoutRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/(app)",
-        "/game",
-        "/logout"
-      ]
-    },
-    "/(app)": {
-      "filePath": "(app)/route.tsx",
-      "children": [
-        "/(app)/new-game",
-        "/(app)/",
-        "/(app)/join/$gameId"
-      ]
-    },
-    "/game": {
-      "filePath": "game/route.tsx",
-      "children": [
-        "/game/$gameId"
-      ]
-    },
-    "/logout": {
-      "filePath": "logout.tsx"
-    },
-    "/(app)/new-game": {
-      "filePath": "(app)/new-game.tsx",
-      "parent": "/(app)"
-    },
-    "/game/$gameId": {
-      "filePath": "game/$gameId.tsx",
-      "parent": "/game"
-    },
-    "/(app)/": {
-      "filePath": "(app)/index.tsx",
-      "parent": "/(app)"
-    },
-    "/(app)/join/$gameId": {
-      "filePath": "(app)/join.$gameId.tsx",
-      "parent": "/(app)"
-    }
-  }
-}
-ROUTE_MANIFEST_END */

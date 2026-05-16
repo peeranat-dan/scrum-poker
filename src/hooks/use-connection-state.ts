@@ -1,34 +1,63 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import { usePageVisibility } from './use-page-visibility';
 
 type ConnectionState = 'connecting' | 'connected' | 'disconnected' | 'reconnecting';
 
+type Action =
+  | { type: 'DISCONNECTED' }
+  | { type: 'RECONNECTING' }
+  | { type: 'CONNECTED' };
+
+function reducer(state: ConnectionState, action: Action): ConnectionState {
+  switch (action.type) {
+    case 'DISCONNECTED':
+      return 'disconnected';
+    case 'RECONNECTING':
+      return 'reconnecting';
+    case 'CONNECTED':
+      return 'connected';
+    default:
+      return state;
+  }
+}
+
 export function useConnectionState() {
-  const [connectionState, setConnectionState] = useState<ConnectionState>('connecting');
+  const [connectionState, dispatch] = useReducer(reducer, 'connecting');
   const isVisible = usePageVisibility();
 
   useEffect(() => {
     if (!isVisible) {
-      setConnectionState('disconnected');
-      return;
+      const timer = setTimeout(() => dispatch({ type: 'DISCONNECTED' }), 0);
+      return () => clearTimeout(timer);
     }
 
     if (connectionState === 'disconnected') {
-      setConnectionState('reconnecting');
-      // Add a small delay to prevent simultaneous reconnection attempts
       const timer = setTimeout(() => {
-        setConnectionState('connected');
-      }, 100);
+        dispatch({ type: 'RECONNECTING' });
+        // Add a small delay to prevent simultaneous reconnection attempts
+        setTimeout(() => dispatch({ type: 'CONNECTED' }), 100);
+      }, 0);
       return () => clearTimeout(timer);
     }
 
     if (connectionState === 'connecting') {
-      setConnectionState('connected');
+      const timer = setTimeout(() => dispatch({ type: 'CONNECTED' }), 0);
+      return () => clearTimeout(timer);
     }
   }, [isVisible, connectionState]);
 
   const isConnected = connectionState === 'connected';
   const isReconnecting = connectionState === 'reconnecting';
+
+  const setConnectionState = (state: ConnectionState) => {
+    const actionMap: Record<ConnectionState, Action['type']> = {
+      disconnected: 'DISCONNECTED',
+      reconnecting: 'RECONNECTING',
+      connected: 'CONNECTED',
+      connecting: 'CONNECTED',
+    };
+    dispatch({ type: actionMap[state] });
+  };
 
   return {
     connectionState,
