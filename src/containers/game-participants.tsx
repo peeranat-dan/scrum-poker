@@ -3,6 +3,7 @@ import { cn } from '@/lib/cn';
 import { useGame } from '@/providers/game';
 import type { Card } from '@/shared/card/types';
 import { useParticipant } from '../providers/participant';
+import { WinStreakBadge } from '@/components/win-streak-badge';
 import EditUserProfileButton from './edit-user-profile-button';
 
 function getVoteDisplay(
@@ -58,6 +59,9 @@ export default function GameParticipants() {
               <div className='absolute top-0 right-0 z-10'>
                 <EditUserProfileButton />
               </div>
+            )}
+            {participant.role !== 'spectator' && (
+              <WinStreakBadge streak={participant.winStreak || 0} />
             )}
             <div
               className={cn(

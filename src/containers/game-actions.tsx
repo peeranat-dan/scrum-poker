@@ -1,4 +1,6 @@
 import { Button } from '@/components/ui/button';
+import { OriginalEstimateDialog } from '@/components/original-estimate-dialog';
+import { useRevealRoundWithStreaks } from '@/hooks/round/use-reveal-round-with-streaks';
 import { useGame } from '@/providers/game';
 import { useParticipant } from '@/providers/participant';
 import { copyJoinLink } from '@/shared/utils/copy-join-link';
@@ -8,18 +10,34 @@ import SessionLeaveButton from './session-leave-button';
 
 export default function GameActions() {
   const { participant } = useParticipant();
-  const { round, revealRound, revoteRound, startNewRound, participants } = useGame();
+  const { round, revoteRound, startNewRound, participants, cards } = useGame();
   const [isCooldown, setIsCooldown] = useState(false);
+  const [showEstimateDialog, setShowEstimateDialog] = useState(false);
+  const revealRoundWithStreaksMutation = useRevealRoundWithStreaks();
 
   const handleRevealRound = () => {
-    revealRound();
-    setIsCooldown(true);
+    setShowEstimateDialog(true);
+  };
 
-    const timer = setTimeout(() => {
-      setIsCooldown(false);
-    }, 2000);
+  const handleConfirmOriginalEstimate = async (originalEstimate: number) => {
+    if (!round?.id) return;
 
-    return () => clearTimeout(timer);
+    try {
+      await revealRoundWithStreaksMutation.mutateAsync({
+        roundId: round.id,
+        originalEstimate,
+      });
+      
+      setIsCooldown(true);
+      const timer = setTimeout(() => {
+        setIsCooldown(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    } catch (error) {
+      console.error('Error revealing round with streaks:', error);
+      toast.error('Failed to reveal round');
+    }
   };
 
   const handleCopyJoinLink = () => {
@@ -38,7 +56,7 @@ export default function GameActions() {
     [participants],
   );
 
-  const shouldDisableRevealVoteButton = participantsWithNoVotes.length > 0;
+  const shouldDisableRevealVoteButton = participantsWithNoVotes.length > 0 || revealRoundWithStreaksMutation.isPending;
 
   // Spectators have limited actions
   if (participant?.role === 'spectator') {
@@ -71,6 +89,12 @@ export default function GameActions() {
             </Button>
           </>
         )}
+        <OriginalEstimateDialog
+          open={showEstimateDialog}
+          onOpenChange={setShowEstimateDialog}
+          onConfirm={handleConfirmOriginalEstimate}
+          cards={cards}
+        />
       </>
     );
   }
