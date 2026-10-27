@@ -1,3 +1,7 @@
+import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
+import { useMemo } from 'react';
+
 import {
   AlertDialog,
   AlertDialogContent,
@@ -8,9 +12,6 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { useSession } from '@/providers/session';
-import { useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
-import { useMemo } from 'react';
 
 export default function TerminatedGameModal() {
   const navigate = useNavigate();
@@ -22,13 +23,13 @@ export default function TerminatedGameModal() {
   }, [status]);
 
   const handleBackToHome = () => {
-    queryClient.resetQueries();
-    navigate({ to: '/' });
+    void queryClient.resetQueries();
+    void navigate({ to: '/' });
   };
 
   const handleCreateAnotherGame = () => {
-    queryClient.resetQueries();
-    navigate({ to: '/new-game' });
+    void queryClient.resetQueries();
+    void navigate({ to: '/new-game' });
   };
 
   return (
@@ -39,7 +40,7 @@ export default function TerminatedGameModal() {
           <AlertDialogDescription>Playing again? Create another game.</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <Button variant='outline' onClick={handleBackToHome}>
+          <Button variant="outline" onClick={handleBackToHome}>
             Back to Home
           </Button>
           <Button onClick={handleCreateAnotherGame}>Create another game</Button>

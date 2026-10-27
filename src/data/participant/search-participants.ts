@@ -1,6 +1,7 @@
 import { getDocs, query } from 'firebase/firestore';
 
 import { buildQueryConstraints } from '@/shared/firestore/utils';
+
 import { participantsCollection } from '../firestore';
 import { participantMapper } from './mapper';
 import { type SearchParticipantInput } from './types';

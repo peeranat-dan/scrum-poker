@@ -1,6 +1,7 @@
+import { z } from 'zod';
+
 import { votingSystemEnum } from '@/shared/zod/enum';
 import { DomainEntitySchema } from '@/shared/zod/schemas/domain';
-import { z } from 'zod';
 
 const sessionStatusEnum = z.enum(['active', 'finished']);
 

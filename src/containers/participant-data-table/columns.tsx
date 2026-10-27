@@ -1,15 +1,16 @@
-import { type ParticipantRole } from '@/data/participant/types';
 import { type ColumnDef } from '@tanstack/react-table';
+
+import { type ParticipantRole } from '@/data/participant/types';
 
 import ParticipantDeletionButton from '../participant-deletion-button';
 
-export type ParticipantRow = {
+export interface ParticipantRow {
   id: string;
   name: string;
   updatedAt: string;
   role: ParticipantRole;
   voted: boolean;
-};
+}
 
 export const columns: ColumnDef<ParticipantRow>[] = [
   {

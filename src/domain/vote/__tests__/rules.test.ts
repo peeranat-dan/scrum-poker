@@ -24,7 +24,9 @@ describe('vote rules', () => {
     it('throws error when participant is spectator', () => {
       const round = { status: 'in-progress' } as Round;
       const spectator = { role: 'spectator', status: 'active' } as Participant;
-      expect(() => canCastVote(round, spectator)).toThrowError(new Error('Participant cannot vote'));
+      expect(() => canCastVote(round, spectator)).toThrowError(
+        new Error('Participant cannot vote'),
+      );
     });
 
     it('does not throw when participant can vote', () => {
@@ -81,7 +83,9 @@ describe('vote rules', () => {
     it('throws error when participant is spectator', () => {
       const round = { status: 'in-progress' } as Round;
       const spectator = { role: 'spectator', status: 'active' } as Participant;
-      expect(() => canCastOrUpdateVote(round, spectator)).toThrowError(new Error('Participant cannot vote'));
+      expect(() => canCastOrUpdateVote(round, spectator)).toThrowError(
+        new Error('Participant cannot vote'),
+      );
     });
 
     it('does not throw when participant can vote', () => {

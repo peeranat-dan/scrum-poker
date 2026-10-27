@@ -1,5 +1,7 @@
-import { type UserProfileInput } from '@/types/schema.types';
 import { type UseFormReturn } from 'react-hook-form';
+
+import { type UserProfileInput } from '@/types/schema.types';
+
 import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
@@ -14,21 +16,21 @@ export default function UserProfileForm({ form, onSubmit }: Readonly<UserProfile
   const { isSubmitting } = formState;
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='w-full space-y-4'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
         <FormField
           control={form.control}
-          name='displayName'
+          name="displayName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Your Display Name</FormLabel>
               <FormControl>
-                <Input placeholder='Michael Jackson' {...field} />
+                <Input placeholder="Michael Jackson" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button className='w-full' type='submit' disabled={isSubmitting}>
+        <Button className="w-full" type="submit" disabled={isSubmitting}>
           Save
         </Button>
       </form>

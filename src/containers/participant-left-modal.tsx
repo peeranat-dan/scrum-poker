@@ -1,3 +1,7 @@
+import { Link } from '@tanstack/react-router';
+import { Loader2 } from 'lucide-react';
+import { useMemo } from 'react';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,9 +15,6 @@ import { Button } from '@/components/ui/button';
 import { buttonVariants } from '@/components/ui/button-variants';
 import { useRejoinSession } from '@/hooks/participant/use-rejoin-session';
 import { useParticipant } from '@/providers/participant';
-import { Link } from '@tanstack/react-router';
-import { Loader2 } from 'lucide-react';
-import { useMemo } from 'react';
 
 export default function ParticipantLeftModal() {
   const { participant } = useParticipant();
@@ -37,13 +38,13 @@ export default function ParticipantLeftModal() {
           <AlertDialogDescription>But you can still get back to the game</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <Link to='/' className={buttonVariants({ variant: 'outline' })}>
+          <Link to="/" className={buttonVariants({ variant: 'outline' })}>
             Back to Home
           </Link>
           <AlertDialogAction asChild>
             <Button onClick={rejoinSession} disabled={rejoinSessionMutation.isPending}>
               {rejoinSessionMutation.isPending ? (
-                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
               Rejoin
             </Button>

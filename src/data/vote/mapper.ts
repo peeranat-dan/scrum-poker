@@ -1,7 +1,9 @@
+import { type DocumentData, type DocumentSnapshot } from 'firebase/firestore';
+
 import { VoteSchema } from '@/domain/vote/schemas';
 import { type Vote } from '@/domain/vote/types';
 import { assertValid } from '@/shared/zod/utils';
-import { type DocumentData, type DocumentSnapshot } from 'firebase/firestore';
+
 import { type VoteDoc } from './types';
 
 function toVote(doc: DocumentSnapshot<VoteDoc, DocumentData>): Vote {

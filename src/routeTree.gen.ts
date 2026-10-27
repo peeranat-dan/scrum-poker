@@ -9,17 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as LogoutRouteImport } from './routes/logout'
-import { Route as GameRouteRouteImport } from './routes/game/route'
 import { Route as appRouteRouteImport } from './routes/(app)/route'
+import { Route as GameRouteRouteImport } from './routes/game/route'
+import { Route as LogoutRouteImport } from './routes/logout'
 import { Route as appIndexRouteImport } from './routes/(app)/index'
-import { Route as GameGameIdRouteImport } from './routes/game/$gameId'
 import { Route as appNewGameRouteImport } from './routes/(app)/new-game'
+import { Route as GameGameIdRouteImport } from './routes/game/$gameId'
 import { Route as appJoinGameIdRouteImport } from './routes/(app)/join.$gameId'
 
-const LogoutRoute = LogoutRouteImport.update({
-  id: '/logout',
-  path: '/logout',
+const appRouteRoute = appRouteRouteImport.update({
+  id: '/(app)',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GameRouteRoute = GameRouteRouteImport.update({
@@ -27,8 +26,9 @@ const GameRouteRoute = GameRouteRouteImport.update({
   path: '/game',
   getParentRoute: () => rootRouteImport,
 } as any)
-const appRouteRoute = appRouteRouteImport.update({
-  id: '/(app)',
+const LogoutRoute = LogoutRouteImport.update({
+  id: '/logout',
+  path: '/logout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const appIndexRoute = appIndexRouteImport.update({
@@ -36,15 +36,15 @@ const appIndexRoute = appIndexRouteImport.update({
   path: '/',
   getParentRoute: () => appRouteRoute,
 } as any)
-const GameGameIdRoute = GameGameIdRouteImport.update({
-  id: '/$gameId',
-  path: '/$gameId',
-  getParentRoute: () => GameRouteRoute,
-} as any)
 const appNewGameRoute = appNewGameRouteImport.update({
   id: '/new-game',
   path: '/new-game',
   getParentRoute: () => appRouteRoute,
+} as any)
+const GameGameIdRoute = GameGameIdRouteImport.update({
+  id: '/$gameId',
+  path: '/$gameId',
+  getParentRoute: () => GameRouteRoute,
 } as any)
 const appJoinGameIdRoute = appJoinGameIdRouteImport.update({
   id: '/join/$gameId',
@@ -81,20 +81,10 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/game'
-    | '/logout'
-    | '/new-game'
-    | '/game/$gameId'
-    | '/'
-    | '/join/$gameId'
+    '/game' | '/logout' | '/new-game' | '/game/$gameId' | '/' | '/join/$gameId'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/game'
-    | '/logout'
-    | '/new-game'
-    | '/game/$gameId'
-    | '/'
-    | '/join/$gameId'
+    '/game' | '/logout' | '/new-game' | '/game/$gameId' | '/' | '/join/$gameId'
   id:
     | '__root__'
     | '/(app)'
@@ -114,11 +104,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/logout': {
-      id: '/logout'
-      path: '/logout'
-      fullPath: '/logout'
-      preLoaderRoute: typeof LogoutRouteImport
+    '/(app)': {
+      id: '/(app)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof appRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/game': {
@@ -128,11 +118,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GameRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(app)': {
-      id: '/(app)'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof appRouteRouteImport
+    '/logout': {
+      id: '/logout'
+      path: '/logout'
+      fullPath: '/logout'
+      preLoaderRoute: typeof LogoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(app)/': {
@@ -142,19 +132,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appIndexRouteImport
       parentRoute: typeof appRouteRoute
     }
-    '/game/$gameId': {
-      id: '/game/$gameId'
-      path: '/$gameId'
-      fullPath: '/game/$gameId'
-      preLoaderRoute: typeof GameGameIdRouteImport
-      parentRoute: typeof GameRouteRoute
-    }
     '/(app)/new-game': {
       id: '/(app)/new-game'
       path: '/new-game'
       fullPath: '/new-game'
       preLoaderRoute: typeof appNewGameRouteImport
       parentRoute: typeof appRouteRoute
+    }
+    '/game/$gameId': {
+      id: '/game/$gameId'
+      path: '/$gameId'
+      fullPath: '/game/$gameId'
+      preLoaderRoute: typeof GameGameIdRouteImport
+      parentRoute: typeof GameRouteRoute
     }
     '/(app)/join/$gameId': {
       id: '/(app)/join/$gameId'

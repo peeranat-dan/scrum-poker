@@ -1,6 +1,7 @@
 import { doc, onSnapshot } from 'firebase/firestore';
 
 import { type Session } from '@/domain/session/types'; // This is exception for streaming
+
 import { sessionsCollection } from '../firestore';
 
 export function streamSession(

@@ -22,7 +22,8 @@ jobs:
             src/
             package.json
             pnpm-lock.yaml
-            eslint.config.js
+            oxlint.config.ts
+            oxfmt.config.ts
             firebase.json
             tsconfig
             vite.config.ts

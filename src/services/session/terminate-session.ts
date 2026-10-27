@@ -10,7 +10,7 @@ export async function terminateSession(sessionId: string) {
     throw new Error('Session not found');
   }
 
-  checkIfUserCanManageSession(session.id);
+  await checkIfUserCanManageSession(session.id);
 
   await updateSession(sessionId, {
     status: 'finished',

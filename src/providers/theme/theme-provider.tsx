@@ -1,5 +1,7 @@
-import { useHotkeys } from '@/hooks/use-hotkeys/use-hotkeys';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { useHotkeys } from '@/hooks/use-hotkeys/use-hotkeys';
+
 import { ThemeContext } from './theme-context';
 import { type Theme, type ThemeProviderProps } from './types';
 

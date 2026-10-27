@@ -13,5 +13,5 @@ export default function HeroParticles() {
 
   const color = resolvedTheme === 'dark' ? '#ffffff' : '#000000';
 
-  return <Particles className='absolute inset-0 -z-10' quantity={80} refresh color={color} />;
+  return <Particles className="absolute inset-0 -z-10" quantity={80} refresh color={color} />;
 }

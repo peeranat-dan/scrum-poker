@@ -1,12 +1,10 @@
 import { useEffect, useReducer } from 'react';
+
 import { usePageVisibility } from './use-page-visibility';
 
 type ConnectionState = 'connecting' | 'connected' | 'disconnected' | 'reconnecting';
 
-type Action =
-  | { type: 'DISCONNECTED' }
-  | { type: 'RECONNECTING' }
-  | { type: 'CONNECTED' };
+type Action = { type: 'DISCONNECTED' } | { type: 'RECONNECTING' } | { type: 'CONNECTED' };
 
 function reducer(state: ConnectionState, action: Action): ConnectionState {
   switch (action.type) {

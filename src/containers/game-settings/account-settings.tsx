@@ -20,14 +20,14 @@ export default function AccountSettings() {
   }
 
   return (
-    <div className='flex items-center gap-2'>
-      <Avatar className='size-12'>
+    <div className="flex items-center gap-2">
+      <Avatar className="size-12">
         <AvatarImage src={user.providerData?.[0].photoURL ?? ''} />
         <AvatarFallback>{user.providerData?.[0].displayName?.[0] ?? 'E'}</AvatarFallback>
       </Avatar>
-      <div className='flex flex-col'>
-        <p className='font-semibold'>{user.providerData?.[0].displayName}</p>
-        <p className='text-muted-foreground'>{user.providerData?.[0].email}</p>
+      <div className="flex flex-col">
+        <p className="font-semibold">{user.providerData?.[0].displayName}</p>
+        <p className="text-muted-foreground">{user.providerData?.[0].email}</p>
       </div>
     </div>
   );

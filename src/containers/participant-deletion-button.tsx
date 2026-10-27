@@ -1,3 +1,7 @@
+import { Trash2 } from 'lucide-react';
+import { useCallback } from 'react';
+import { toast } from 'sonner';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,9 +15,6 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { useRemoveParticipant } from '@/hooks/participant/use-remove-participant';
-import { Trash2 } from 'lucide-react';
-import { useCallback } from 'react';
-import { toast } from 'sonner';
 
 interface ParticipantDeletionButtonProps {
   id: string;
@@ -40,7 +41,7 @@ export default function ParticipantDeletionButton({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant='destructive' size='icon' disabled={disabled}>
+        <Button variant="destructive" size="icon" disabled={disabled}>
           <Trash2 />
         </Button>
       </AlertDialogTrigger>
@@ -55,7 +56,7 @@ export default function ParticipantDeletionButton({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Button variant='destructive' onClick={handleRemoveParticipant}>
+            <Button variant="destructive" onClick={handleRemoveParticipant}>
               Remove
             </Button>
           </AlertDialogAction>

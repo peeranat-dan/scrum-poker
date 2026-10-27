@@ -7,9 +7,10 @@ pnpm@9.14.2
 pnpm install: install dependencies
 pnpm dev: start development server
 pnpm build: build production version
-pnpm lint: lint code
+pnpm lint: lint code (oxlint, type-aware)
 pnpm test: run unit tests
-pnpm format: format code
+pnpm format: format code (oxfmt)
+pnpm format:check: check formatting
 
 # Development Workflow
 

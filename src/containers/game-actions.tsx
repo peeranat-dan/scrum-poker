@@ -1,9 +1,11 @@
+import { useMemo, useState } from 'react';
+import { toast } from 'sonner';
+
 import { Button } from '@/components/ui/button';
 import { useGame } from '@/providers/game';
 import { useParticipant } from '@/providers/participant';
 import { copyJoinLink } from '@/shared/utils/copy-join-link';
-import { useMemo, useState } from 'react';
-import { toast } from 'sonner';
+
 import SessionLeaveButton from './session-leave-button';
 
 export default function GameActions() {
@@ -24,7 +26,7 @@ export default function GameActions() {
 
   const handleCopyJoinLink = () => {
     if (participant?.sessionId) {
-      copyJoinLink(participant.sessionId);
+      void copyJoinLink(participant.sessionId);
     }
     toast.success('Join link copied to clipboard');
   };
@@ -57,16 +59,16 @@ export default function GameActions() {
           <Button
             onClick={handleRevealRound}
             disabled={shouldDisableRevealVoteButton}
-            className='w-full'
+            className="w-full"
           >
             Reveal Vote
           </Button>
         ) : (
           <>
-            <Button onClick={startNewRound} disabled={isCooldown} className='flex-1'>
+            <Button onClick={startNewRound} disabled={isCooldown} className="flex-1">
               Start New Round
             </Button>
-            <Button onClick={revoteRound} variant='outline'>
+            <Button onClick={revoteRound} variant="outline">
               Revote
             </Button>
           </>
