@@ -1,5 +1,7 @@
-import { type Participant } from '@/domain/participant/types';
 import { onSnapshot, orderBy, query, where } from 'firebase/firestore';
+
+import { type Participant } from '@/domain/participant/types';
+
 import { participantsCollection } from '../firestore';
 import { participantMapper } from './mapper';
 

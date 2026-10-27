@@ -2,6 +2,7 @@ import { getRound } from '@/data/round/get-round';
 import { upsertVote } from '@/data/vote/upsert-vote';
 import { canCastVote } from '@/domain/vote/rules';
 import { assertValid } from '@/shared/zod/utils';
+
 import { CastVoteSchema } from './schemas';
 import { type CastVoteInput } from './types';
 

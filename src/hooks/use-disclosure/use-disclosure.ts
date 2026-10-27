@@ -15,7 +15,7 @@ export type UseDisclosureReturnValue = [boolean, UseDisclosureHandlers];
 
 export function useDisclosure(
   initialState = false,
-  options: UseDisclosureOptions = {}
+  options: UseDisclosureOptions = {},
 ): UseDisclosureReturnValue {
   const [opened, setOpened] = useState(initialState);
 

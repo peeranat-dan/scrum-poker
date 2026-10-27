@@ -1,5 +1,6 @@
-import { findParticipant } from '@/data/participant/find-participant';
 import { useQuery } from '@tanstack/react-query';
+
+import { findParticipant } from '@/data/participant/find-participant';
 
 interface UseGetParticipantBySessionIdAndUidParams {
   sessionId: string;

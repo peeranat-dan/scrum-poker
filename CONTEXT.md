@@ -23,6 +23,7 @@ A planning session where participants vote on story estimates.
 **Lifecycle**: `active` → `finished`
 
 **Business Rules**:
+
 - Only `owner` or `admin` participants can manage session settings.
 - The `votingSystem` cannot be changed if votes already exist in the active round.
 
@@ -40,6 +41,7 @@ A user who has joined a Session.
 **Lifecycle**: `active` → `left` or `removed`
 
 **Business Rules**:
+
 - A participant who has `left` or been `removed` is still part of the session's history.
 - Only participants with `role !== 'spectator'` AND `status === 'active'` can vote.
 - Only `active` participants can leave or be removed; the session must be `active`.
@@ -53,9 +55,10 @@ A single voting iteration within a Session.
 
 **Properties**: `sessionId`, `status` (`in-progress` | `revealed` | `finished`), `averageVote`
 
-**Lifecycle**: `in-progress` → `revealed` → `finished` → *(new round starts at `in-progress`)*
+**Lifecycle**: `in-progress` → `revealed` → `finished` → _(new round starts at `in-progress`)_
 
 **Business Rules**:
+
 - A new round can only be started when the latest round has status `revealed`.
 - Revoting is only allowed when the round status is `revealed`.
 - `averageVote` is computed when the round status changes to `revealed`. It:
@@ -75,5 +78,6 @@ A single participant's card selection for a Round. `value` is a raw integer. Car
 - T-shirt values: `0 (XS), 1 (S), 2 (M), 3 (L), 4 (XL), 5 (XXL), -1 (?), -2 (🙅🏼)`
 
 **Business Rules**:
+
 - Votes can only be cast or updated when the round status is `in-progress`.
 - Only eligible participants (non-spectator, active) can cast a vote.

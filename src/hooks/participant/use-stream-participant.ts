@@ -1,7 +1,7 @@
+import { useEffect, useState, useRef } from 'react';
+
 import { streamParticipant } from '@/data/participant/stream-participant';
 import { type Participant } from '@/domain/participant/types';
-
-import { useEffect, useState, useRef } from 'react';
 import { usePageVisibility } from '@/hooks/use-page-visibility';
 
 export function useStreamParticipant(sessionId: string, uid: string) {

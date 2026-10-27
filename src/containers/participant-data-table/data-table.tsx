@@ -18,6 +18,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: Readonly<DataTableProps<TData, TValue>>) {
+  // oxlint-disable-next-line react/incompatible-library
   const table = useReactTable({
     data,
     columns,
@@ -25,9 +26,9 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className='no-scrollbar overflow-x-hidden rounded-md border'>
+    <div className="no-scrollbar overflow-x-hidden rounded-md border">
       <Table>
-        <TableHeader className='bg-muted'>
+        <TableHeader className="bg-muted">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -42,7 +43,7 @@ export function DataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody className='bg-card'>
+        <TableBody className="bg-card">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
@@ -55,7 +56,7 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
                 No results.
               </TableCell>
             </TableRow>

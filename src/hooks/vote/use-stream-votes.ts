@@ -1,6 +1,7 @@
+import { useEffect, useState, useRef } from 'react';
+
 import { streamVotes } from '@/data/vote/stream-votes';
 import { type Vote } from '@/domain/vote/types';
-import { useEffect, useState, useRef } from 'react';
 import { usePageVisibility } from '@/hooks/use-page-visibility';
 
 export function useStreamVotes(roundId: string) {

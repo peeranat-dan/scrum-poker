@@ -2,16 +2,16 @@ import '@fontsource-variable/jetbrains-mono/index.css';
 import '@fontsource-variable/noto-sans-thai/index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { H } from 'highlight.run';
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-
-import './index.css';
-import { AuthProvider, useAuth } from './providers/auth';
-import { ThemeProvider } from './providers/theme';
-
 // Import the generated route tree
 import { createRouter, RouterProvider } from '@tanstack/react-router';
+import { H } from 'highlight.run';
+import { StrictMode } from 'react';
+
+import './index.css';
+import { createRoot } from 'react-dom/client';
+
+import { AuthProvider, useAuth } from './providers/auth';
+import { ThemeProvider } from './providers/theme';
 import { routeTree } from './routeTree.gen';
 
 // Create a new router instance
@@ -54,7 +54,7 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme='system' storageKey='vite-ui-theme'>
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
       <QueryClientProvider client={queryClient}>
         <App />
         <ReactQueryDevtools initialIsOpen={false} />

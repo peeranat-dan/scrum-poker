@@ -1,5 +1,6 @@
-import { VoteSchema } from '@/domain/vote/schemas';
 import { z } from 'zod';
+
+import { VoteSchema } from '@/domain/vote/schemas';
 
 export const CastVoteSchema = z.object({
   roundId: z.string().min(1),

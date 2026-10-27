@@ -1,10 +1,11 @@
+import { Label, Pie, PieChart } from 'recharts';
+
 import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { Label, Pie, PieChart } from 'recharts';
 
 interface VotesChartProps {
   votes: {
@@ -54,26 +55,26 @@ const chartConfig = {
 export default function TShirtVotesChart({ votes }: Readonly<VotesChartProps>) {
   const totalVotes = votes.reduce((acc, vote) => acc + vote.count, 0);
   return (
-    <ChartContainer config={chartConfig} className='aspect-square max-h-[250px] w-1/4'>
+    <ChartContainer config={chartConfig} className="aspect-square max-h-[250px] w-1/4">
       <PieChart>
         <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-        <Pie data={votes} dataKey='count' nameKey='label' innerRadius={60} strokeWidth={5}>
+        <Pie data={votes} dataKey="count" nameKey="label" innerRadius={60} strokeWidth={5}>
           <Label
             content={({ viewBox }) => {
               if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
                 return (
-                  <text x={viewBox.cx} y={viewBox.cy} textAnchor='middle' dominantBaseline='middle'>
+                  <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" dominantBaseline="middle">
                     <tspan
                       x={viewBox.cx}
                       y={viewBox.cy}
-                      className='fill-foreground text-3xl font-bold'
+                      className="fill-foreground text-3xl font-bold"
                     >
                       {totalVotes}
                     </tspan>
                     <tspan
                       x={viewBox.cx}
                       y={(viewBox.cy ?? 0) + 24}
-                      className='fill-muted-foreground'
+                      className="fill-muted-foreground"
                     >
                       Votes
                     </tspan>

@@ -1,4 +1,5 @@
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
+
 import { votesCollection } from '../firestore';
 import { type UpdateVoteInput } from './types';
 

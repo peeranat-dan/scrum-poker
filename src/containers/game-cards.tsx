@@ -1,10 +1,11 @@
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useCallback, useEffect } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { useDisclosure } from '@/hooks/use-disclosure';
 import { cn } from '@/lib/cn';
 import { useGame } from '@/providers/game';
 import { useParticipant } from '@/providers/participant';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { useCallback, useEffect } from 'react';
 
 const CARD_SHOW_KEY = 'scrum-poker-cards-shown';
 
@@ -36,8 +37,8 @@ export default function GameCards() {
 
   if (!userCanVote) {
     return (
-      <div className='flex w-full flex-col items-center justify-center p-4'>
-        <p className='text-muted-foreground text-sm'>You are watching as a spectator</p>
+      <div className="flex w-full flex-col items-center justify-center p-4">
+        <p className="text-sm text-muted-foreground">You are watching as a spectator</p>
       </div>
     );
   }
@@ -46,8 +47,8 @@ export default function GameCards() {
     <div className={cn('flex w-full flex-col items-center justify-center')}>
       <Button
         onClick={toggleShowCard}
-        size='icon'
-        variant='ghost'
+        size="icon"
+        variant="ghost"
         aria-label={isCardShown ? 'Hide cards' : 'Show cards'}
         className={cn('transition-all duration-200', !isCardShown && 'translate-y-[125px]')}
       >
@@ -62,12 +63,12 @@ export default function GameCards() {
         {cards.map((card) => (
           <li key={card.displayValue + card.value}>
             <button
-              type='button'
+              type="button"
               onClick={() => castVote(card.value)}
               aria-label={`Vote ${card.displayValue}`}
               aria-pressed={vote?.value === card.value}
               className={cn(
-                'bg-card text-foreground flex aspect-[2/3] w-20 shrink-0 cursor-pointer items-center justify-center rounded-md border text-center font-mono text-2xl font-semibold shadow-md transition-all hover:scale-105',
+                'flex aspect-[2/3] w-20 shrink-0 cursor-pointer items-center justify-center rounded-md border bg-card text-center font-mono text-2xl font-semibold text-foreground shadow-md transition-all hover:scale-105',
                 card.color,
                 card.textColor,
                 vote?.value === card.value && 'scale-110 hover:scale-110',
