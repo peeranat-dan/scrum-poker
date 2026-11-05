@@ -45,5 +45,3 @@ jobs:
             - Test coverage
 
             Be constructive and helpful in your feedback.
-
-          use_sticky_comment: true
