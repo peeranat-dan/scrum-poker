@@ -3,6 +3,7 @@ import { type ColumnDef } from '@tanstack/react-table';
 import { type ParticipantRole } from '@/data/participant/types';
 
 import ParticipantDeletionButton from '../participant-deletion-button';
+import { type features } from './features';
 
 export interface ParticipantRow {
   id: string;
@@ -12,7 +13,7 @@ export interface ParticipantRow {
   voted: boolean;
 }
 
-export const columns: ColumnDef<ParticipantRow>[] = [
+export const columns: ColumnDef<typeof features, ParticipantRow>[] = [
   {
     accessorKey: 'name',
     header: 'Name',

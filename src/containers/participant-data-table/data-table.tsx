@@ -1,4 +1,4 @@
-import { type ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { type ColumnDef, flexRender, type RowData, useTable } from '@tanstack/react-table';
 
 import {
   Table,
@@ -9,20 +9,21 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+import { features } from './features';
+
+interface DataTableProps<TData extends RowData> {
+  columns: ColumnDef<typeof features, TData>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends RowData>({
   columns,
   data,
-}: Readonly<DataTableProps<TData, TValue>>) {
-  // oxlint-disable-next-line react/incompatible-library
-  const table = useReactTable({
+}: Readonly<DataTableProps<TData>>) {
+  const table = useTable({
+    features,
     data,
     columns,
-    getCoreRowModel: getCoreRowModel(),
   });
 
   return (
