@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.0
+
+### Minor Changes
+
+- [#324](https://github.com/peeranat-dan/scrum-poker/pull/324) [`b01c887`](https://github.com/peeranat-dan/scrum-poker/commit/b01c8871663ae9349993fc0a3757e52ef31dc940) Thanks [@peeranat-dan](https://github.com/peeranat-dan)! - Allow the session owner to download the session votes as an `.xlsx` file from the General settings
+
 ## 1.3.1 - 2025-08-13 ([compare](https://github.com/peeranat-dan/scrum-poker/compare/1.3.0...1.3.1))
 
 
