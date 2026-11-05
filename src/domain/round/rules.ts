@@ -17,6 +17,18 @@ export function canStartNewRound(latestRound: Round | null): asserts latestRound
   }
 }
 
+/** Round statuses reached once the votes have been revealed */
+export const revealedRoundStatuses: Round['status'][] = ['revealed', 'finished'];
+
+/**
+ * Checks whether the round's votes have been revealed, i.e. the round is `revealed` or `finished`.
+ *
+ * @param round The round
+ */
+export function hasRoundBeenRevealed(round: Round) {
+  return revealedRoundStatuses.includes(round.status);
+}
+
 export function canRevoteRound(round: Round | null): asserts round is Round {
   assertRoundExists(round);
 

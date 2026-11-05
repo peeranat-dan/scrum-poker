@@ -23,6 +23,7 @@
     "format:check": "oxfmt --check"
   },
   "dependencies": {
+    "@chanom/utils": "0.0.2",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@fontsource-variable/noto-sans-thai": "^5.3.0",
     "@highlight-run/react": "^21.0.0",
@@ -46,7 +47,6 @@
     "@tanstack/react-table": "^9.3.1",
     "big.js": "^7.0.1",
     "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
     "firebase": "^12.19.0",
     "highlight.run": "^10.3.1",
     "lucide-react": "^1.16.0",
@@ -56,9 +56,9 @@
     "react-hook-form": "^7.82.0",
     "recharts": "^3.8.1",
     "sonner": "^2.0.7",
-    "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.3",
     "tw-animate-css": "^1.4.0",
+    "write-excel-file": "4.1.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {

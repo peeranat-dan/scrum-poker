@@ -58,3 +58,40 @@ export function isSpectator(participant: Participant | null) {
   assertParticipantExists(participant);
   return participant.role === 'spectator';
 }
+
+/**
+ * Checks whether the participant is the owner of the session.
+ *
+ * @param participant The participant, if any
+ */
+export function isSessionOwner(participant: Participant | null | undefined) {
+  return participant?.role === 'owner';
+}
+
+/**
+ * Asserts that the participant is the owner of the session.
+ *
+ * @param participant The participant
+ */
+export function assertIsSessionOwner(
+  participant: Participant | null,
+): asserts participant is Participant {
+  assertParticipantExists(participant);
+
+  if (!isSessionOwner(participant)) {
+    throw new Error('Only the session owner can perform this action');
+  }
+}
+
+/** Roles that take part in voting. Spectators never vote. */
+export const votingRoles: Participant['role'][] = ['owner', 'admin', 'player'];
+
+/**
+ * Checks whether the participant's role takes part in voting, regardless of their
+ * status. Unlike `canVote`, left or removed participants still count.
+ *
+ * @param participant The participant
+ */
+export function hasVotingRole(participant: Participant) {
+  return votingRoles.includes(participant.role);
+}
