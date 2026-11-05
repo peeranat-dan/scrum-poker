@@ -1,6 +1,21 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 import { environment, isEnv } from './utils/test-env';
+
+/**
+ * Scrolls each `[data-reveal]` element to the viewport center so its in-view trigger
+ * fires past the negative margin, then waits until it is fully visible.
+ */
+async function revealScrollAnimations(page: Page) {
+  const reveals = await page.locator('[data-reveal]').all();
+
+  for (const reveal of reveals) {
+    await reveal.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+    await expect(reveal).toHaveCSS('opacity', '1');
+  }
+
+  await page.evaluate(() => window.scrollTo(0, 0));
+}
 
 test.describe(`Screenshot tests (${environment} environment)`, () => {
   test.beforeEach(async () => {
@@ -25,8 +40,7 @@ test.describe(`Screenshot tests (${environment} environment)`, () => {
     // Replace this selector with an element that exists on your page
     await page.waitForSelector('body', { state: 'visible', timeout: 10000 });
 
-    // Add a small delay to ensure animations are complete
-    await page.waitForTimeout(1000);
+    await revealScrollAnimations(page);
 
     // Take a screenshot with more stable options
     await expect(page).toHaveScreenshot([environment, 'homepage.png'], {
@@ -60,8 +74,7 @@ test.describe(`Screenshot tests (${environment} environment)`, () => {
     // Replace this selector with an element that exists on your page
     await page.waitForSelector('body', { state: 'visible', timeout: 10000 });
 
-    // Add a small delay to ensure animations are complete
-    await page.waitForTimeout(1000);
+    await revealScrollAnimations(page);
 
     // Take a screenshot with more stable options
     await expect(page).toHaveScreenshot([environment, 'homepage-mobile.png'], {
