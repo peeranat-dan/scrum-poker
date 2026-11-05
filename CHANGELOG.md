@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.3.1](https://github.com/peeranat-dan/scrum-poker/compare/1.3.0...1.3.1) (2025-08-13)
+## 1.3.1 - 2025-08-13 ([compare](https://github.com/peeranat-dan/scrum-poker/compare/1.3.0...1.3.1))
 
 
 ### Bug Fixes
@@ -13,7 +13,7 @@
 
 * **participant:** add spectator mode for non-voting participants ([#244](https://github.com/peeranat-dan/scrum-poker/issues/244)) ([7c8e0f1](https://github.com/peeranat-dan/scrum-poker/commit/7c8e0f117c7f922761695827fdda4f8ba79f5ab7)), closes [#243](https://github.com/peeranat-dan/scrum-poker/issues/243)
 
-# [1.3.0](https://github.com/peeranat-dan/scrum-poker/compare/1.2.1...1.3.0) (2025-07-01)
+## 1.3.0 - 2025-07-01 ([compare](https://github.com/peeranat-dan/scrum-poker/compare/1.2.1...1.3.0))
 
 
 ### Bug Fixes
@@ -27,14 +27,14 @@
 
 * add toggle show and hide cards in game cards ([#207](https://github.com/peeranat-dan/scrum-poker/issues/207)) ([c2e49ad](https://github.com/peeranat-dan/scrum-poker/commit/c2e49ad1f367a32c47f922aae4bbf00604964742))
 
-## [1.2.1](https://github.com/peeranat-dan/scrum-poker/compare/1.2.0...1.2.1) (2025-06-07)
+## 1.2.1 - 2025-06-07 ([compare](https://github.com/peeranat-dan/scrum-poker/compare/1.2.0...1.2.1))
 
 
 ### Bug Fixes
 
 * handle null createdAt in vote upsert and return mapped vote data ([#195](https://github.com/peeranat-dan/scrum-poker/issues/195)) ([da52e51](https://github.com/peeranat-dan/scrum-poker/commit/da52e51a6aedd253e9ed1704c68181320a6c017c))
 
-# [1.2.0](https://github.com/peeranat-dan/scrum-poker/compare/1.1.1...1.2.0) (2025-06-05)
+## 1.2.0 - 2025-06-05 ([compare](https://github.com/peeranat-dan/scrum-poker/compare/1.1.1...1.2.0))
 
 ### Bug Fixes
 
@@ -57,13 +57,13 @@
 
 - Revert "fix(vote): use composite key for vote document to prevent race condit…" (#193) ([96c3aa9](https://github.com/peeranat-dan/scrum-poker/commit/96c3aa91afdab08b4a0c5f098bb4f4a5c2ce03ee)), closes [#193](https://github.com/peeranat-dan/scrum-poker/issues/193)
 
-## [1.1.1](https://github.com/peeranat-dan/scrum-poker/compare/1.0.0...1.1.1) (2025-05-20)
+## 1.1.1 - 2025-05-20 ([compare](https://github.com/peeranat-dan/scrum-poker/compare/1.0.0...1.1.1))
 
 ### Bug Fixes
 
 - **round:** remove inactive users from average calculation ([#165](https://github.com/peeranat-dan/scrum-poker/issues/165)) ([9d530ff](https://github.com/peeranat-dan/scrum-poker/commit/9d530ff37b01c4690a7e548257efb6ad2b23854e))
 
-# [1.1.0](https://github.com/peeranat-dan/scrum-poker/compare/1.0.0...1.1.0) (2025-05-20)
+## 1.1.0 - 2025-05-20 ([compare](https://github.com/peeranat-dan/scrum-poker/compare/1.0.0...1.1.0))
 
 ### Bug Fixes
 
@@ -85,7 +85,7 @@
 - **round:** add ability to revote a round ([#138](https://github.com/peeranat-dan/scrum-poker/issues/138)) ([6d5a8ec](https://github.com/peeranat-dan/scrum-poker/commit/6d5a8ecb98a1316a64f3e74582b3f1c63291d74b))
 - **ui:** emphasize votes and players number in game controller ([#149](https://github.com/peeranat-dan/scrum-poker/issues/149)) ([0995dcf](https://github.com/peeranat-dan/scrum-poker/commit/0995dcfca20af9fb3e9de250e5dcdcec62b0cfe6))
 
-# 1.0.0 (2025-05-04)
+## 1.0.0 - 2025-05-04
 
 ### Bug Fixes
 

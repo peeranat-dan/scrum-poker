@@ -1,10 +1,10 @@
 # https://github.com/firebase/firebase-tools
 
-name: Deploy to Firebase Hosting on merge develop
+name: Deploy to Firebase Hosting on merge main
 on:
   push:
     branches:
-      - develop
+      - main
 jobs:
   check-changes:
     runs-on: ubuntu-latest

@@ -86,6 +86,20 @@ We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0
 
 If you are interested in the detailed specification you can visit https://www.conventionalcommits.org/.
 
+## Releasing
+
+We use [Changesets](https://github.com/changesets/changesets) to manage versions and the changelog.
+
+1. If your pull request changes app behavior, add a changeset and commit the generated file in `.changeset/`.
+
+```bash
+pnpm changeset
+```
+
+2. Pick the bump type (`patch` for fixes, `minor` for features, `major` for breaking changes) and write a short summary. It goes straight into `CHANGELOG.md`.
+3. When changesets land on `main`, the Release workflow opens (or updates) a `chore(release): version packages` pull request against `main` that bumps `package.json` and updates `CHANGELOG.md`.
+4. Merging that pull request tags the new version (e.g. `1.4.0`) and creates a GitHub release. The tag triggers the production deploy.
+
 ## Development
 
 1. Fork the repository by clicking the "Fork" button at the top right corner of the repository page.
@@ -126,10 +140,10 @@ pnpm dev
 
 1. Go to issues page and find an issue that you want to work on.
 2. Comment `/assign` in that post to assign the issue to yourself.
-3. Create a new branch from the `develop` branch.
-4. Make your changes and commit them.
+3. Create a new branch from the `main` branch.
+4. Make your changes and commit them. Add a changeset if the change should be released (see [Releasing](#releasing)).
 5. Push your changes to your forked repository.
-6. Create a pull request from your forked repository to the `develop` branch.
+6. Create a pull request from your forked repository to the `main` branch.
 
 ## Feature Requests
 
