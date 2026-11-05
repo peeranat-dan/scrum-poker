@@ -1,6 +1,7 @@
 import { getDocs, query } from 'firebase/firestore';
 
 import { buildQueryConstraints } from '@/shared/firestore/utils';
+
 import { roundsCollection } from '../firestore';
 import { roundMapper } from './mapper';
 import { type SearchRoundInput } from './types';

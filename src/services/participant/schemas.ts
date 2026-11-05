@@ -1,5 +1,6 @@
-import { ParticipantSchema } from '@/domain/participant/schemas';
 import { z } from 'zod';
+
+import { ParticipantSchema } from '@/domain/participant/schemas';
 
 export const CreateParticipantSchema = ParticipantSchema.extend({
   displayName: z.string().optional(),

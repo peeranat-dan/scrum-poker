@@ -1,5 +1,6 @@
-import config from '@/config';
 import { initializeApp } from 'firebase/app';
+
+import config from '@/config';
 
 const firebaseConfig = {
   apiKey: config.firebase.apiKey,

@@ -1,5 +1,6 @@
-import { DomainEntitySchema } from '@/shared/zod/schemas/domain';
 import { z } from 'zod';
+
+import { DomainEntitySchema } from '@/shared/zod/schemas/domain';
 
 export const roundStatuses = ['in-progress', 'revealed', 'finished'] as const;
 

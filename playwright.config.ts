@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+
 import { environments, getCurrentEnvironment } from './e2e/config/environments';
 
 // Get the current environment and its configuration

@@ -21,7 +21,8 @@ jobs:
             src/
             package.json
             pnpm-lock.yaml
-            eslint.config.js
+            oxlint.config.ts
+            oxfmt.config.ts
             firebase.json
             tsconfig
             vite.config.ts
@@ -49,7 +50,7 @@ jobs:
       - name: Run Build
         run: pnpm build
   lint:
-    name: ESLint
+    name: Lint and Format
     runs-on: ubuntu-latest
     if: ${{ needs.check-changes.outputs.should_run == 'true' }}
     needs: check-changes
@@ -68,8 +69,10 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Run ESLint
+      - name: Run oxlint
         run: pnpm lint
+      - name: Check formatting with oxfmt
+        run: pnpm format:check
   test:
     name: Test with Vitest
     runs-on: ubuntu-latest

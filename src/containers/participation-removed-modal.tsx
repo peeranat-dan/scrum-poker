@@ -1,3 +1,7 @@
+import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
+import { useMemo } from 'react';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,9 +14,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/providers/auth';
 import { useParticipant } from '@/providers/participant';
-import { useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
-import { useMemo } from 'react';
 
 // TODO: rename this
 export default function ParticipationRemovedModal() {
@@ -26,15 +27,15 @@ export default function ParticipationRemovedModal() {
   }, [participant?.status]);
 
   const handleBackToHome = async () => {
-    queryClient.resetQueries();
+    void queryClient.resetQueries();
     await signOut();
-    navigate({ to: '/' });
+    void navigate({ to: '/' });
   };
 
   const handleJoinAgain = async () => {
-    queryClient.resetQueries();
+    void queryClient.resetQueries();
     await signOut();
-    navigate({ to: '/join/$gameId', params: { gameId: participant?.sessionId ?? '' } });
+    void navigate({ to: '/join/$gameId', params: { gameId: participant?.sessionId ?? '' } });
   };
 
   return (
@@ -45,7 +46,7 @@ export default function ParticipationRemovedModal() {
           <AlertDialogDescription>You've been removed from the game.</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <Button onClick={handleBackToHome} variant='outline'>
+          <Button onClick={handleBackToHome} variant="outline">
             Back to Home
           </Button>
           <AlertDialogAction onClick={handleJoinAgain}>Join again</AlertDialogAction>

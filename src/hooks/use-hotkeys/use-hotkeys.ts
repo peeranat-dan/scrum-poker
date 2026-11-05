@@ -1,5 +1,6 @@
 // NOTE: This hook is copied from https://github.com/mantinedev/mantine/blob/master/packages/%40mantine/hooks/src/use-hotkeys/use-hotkeys.ts
 import { useEffect } from 'react';
+
 import { getHotkeyHandler, getHotkeyMatcher, type HotkeyItemOptions } from './parse-hotkey';
 
 export type { HotkeyItemOptions };

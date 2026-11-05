@@ -1,4 +1,4 @@
-import { type ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { type ColumnDef, flexRender, type RowData, useTable } from '@tanstack/react-table';
 
 import {
   Table,
@@ -9,25 +9,27 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+import { features } from './features';
+
+interface DataTableProps<TData extends RowData> {
+  columns: ColumnDef<typeof features, TData>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends RowData>({
   columns,
   data,
-}: Readonly<DataTableProps<TData, TValue>>) {
-  const table = useReactTable({
+}: Readonly<DataTableProps<TData>>) {
+  const table = useTable({
+    features,
     data,
     columns,
-    getCoreRowModel: getCoreRowModel(),
   });
 
   return (
-    <div className='no-scrollbar overflow-x-hidden rounded-md border'>
+    <div className="no-scrollbar overflow-x-hidden rounded-md border">
       <Table>
-        <TableHeader className='bg-muted'>
+        <TableHeader className="bg-muted">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -42,7 +44,7 @@ export function DataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody className='bg-card'>
+        <TableBody className="bg-card">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
@@ -55,7 +57,7 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
                 No results.
               </TableCell>
             </TableRow>

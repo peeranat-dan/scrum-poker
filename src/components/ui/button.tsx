@@ -3,6 +3,7 @@ import { type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
 import { cn } from '@/lib/cn';
+
 import { buttonVariants } from './button-variants';
 
 function Button({
@@ -19,7 +20,7 @@ function Button({
 
   return (
     <Comp
-      data-slot='button'
+      data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />

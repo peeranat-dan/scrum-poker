@@ -1,7 +1,9 @@
+import { type DocumentData, type DocumentSnapshot } from 'firebase/firestore';
+
 import { ParticipantSchema } from '@/domain/participant/schemas';
 import { type Participant } from '@/domain/participant/types';
 import { assertValid } from '@/shared/zod/utils';
-import { type DocumentData, type DocumentSnapshot } from 'firebase/firestore';
+
 import { type ParticipantDoc } from './types';
 
 function toParticipant(doc: DocumentSnapshot<ParticipantDoc, DocumentData>): Participant {

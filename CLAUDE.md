@@ -7,9 +7,14 @@ pnpm@9.14.2
 pnpm install: install dependencies
 pnpm dev: start development server
 pnpm build: build production version
-pnpm lint: lint code
+pnpm lint: lint code (oxlint, type-aware)
 pnpm test: run unit tests
-pnpm format: format code
+pnpm format: format code (oxfmt)
+pnpm format:check: check formatting
+
+# Development Workflow
+
+- After running claude code, try running pnpm run build, pnpm run lint, and pnpm test.
 
 # Code Architecture
 
@@ -20,7 +25,7 @@ Refering to the code architecture document in the CONTRIBUTING.md file
 - Use ES modules (import/export) syntax, not CommonJS (require)
 - Destructure imports when possible (eg. import { foo } from 'bar')
 - Use kebab-case for file names
-- Create index.ts file with export \* from './file' for each directory
+- Create index.ts file with export * from './file' for each directory
 - Use single quotes for strings
 - Use const for variables that don't need to be re-assigned
 - Don't use enum, use const objects with 'as const' or union string instead

@@ -1,4 +1,10 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Edit } from 'lucide-react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+
 import UserProfileForm from '@/components/form/user-profile-form';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -10,15 +16,12 @@ import {
 import config from '@/config';
 import { useParticipant } from '@/providers/participant';
 import { type UserProfileInput, UserProfileSchema } from '@/types/schema.types';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Edit } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
 
 export default function EditUserProfileButton() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { participant, updateParticipantName } = useParticipant();
+  const [isModalOpen, setIsModalOpen] = useState(
+    () => participant?.displayName === config.game.defaultParticipantName,
+  );
   const form = useForm<UserProfileInput>({
     resolver: zodResolver(UserProfileSchema),
     defaultValues: {
@@ -26,21 +29,15 @@ export default function EditUserProfileButton() {
     },
   });
 
-  useEffect(() => {
-    if (participant?.displayName === config.game.defaultParticipantName) {
-      setIsModalOpen(true);
-    }
-  }, [participant]);
-
   const onSubmit = (data: UserProfileInput) => {
-    updateParticipantName(data.displayName);
+    void updateParticipantName(data.displayName);
     setIsModalOpen(false);
   };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogTrigger asChild>
-        <Button variant='ghost' size='icon'>
+        <Button variant="ghost" size="icon">
           <Edit />
         </Button>
       </DialogTrigger>

@@ -1,11 +1,11 @@
-export type KeyboardModifiers = {
+export interface KeyboardModifiers {
   alt: boolean;
   ctrl: boolean;
   meta: boolean;
   mod: boolean;
   shift: boolean;
   plus: boolean;
-};
+}
 
 export type Hotkey = KeyboardModifiers & {
   key?: string;

@@ -1,7 +1,8 @@
 'use client';
 
+import React, { useEffect, useRef, useState, type ComponentPropsWithoutRef } from 'react';
+
 import { cn } from '@/lib/cn';
-import { type ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react';
 
 interface MousePosition {
   x: number;
@@ -19,10 +20,10 @@ function MousePosition(): MousePosition {
       setMousePosition({ x: event.clientX, y: event.clientY });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    globalThis.addEventListener('mousemove', handleMouseMove);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      globalThis.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
@@ -51,14 +52,14 @@ function hexToRgb(hex: string): number[] {
       .join('');
   }
 
-  const hexInt = parseInt(hex, 16);
+  const hexInt = Number.parseInt(hex, 16);
   const red = (hexInt >> 16) & 255;
   const green = (hexInt >> 8) & 255;
   const blue = hexInt & 255;
   return [red, green, blue];
 }
 
-type Circle = {
+interface Circle {
   x: number;
   y: number;
   translateX: number;
@@ -69,7 +70,7 @@ type Circle = {
   dx: number;
   dy: number;
   magnetism: number;
-};
+}
 
 export const Particles: React.FC<ParticlesProps> = ({
   className = '',
@@ -90,23 +91,26 @@ export const Particles: React.FC<ParticlesProps> = ({
   const mousePosition = MousePosition();
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
-  const dpr = typeof window !== 'undefined' ? window.devicePixelRatio : 1;
+  const dpr = globalThis.window === undefined ? 1 : globalThis.window.devicePixelRatio;
   const rafID = useRef<number | null>(null);
-  const resizeTimeout = useRef<NodeJS.Timeout | null>(null);
+  const resizeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const initCanvasRef = useRef<() => void>(() => {});
+  const onMouseMoveRef = useRef<() => void>(() => {});
+  const animateRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     if (canvasRef.current) {
       context.current = canvasRef.current.getContext('2d');
     }
-    initCanvas();
-    animate();
+    initCanvasRef.current();
+    animateRef.current();
 
     const handleResize = () => {
       if (resizeTimeout.current) {
         clearTimeout(resizeTimeout.current);
       }
       resizeTimeout.current = setTimeout(() => {
-        initCanvas();
+        initCanvasRef.current();
       }, 200);
     };
 
@@ -121,17 +125,14 @@ export const Particles: React.FC<ParticlesProps> = ({
       }
       window.removeEventListener('resize', handleResize);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [color]);
 
   useEffect(() => {
-    onMouseMove();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    onMouseMoveRef.current();
   }, [mousePosition.x, mousePosition.y]);
 
   useEffect(() => {
-    initCanvas();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    initCanvasRef.current();
   }, [refresh]);
 
   const initCanvas = () => {
@@ -180,7 +181,7 @@ export const Particles: React.FC<ParticlesProps> = ({
     const translateY = 0;
     const pSize = Math.floor(Math.random() * 2) + size;
     const alpha = 0;
-    const targetAlpha = parseFloat((Math.random() * 0.6 + 0.1).toFixed(1));
+    const targetAlpha = Number.parseFloat((Math.random() * 0.6 + 0.1).toFixed(1));
     const dx = (Math.random() - 0.5) * 0.1;
     const dy = (Math.random() - 0.5) * 0.1;
     const magnetism = 0.1 + Math.random() * 4;
@@ -285,17 +286,23 @@ export const Particles: React.FC<ParticlesProps> = ({
         drawCircle(newCircle);
       }
     });
-    rafID.current = window.requestAnimationFrame(animate);
+    rafID.current = globalThis.requestAnimationFrame(animateRef.current);
   };
+
+  useEffect(() => {
+    initCanvasRef.current = initCanvas;
+    onMouseMoveRef.current = onMouseMove;
+    animateRef.current = animate;
+  });
 
   return (
     <div
       className={cn('pointer-events-none', className)}
       ref={canvasContainerRef}
-      aria-hidden='true'
+      aria-hidden="true"
       {...props}
     >
-      <canvas ref={canvasRef} className='size-full' />
+      <canvas ref={canvasRef} className="size-full" />
     </div>
   );
 };

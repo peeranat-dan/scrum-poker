@@ -1,5 +1,6 @@
 import { updateParticipant } from '@/data/participant/update-participant';
 import { assertValid } from '@/shared/zod/utils';
+
 import { UpdateParticipantNameSchema } from './schemas';
 import { type UpdateParticipantNameInput } from './types';
 

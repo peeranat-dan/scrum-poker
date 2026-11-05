@@ -3,7 +3,7 @@ name: Deploy Firestore Rules on merge
 on:
   push:
     branches:
-      - develop
+      - main
     paths:
       - 'firestore.rules'
 

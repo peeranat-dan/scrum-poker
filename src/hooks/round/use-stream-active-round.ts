@@ -1,6 +1,7 @@
+import { useEffect, useState, useRef } from 'react';
+
 import { streamActiveRound } from '@/data/round/stream-active-round';
 import { type Round } from '@/domain/round/types';
-import { useEffect, useState, useRef } from 'react';
 import { usePageVisibility } from '@/hooks/use-page-visibility';
 
 export function useStreamActiveRound(sessionId: string) {

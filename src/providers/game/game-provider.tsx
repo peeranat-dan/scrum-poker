@@ -1,3 +1,6 @@
+import { useQueryClient } from '@tanstack/react-query';
+import { useCallback, useMemo } from 'react';
+
 import Loading from '@/components/loading';
 import { useStreamParticipants } from '@/hooks/participant/use-stream-participants';
 import { useRevealRound } from '@/hooks/round/use-reveal-round';
@@ -8,8 +11,7 @@ import { useCastOrUpdateVote } from '@/hooks/vote/use-cast-or-update-vote';
 import { useGetParticipantVoteByRoundId } from '@/hooks/vote/use-get-participant-vote-by-round-id';
 import { useStreamVotes } from '@/hooks/vote/use-stream-votes';
 import { getCards } from '@/shared/card/utils';
-import { useQueryClient } from '@tanstack/react-query';
-import { useCallback, useMemo } from 'react';
+
 import { useParticipant } from '../participant';
 import { useSession } from '../session';
 import { GameContext } from './game-context';
@@ -45,7 +47,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
         },
         {
           onSuccess: () => {
-            queryClient.refetchQueries({
+            void queryClient.refetchQueries({
               queryKey: ['vote', round?.id, participant?.id],
             });
           },
@@ -57,19 +59,19 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
 
   const revealRound = useCallback(async () => {
     if (round) {
-      revealRoundMutation.mutateAsync(round.id);
+      void revealRoundMutation.mutateAsync(round.id);
     }
   }, [revealRoundMutation, round]);
 
   const revoteRound = useCallback(async () => {
     if (round) {
-      revoteRoundMutation.mutateAsync(round.id);
+      void revoteRoundMutation.mutateAsync(round.id);
     }
   }, [revoteRoundMutation, round]);
 
   const startNewRound = useCallback(async () => {
     if (round) {
-      startNewRoundMutation.mutateAsync(session.id);
+      void startNewRoundMutation.mutateAsync(session.id);
     }
   }, [round, session.id, startNewRoundMutation]);
 

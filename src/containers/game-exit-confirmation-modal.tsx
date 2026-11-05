@@ -1,3 +1,6 @@
+import { useBlocker } from '@tanstack/react-router';
+import { useMemo } from 'react';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -9,8 +12,6 @@ import {
 } from '@/components/ui/dialog';
 import { useParticipant } from '@/providers/participant';
 import { useSession } from '@/providers/session';
-import { useBlocker } from '@tanstack/react-router';
-import { useMemo } from 'react';
 
 export default function GameExitConfirmationModal() {
   const { status: sessionStatus } = useSession();
@@ -38,7 +39,7 @@ export default function GameExitConfirmationModal() {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button onClick={blocker.proceed} variant='outline'>
+          <Button onClick={blocker.proceed} variant="outline">
             Leave the game
           </Button>
           <Button onClick={blocker.reset}>Stay on the page</Button>

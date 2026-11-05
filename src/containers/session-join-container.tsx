@@ -1,10 +1,11 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
+
 import SessionJoinForm from '@/components/form/session-join.form';
 import { useCreateParticipant } from '@/hooks/participant/use-create-participant';
 import { useAuth } from '@/providers/auth';
 import { type JoinSessionInput, JoinSessionSchema } from '@/types/schema.types';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
 
 interface SessionJoinContainerProps {
   sessionId: string;
@@ -37,7 +38,7 @@ export default function SessionJoinContainer({ sessionId }: Readonly<SessionJoin
 
     // STEP 3: Navigate to game
     if (participant) {
-      navigate({
+      void navigate({
         to: '/game/$gameId',
         params: {
           gameId: sessionId,

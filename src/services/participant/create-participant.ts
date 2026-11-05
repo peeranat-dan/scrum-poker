@@ -2,6 +2,7 @@ import config from '@/config';
 import { addParticipant } from '@/data/participant/add-participant';
 import { findParticipant } from '@/data/participant/find-participant';
 import { assertValid } from '@/shared/zod/utils';
+
 import { CreateParticipantSchema } from './schemas';
 import { type CreateParticipantInput } from './types';
 

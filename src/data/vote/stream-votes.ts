@@ -1,5 +1,7 @@
-import { type Vote } from '@/domain/vote/types';
 import { onSnapshot, query, where } from 'firebase/firestore';
+
+import { type Vote } from '@/domain/vote/types';
+
 import { votesCollection } from '../firestore';
 import { voteMapper } from './mapper';
 

@@ -1,6 +1,7 @@
+import { useEffect, useState, useRef } from 'react';
+
 import { streamSession } from '@/data/session/stream-session';
 import { type Session } from '@/domain/session/types';
-import { useEffect, useState, useRef } from 'react';
 import { useConnectionState } from '@/hooks/use-connection-state';
 
 export function useStreamSession(sessionId: string) {

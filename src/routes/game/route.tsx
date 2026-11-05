@@ -1,3 +1,5 @@
+import { createFileRoute, Navigate, notFound, Outlet, useParams } from '@tanstack/react-router';
+
 import Loading from '@/components/loading';
 import { Toaster } from '@/components/ui/sonner';
 import GameHeader from '@/containers/game-header';
@@ -10,7 +12,6 @@ import { useAuth } from '@/providers/auth';
 import { GameProvider } from '@/providers/game';
 import { ParticipantProvider } from '@/providers/participant';
 import { SessionProvider } from '@/providers/session';
-import { createFileRoute, Navigate, notFound, Outlet, useParams } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/game')({
   component: RouteComponent,
@@ -42,17 +43,17 @@ function RouteComponent() {
   } else if (!session || errorSession || errorParticipant) {
     throw notFound();
   } else if (!participant || !user) {
-    return <Navigate to='/join/$gameId' params={{ gameId }} replace />;
+    return <Navigate to="/join/$gameId" params={{ gameId }} replace />;
   }
 
   return (
     <SessionProvider sessionId={sessionId}>
       <ParticipantProvider sessionId={sessionId} uid={user.uid}>
         <GameProvider gameId={gameId}>
-          <div className='flex h-dvh w-screen flex-col'>
+          <div className="flex h-dvh w-screen flex-col">
             <GameHeader />
-            <div className='flex flex-1 overflow-hidden'>
-              <main className='flex flex-1 overflow-y-auto'>
+            <div className="flex flex-1 overflow-hidden">
+              <main className="flex flex-1 overflow-y-auto">
                 <Outlet />
               </main>
             </div>

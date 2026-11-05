@@ -1,5 +1,6 @@
-import { SessionSchema } from '@/domain/session/schemas';
 import { z } from 'zod';
+
+import { SessionSchema } from '@/domain/session/schemas';
 
 export const CreateSessionSchema = SessionSchema.pick({
   name: true,

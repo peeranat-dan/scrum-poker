@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+
 import { ParticipantContext } from './participant-context';
 
 export function useParticipant() {

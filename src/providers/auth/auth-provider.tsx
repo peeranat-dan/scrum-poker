@@ -1,10 +1,12 @@
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { auth } from '@/data/auth';
 import { useAnonymousLogin } from '@/hooks/auth/use-anonymous-login';
 import { useLinkWithGoogle } from '@/hooks/auth/use-link-with-google';
 import { useSignInWithGoogle } from '@/hooks/auth/use-sign-in-with-google';
 import { useSignOut } from '@/hooks/auth/use-sign-out';
 import { type User } from '@/shared/firebase/types';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { AuthContext } from './auth-context';
 import { type AuthProviderProps } from './types';
 

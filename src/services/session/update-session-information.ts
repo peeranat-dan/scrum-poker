@@ -8,6 +8,7 @@ import {
   shouldValidateVotingSystemChange,
 } from '@/domain/session/rules';
 import { assertValid } from '@/shared/zod/utils';
+
 import { UpdateSessionInformationSchema } from './schemas';
 import { type UpdateSessionInformationInput } from './types';
 

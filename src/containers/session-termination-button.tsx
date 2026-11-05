@@ -1,3 +1,6 @@
+import { Bomb } from 'lucide-react';
+import { useCallback } from 'react';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,8 +15,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { useTerminateSession } from '@/hooks/session/use-terminate-session';
 import { useSession } from '@/providers/session';
-import { Bomb } from 'lucide-react';
-import { useCallback } from 'react';
 
 export default function SessionTerminationButton() {
   const { id } = useSession();
@@ -21,13 +22,13 @@ export default function SessionTerminationButton() {
   const terminateSessionMutation = useTerminateSession();
 
   const handleTerminateSession = useCallback(() => {
-    terminateSessionMutation.mutateAsync(id);
+    void terminateSessionMutation.mutateAsync(id);
   }, [id, terminateSessionMutation]);
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant='destructive' className='w-full md:w-fit'>
+        <Button variant="destructive" className="w-full md:w-fit">
           <Bomb />
           <span>Terminate session</span>
         </Button>
@@ -42,7 +43,7 @@ export default function SessionTerminationButton() {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Button variant='destructive' onClick={handleTerminateSession}>
+            <Button variant="destructive" onClick={handleTerminateSession}>
               Terminate session
             </Button>
           </AlertDialogAction>

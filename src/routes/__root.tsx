@@ -1,11 +1,12 @@
-import NotFound from '@/components/not-found';
-import { type AuthProviderState } from '@/providers/auth/types';
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
-export type MyRouterContext = {
+import NotFound from '@/components/not-found';
+import { type AuthProviderState } from '@/providers/auth/types';
+
+export interface MyRouterContext {
   auth: AuthProviderState;
-};
+}
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => {

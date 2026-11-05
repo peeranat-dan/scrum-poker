@@ -1,4 +1,5 @@
 import { documentId, limit, orderBy, where, type QueryConstraint } from 'firebase/firestore';
+
 import { type FirestoreSearchInput } from './types';
 
 /**

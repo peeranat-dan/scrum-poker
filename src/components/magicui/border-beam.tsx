@@ -1,5 +1,6 @@
-import { cn } from '@/lib/cn';
 import { motion, type MotionStyle, type Transition } from 'motion/react';
+
+import { cn } from '@/lib/cn';
 
 interface BorderBeamProps {
   /**
@@ -57,7 +58,7 @@ export const BorderBeam = ({
   initialOffset = 0,
 }: BorderBeamProps) => {
   return (
-    <div className='pointer-events-none absolute inset-0 rounded-[inherit] border border-transparent [mask-image:linear-gradient(transparent,transparent),linear-gradient(#000,#000)] [mask-composite:intersect] [mask-clip:padding-box,border-box]'>
+    <div className="pointer-events-none absolute inset-0 rounded-[inherit] border border-transparent [mask-image:linear-gradient(transparent,transparent),linear-gradient(#000,#000)] [mask-composite:intersect] [mask-clip:padding-box,border-box]">
       <motion.div
         className={cn(
           'absolute aspect-square',

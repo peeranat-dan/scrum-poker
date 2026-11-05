@@ -1,19 +1,18 @@
+import { useEffect, useState, useRef } from 'react';
+
 import { streamParticipant } from '@/data/participant/stream-participant';
 import { type Participant } from '@/domain/participant/types';
-
-import { useEffect, useState, useRef } from 'react';
 import { usePageVisibility } from '@/hooks/use-page-visibility';
 
 export function useStreamParticipant(sessionId: string, uid: string) {
   const [participant, setParticipant] = useState<Participant | undefined>(undefined);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !!(sessionId && uid));
   const [error, setError] = useState<Error | undefined>(undefined);
   const isVisible = usePageVisibility();
   const unsubscribeRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (!sessionId || !uid) {
-      setLoading(false);
       return;
     }
 

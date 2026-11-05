@@ -1,5 +1,7 @@
-import { buildQueryConstraints } from '@/shared/firestore/utils';
 import { getDocs, query } from 'firebase/firestore';
+
+import { buildQueryConstraints } from '@/shared/firestore/utils';
+
 import { votesCollection } from '../firestore';
 import { voteMapper } from './mapper';
 import { type FindVoteInput } from './types';

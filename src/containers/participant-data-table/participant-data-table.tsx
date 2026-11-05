@@ -1,7 +1,8 @@
-import { DataTable } from './data-table';
-import { columns } from './columns';
-import { mapper } from './utils';
 import { useGame } from '@/providers/game';
+
+import { columns } from './columns';
+import { DataTable } from './data-table';
+import { mapper } from './utils';
 
 export default function ParticipantDataTable() {
   const { participants } = useGame();

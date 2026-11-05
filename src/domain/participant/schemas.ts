@@ -1,5 +1,6 @@
-import { DomainEntitySchema } from '@/shared/zod/schemas/domain';
 import { z } from 'zod';
+
+import { DomainEntitySchema } from '@/shared/zod/schemas/domain';
 
 export const participantRoles = ['owner', 'admin', 'player', 'spectator'] as const;
 export const participantStatuses = ['active', 'left', 'removed'] as const;

@@ -1,5 +1,6 @@
 import Loading from '@/components/loading';
 import { useStreamSession } from '@/hooks/session/use-stream-session';
+
 import { SessionContext } from './session-context';
 import { type SessionProviderProps } from './types';
 

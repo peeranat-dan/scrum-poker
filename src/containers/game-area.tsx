@@ -1,6 +1,7 @@
 import { useGame } from '@/providers/game';
-import GameCards from './game-cards';
+
 import GameAverage from './game-average';
+import GameCards from './game-cards';
 import VotesChart from './vote-charts';
 
 export default function GameArea() {
@@ -15,7 +16,7 @@ export default function GameArea() {
   }
 
   return (
-    <div className='flex w-full items-center justify-center gap-4'>
+    <div className="flex w-full items-center justify-center gap-4">
       <VotesChart />
       <GameAverage />
     </div>

@@ -1,6 +1,7 @@
 import { limit, onSnapshot, query, where } from 'firebase/firestore';
 
 import { type Participant } from '@/domain/participant/types';
+
 import { participantsCollection } from '../firestore';
 import { participantMapper } from './mapper';
 
