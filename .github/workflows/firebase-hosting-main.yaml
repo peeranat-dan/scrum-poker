@@ -8,6 +8,8 @@ on:
 jobs:
   check-changes:
     runs-on: ubuntu-latest
+    # Skip version-packages merges; release.yml deploys those to prod
+    if: ${{ !startsWith(github.event.head_commit.message, 'chore(release)') }}
     outputs:
       should_run: ${{ steps.changed-files.outputs.any_changed }}
     steps:

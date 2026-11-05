@@ -14,6 +14,8 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -43,6 +45,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Tag and create GitHub release
+        id: tag
         if: steps.changesets.outputs.hasChangesets == 'false'
         run: |
           version=$(node -p "require('./package.json').version")
@@ -54,5 +57,15 @@ jobs:
           git tag "${version}"
           git push origin "${version}"
           gh release create "${version}" --title "${version}" --notes "${notes}"
+          echo "tag=${version}" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Tags pushed with GITHUB_TOKEN don't trigger other workflows, so deploy from here
+  deploy:
+    needs: release
+    if: needs.release.outputs.tag != ''
+    uses: ./.github/workflows/firebase-hosting-on-push-tag.yml
+    with:
+      tag: ${{ needs.release.outputs.tag }}
+    secrets: inherit

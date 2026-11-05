@@ -1,4 +1,4 @@
-name: Deploy Firestore Rules on merge
+name: Deploy Firestore Rules and Indexes on merge
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'firestore.rules'
+      - 'firestore.indexes.json'
 
 jobs:
   deploy-firestore-rules:
@@ -26,5 +27,5 @@ jobs:
       - uses: 'google-github-actions/auth@v2'
         with:
           credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NPRD_SCRUM_POKER }}'
-      - name: Deploy firestore rules
-        run: firebase deploy -f --only firestore:rules --project nprd-scrum-poker
+      - name: Deploy firestore rules and indexes
+        run: firebase deploy -f --only firestore --project nprd-scrum-poker
