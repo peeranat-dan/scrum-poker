@@ -26,6 +26,7 @@ A planning session where participants vote on story estimates.
 
 - Only `owner` or `admin` participants can manage session settings.
 - The `votingSystem` cannot be changed if votes already exist in the active round.
+- Only the `owner` can export the session votes. The export has one row per `revealed`/`finished` round and one column per non-spectator participant (including `left`/`removed`).
 
 ---
 

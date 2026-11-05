@@ -2,13 +2,16 @@ import { describe, expect, it } from 'vitest';
 
 import { type Session } from '../../session/types';
 import {
+  assertIsSessionOwner,
   assertParticipantExists,
   canBeRemoved,
   canLeaveSession,
   canManageSession,
   canRejoinSession,
   canVote,
+  isSessionOwner,
   isSpectator,
+  hasVotingRole,
 } from '../rules';
 import { type Participant } from '../types';
 
@@ -172,6 +175,56 @@ describe('participant rules', () => {
 
     it('throws when participant is null', () => {
       expect(() => isSpectator(null)).toThrowError(new Error('Participant not found'));
+    });
+  });
+
+  describe('isSessionOwner', () => {
+    it('returns true for owner role', () => {
+      expect(isSessionOwner({ role: 'owner' } as Participant)).toBe(true);
+    });
+
+    it.each(['admin', 'player', 'spectator'] as const)('returns false for %s role', (role) => {
+      expect(isSessionOwner({ role } as Participant)).toBe(false);
+    });
+
+    it('returns false when there is no participant', () => {
+      expect(isSessionOwner(null)).toBe(false);
+      expect(isSessionOwner(undefined)).toBe(false);
+    });
+  });
+
+  describe('assertIsSessionOwner', () => {
+    it('does not throw for owner role', () => {
+      const participant = { role: 'owner' } as Participant;
+      expect(() => assertIsSessionOwner(participant)).not.toThrowError();
+    });
+
+    it.each(['admin', 'player', 'spectator'] as const)('throws for %s role', (role) => {
+      const participant = { role } as Participant;
+      expect(() => assertIsSessionOwner(participant)).toThrowError(
+        new Error('Only the session owner can perform this action'),
+      );
+    });
+
+    it('throws when participant is null', () => {
+      expect(() => assertIsSessionOwner(null)).toThrowError(new Error('Participant not found'));
+    });
+  });
+
+  describe('hasVotingRole', () => {
+    it.each(['owner', 'admin', 'player'] as const)('returns true for %s role', (role) => {
+      const participant = { role, status: 'active' } as Participant;
+      expect(hasVotingRole(participant)).toBe(true);
+    });
+
+    it('returns false for spectator role', () => {
+      const participant = { role: 'spectator', status: 'active' } as Participant;
+      expect(hasVotingRole(participant)).toBe(false);
+    });
+
+    it.each(['left', 'removed'] as const)('returns true for %s participant', (status) => {
+      const participant = { role: 'player', status } as Participant;
+      expect(hasVotingRole(participant)).toBe(true);
     });
   });
 });
