@@ -7,6 +7,7 @@ import { useRevealRound } from '@/hooks/round/use-reveal-round';
 import { useRevoteRound } from '@/hooks/round/use-revote-round';
 import { useStartNewRound } from '@/hooks/round/use-start-new-round';
 import { useStreamActiveRound } from '@/hooks/round/use-stream-active-round';
+import { useUpdateRoundIssueId } from '@/hooks/round/use-update-round-issue-id';
 import { useCastOrUpdateVote } from '@/hooks/vote/use-cast-or-update-vote';
 import { useGetParticipantVoteByRoundId } from '@/hooks/vote/use-get-participant-vote-by-round-id';
 import { useStreamVotes } from '@/hooks/vote/use-stream-votes';
@@ -35,24 +36,20 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
 
   const castOrUpdateVoteMutation = useCastOrUpdateVote();
   const startNewRoundMutation = useStartNewRound();
+  const updateRoundIssueIdMutation = useUpdateRoundIssueId();
 
   const castVote = useCallback(
     async (value: number) => {
       if (!participant || !round) return;
-      await castOrUpdateVoteMutation.mutateAsync(
-        {
-          participantId: participant.id,
-          roundId: round.id,
-          value,
-        },
-        {
-          onSuccess: () => {
-            void queryClient.refetchQueries({
-              queryKey: ['vote', round?.id, participant?.id],
-            });
-          },
-        },
-      );
+      await castOrUpdateVoteMutation.mutateAsync({
+        participantId: participant.id,
+        roundId: round.id,
+        value,
+      });
+      // NOTE: Awaited so callers (e.g. optimistic card selection) only settle once `vote` is fresh
+      await queryClient.refetchQueries({
+        queryKey: ['vote', round.id, participant.id],
+      });
     },
     [participant, round, castOrUpdateVoteMutation, queryClient],
   );
@@ -75,6 +72,14 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
     }
   }, [round, session.id, startNewRoundMutation]);
 
+  const updateIssueId = useCallback(
+    async (issueId: string) => {
+      if (!round) return;
+      await updateRoundIssueIdMutation.mutateAsync({ roundId: round.id, issueId });
+    },
+    [round, updateRoundIssueIdMutation],
+  );
+
   const cards = useMemo(() => {
     return getCards(session.votingSystem);
   }, [session.votingSystem]);
@@ -93,6 +98,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       revealRound: revealRound,
       startNewRound: startNewRound,
       revoteRound: revoteRound,
+      updateIssueId: updateIssueId,
     }),
     [
       cards,
@@ -104,6 +110,7 @@ export function GameProvider({ children }: Readonly<GameProviderProps>) {
       revealRound,
       startNewRound,
       revoteRound,
+      updateIssueId,
     ],
   );
 

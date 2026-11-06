@@ -4,6 +4,7 @@ import {
   assertRoundExists,
   canRevoteRound,
   canStartNewRound,
+  canUpdateRoundIssueId,
   hasRoundBeenRevealed,
 } from '../rules';
 import { type Round } from '../types';
@@ -61,6 +62,24 @@ describe('round rules', () => {
     it('returns false for in-progress round', () => {
       const round = { status: 'in-progress' } as Round;
       expect(hasRoundBeenRevealed(round)).toBe(false);
+    });
+  });
+
+  describe('canUpdateRoundIssueId', () => {
+    it('throws error when round is null', () => {
+      expect(() => canUpdateRoundIssueId(null)).toThrowError(new Error('Round not found'));
+    });
+
+    it('throws error when round is finished', () => {
+      const round = { status: 'finished' } as Round;
+      expect(() => canUpdateRoundIssueId(round)).toThrowError(
+        new Error('Round is already finished'),
+      );
+    });
+
+    it.each(['in-progress', 'revealed'] as const)('does not throw when round is %s', (status) => {
+      const round = { status } as Round;
+      expect(() => canUpdateRoundIssueId(round)).not.toThrowError();
     });
   });
 });

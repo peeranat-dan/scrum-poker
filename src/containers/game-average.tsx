@@ -8,9 +8,9 @@ export default function GameAverage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <p>Game Average</p>
-      <p className="text-2xl font-bold">{round.averageVote ?? 'No votes yet'}</p>
+    <div className="flex flex-col items-center justify-center gap-1">
+      <p className="text-sm text-muted-foreground">Game Average</p>
+      <p className="text-4xl font-bold tabular-nums">{round.averageVote ?? 'No votes yet'}</p>
     </div>
   );
 }

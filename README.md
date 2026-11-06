@@ -56,7 +56,8 @@ pnpm dev
 8. **Reset Vote:** Room owner can reset the voting session.
 9. **Terminate Session:** Room owner can terminate the session.
 10. **Export Votes:** Room owner can download the votes of every revealed round as an `.xlsx` file from the General settings, to compare estimated vs actual later.
-11. **Account Settings:**
+11. **Issue ID per Round:** Room owner can attach an issue ID (e.g. `PROJ-123`, or a pasted link) to the round being estimated. Everyone sees it during voting, and it is included in the votes export. Set an Issue Tracker URL in the General settings to turn issue IDs into links.
+12. **Account Settings:**
     - Link with Google
     - Sign out
 

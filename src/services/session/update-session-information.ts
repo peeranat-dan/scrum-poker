@@ -2,6 +2,7 @@ import { findRound } from '@/data/round/find-round';
 import { getSession } from '@/data/session/get-session';
 import { updateSession } from '@/data/session/update-session';
 import { searchVotes } from '@/data/vote/search-votes';
+import { normalizeIssueTrackerUrl } from '@/domain/round/issue';
 import {
   assertSessionExists,
   assertSessionIsActive,
@@ -13,7 +14,12 @@ import { UpdateSessionInformationSchema } from './schemas';
 import { type UpdateSessionInformationInput } from './types';
 
 export async function updateSessionInformation(input: UpdateSessionInformationInput) {
-  const { id: sessionId, name, votingSystem } = assertValid(UpdateSessionInformationSchema, input);
+  const {
+    id: sessionId,
+    name,
+    votingSystem,
+    issueTrackerUrl,
+  } = assertValid(UpdateSessionInformationSchema, input);
 
   const session = await getSession(sessionId);
 
@@ -46,5 +52,9 @@ export async function updateSessionInformation(input: UpdateSessionInformationIn
   await updateSession(sessionId, {
     name,
     votingSystem,
+    // NOTE: Firestore rejects `undefined`, so only write the url when it was provided
+    ...(issueTrackerUrl !== undefined && {
+      issueTrackerUrl: normalizeIssueTrackerUrl(issueTrackerUrl),
+    }),
   });
 }

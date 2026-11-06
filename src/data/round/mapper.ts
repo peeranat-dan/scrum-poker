@@ -20,6 +20,7 @@ function toRound(doc: DocumentSnapshot<RoundDoc, DocumentData>): Round {
     sessionId: data.sessionId,
     status: data.status,
     averageVote: data.averageVote,
+    issueId: data.issueId ?? null,
     createdAt: data.createdAt.toDate(),
     updatedAt: data.updatedAt.toDate(),
   });

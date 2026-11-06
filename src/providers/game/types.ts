@@ -17,8 +17,10 @@ export interface GameProviderState {
   participants: ParticipantWithVote[];
   round: Round | undefined;
   vote: Vote | null | undefined;
-  castVote: (value: number) => void;
+  castVote: (value: number) => Promise<void>;
   revealRound: () => void;
   startNewRound: () => void;
   revoteRound: () => void;
+  /** Sets the issue id of the active round; an empty string clears it. Owner only. */
+  updateIssueId: (issueId: string) => Promise<void>;
 }

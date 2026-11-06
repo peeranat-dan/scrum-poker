@@ -1,5 +1,6 @@
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useOptimistic, useTransition } from 'react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { useDisclosure } from '@/hooks/use-disclosure';
@@ -12,6 +13,21 @@ const CARD_SHOW_KEY = 'scrum-poker-cards-shown';
 export default function GameCards() {
   const { cards, castVote, vote } = useGame();
   const { participant } = useParticipant();
+  // NOTE: Lifts the card on click instead of after the vote is saved. Falls back to the
+  // saved `vote` once the transition settles, so a failed vote reverts on its own.
+  const [currentValue, setOptimisticValue] = useOptimistic(vote?.value);
+  const [, startTransition] = useTransition();
+
+  const handleSelectCard = (value: number) => {
+    startTransition(async () => {
+      setOptimisticValue(value);
+      try {
+        await castVote(value);
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : 'Failed to cast vote');
+      }
+    });
+  };
 
   const getInitialCardState = useCallback(() => {
     if (typeof window === 'undefined') return true; // SSR safety
@@ -44,19 +60,22 @@ export default function GameCards() {
   }
 
   return (
-    <div className={cn('flex w-full flex-col items-center justify-center')}>
+    <div className="flex w-full flex-col items-center justify-center transition-[opacity,translate] duration-200 ease-out-strong starting:translate-y-6 starting:opacity-0 motion-reduce:starting:translate-y-0">
       <Button
         onClick={toggleShowCard}
         size="icon"
         variant="ghost"
         aria-label={isCardShown ? 'Hide cards' : 'Show cards'}
-        className={cn('transition-all duration-200', !isCardShown && 'translate-y-[125px]')}
+        className={cn(
+          'transition-[translate,background-color] duration-200 ease-out-strong',
+          !isCardShown && 'translate-y-[125px]',
+        )}
       >
         {isCardShown ? <ChevronDown /> : <ChevronUp />}
       </Button>
       <ul
         className={cn(
-          'no-scrollbar mx-auto my-0 flex w-full list-none items-center gap-2 overflow-x-auto p-4 px-4 transition-all duration-200 lg:w-fit',
+          'no-scrollbar mx-auto my-0 flex w-full list-none items-center gap-2 overflow-x-auto p-4 px-4 transition-[translate] duration-200 ease-out-strong lg:w-fit',
           !isCardShown && '-translate-y-[-100%]',
         )}
       >
@@ -64,14 +83,17 @@ export default function GameCards() {
           <li key={card.displayValue + card.value}>
             <button
               type="button"
-              onClick={() => castVote(card.value)}
+              onClick={() => handleSelectCard(card.value)}
               aria-label={`Vote ${card.displayValue}`}
-              aria-pressed={vote?.value === card.value}
+              aria-pressed={currentValue === card.value}
               className={cn(
-                'flex aspect-[2/3] w-20 shrink-0 cursor-pointer items-center justify-center rounded-md border bg-card text-center font-mono text-2xl font-semibold text-foreground shadow-md transition-all hover:scale-105',
+                'flex aspect-[2/3] w-20 shrink-0 cursor-pointer items-center justify-center rounded-md border bg-card text-center font-mono text-2xl font-semibold text-foreground shadow-md',
+                'transition-[translate,scale,box-shadow] duration-150 ease-out-strong active:scale-[0.97] motion-reduce:active:scale-100',
                 card.color,
                 card.textColor,
-                vote?.value === card.value && 'scale-110 hover:scale-110',
+                currentValue === card.value
+                  ? '-translate-y-3 shadow-xl ring-2 ring-foreground/70 ring-offset-2 ring-offset-background'
+                  : 'hover:-translate-y-1',
               )}
             >
               {card.displayValue}

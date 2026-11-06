@@ -6,6 +6,8 @@ interface BaseSessionDoc {
   votingSystem: VotingSystem;
   status: 'active' | 'finished';
   ownerId: string;
+  // NOTE: Optional because sessions created before issue links were added do not have it
+  issueTrackerUrl?: string | null;
 }
 export type SessionDoc = Prettify<FirestoreDoc<BaseSessionDoc>>;
 

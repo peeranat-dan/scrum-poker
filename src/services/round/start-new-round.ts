@@ -19,6 +19,7 @@ export async function startNewRound(sessionId: string) {
     sessionId,
     status: 'in-progress',
     averageVote: null,
+    issueId: null,
   });
 
   return nextRound;

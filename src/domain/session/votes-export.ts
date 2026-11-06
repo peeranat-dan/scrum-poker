@@ -103,7 +103,7 @@ export function toVoteCell(value: number, votingSystem: VotingSystem): VotesExpo
 /**
  * Builds the votes export sheet of a session.
  *
- * Columns are `Round | <participant names...> | Average`, and each row is one
+ * Columns are `Round | Issue | <participant names...> | Average`, and each row is one
  * revealed or finished round ordered by creation time. Spectators are excluded,
  * while participants who left or were removed are kept.
  *
@@ -128,7 +128,12 @@ export function buildVotesExportSheet(input: BuildVotesExportSheetInput): VotesE
     votesByRound.set(vote.roundId, roundVotes);
   }
 
-  const header: VotesExportCell[] = ['Round', ...toParticipantHeaders(participants), 'Average'];
+  const header: VotesExportCell[] = [
+    'Round',
+    'Issue',
+    ...toParticipantHeaders(participants),
+    'Average',
+  ];
 
   const rows = rounds.map((round, index): VotesExportCell[] => {
     const roundVotes = votesByRound.get(round.id);
@@ -141,6 +146,7 @@ export function buildVotesExportSheet(input: BuildVotesExportSheetInput): VotesE
 
     return [
       index + 1,
+      round.issueId,
       ...values.map((value) =>
         value === undefined ? null : toVoteCell(value, session.votingSystem),
       ),

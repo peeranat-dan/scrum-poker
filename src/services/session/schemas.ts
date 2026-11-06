@@ -17,4 +17,5 @@ export const UpdateSessionInformationSchema = UpdateSessionSchema.pick({
   id: true,
   name: true,
   votingSystem: true,
+  issueTrackerUrl: true,
 });
