@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.1
+
+### Patch Changes
+
+- [#335](https://github.com/peeranat-dan/scrum-poker/pull/335) [`ebdfc00`](https://github.com/peeranat-dan/scrum-poker/commit/ebdfc005dbdf5b0d5db8a7e11fcb972c337f194b) Thanks [@peeranat-dan](https://github.com/peeranat-dan)! - Fix the players table in the settings dialog not scrolling horizontally on mobile
+
 ## 1.5.0
 
 ### Minor Changes
