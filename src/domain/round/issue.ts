@@ -23,30 +23,56 @@ export function normalizeIssueId(value: string | null | undefined) {
 }
 
 /**
- * Builds the link to an issue in the issue tracker.
+ * Parses a value as an `http(s)` url.
+ *
+ * @param value The raw url
+ * @returns The parsed url, or `null` when it is not a valid `http(s)` url
+ */
+function parseHttpUrl(value: string) {
+  if (!URL_PATTERN.test(value)) {
+    return null;
+  }
+
+  try {
+    const url = new URL(value);
+    return url.protocol === 'http:' || url.protocol === 'https:' ? url : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Builds the link to an issue in the issue tracker. Runs on every render, since the
+ * values come from Firestore and are not validated by the security rules.
  * - A pasted link (`https://...`) is used as is.
  * - Otherwise the issue id is appended to the tracker base url, e.g.
  *   `https://example.atlassian.net/browse/` + `PROJ-123`.
  *
  * @param issueId The issue id
  * @param issueTrackerUrl The issue tracker base url configured on the session
- * @returns The issue link, or `null` when no link can be built
+ * @returns The issue link, or `null` when no safe link can be built
  */
 export function toIssueUrl(issueId: string | null, issueTrackerUrl: string | null) {
-  if (!issueId) {
+  const trimmedIssueId = issueId?.trim();
+
+  if (!trimmedIssueId || trimmedIssueId.length > MAX_ISSUE_ID_LENGTH) {
     return null;
   }
 
-  if (URL_PATTERN.test(issueId)) {
-    return issueId;
+  if (URL_PATTERN.test(trimmedIssueId)) {
+    return parseHttpUrl(trimmedIssueId)?.href ?? null;
   }
 
-  // NOTE: Re-check the protocol so a hand-edited tracker url can never become a `javascript:` link
-  if (!issueTrackerUrl || !URL_PATTERN.test(issueTrackerUrl)) {
+  const trackerUrl = parseHttpUrl(issueTrackerUrl?.trim() ?? '');
+
+  if (!trackerUrl) {
     return null;
   }
 
-  return `${issueTrackerUrl}${encodeURIComponent(issueId)}`;
+  const issueUrl = parseHttpUrl(`${trackerUrl.href}${encodeURIComponent(trimmedIssueId)}`);
+
+  // NOTE: The issue id must never move the link to another host
+  return issueUrl?.origin === trackerUrl.origin ? issueUrl.href : null;
 }
 
 /**

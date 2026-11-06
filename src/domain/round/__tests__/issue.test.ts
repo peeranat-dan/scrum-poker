@@ -53,6 +53,51 @@ describe('round issue', () => {
         'https://github.com/o/r/issues/42',
       );
     });
+
+    it('trims whitespace around a pasted link', () => {
+      expect(toIssueUrl('  https://github.com/o/r/issues/42 \n', null)).toBe(
+        'https://github.com/o/r/issues/42',
+      );
+    });
+
+    it.each(['javascript:alert(1)', 'data:text/html,<script>alert(1)</script>', ' javascript:x'])(
+      'never links %j',
+      (issueId) => {
+        expect(toIssueUrl(issueId, 'https://t.test/')).toBe(
+          `https://t.test/${encodeURIComponent(issueId.trim())}`,
+        );
+        expect(toIssueUrl(issueId, null)).toBeNull();
+      },
+    );
+
+    it.each(['javascript:alert(1)//', 'data:text/html,x/', '  ', 'not a url'])(
+      'ignores the tracker url %j',
+      (trackerUrl) => {
+        expect(toIssueUrl('PROJ-123', trackerUrl)).toBeNull();
+      },
+    );
+
+    it('ignores a pasted link that cannot be parsed', () => {
+      expect(toIssueUrl('https://', null)).toBeNull();
+    });
+
+    it('returns null when the issue id is too long', () => {
+      expect(toIssueUrl('a'.repeat(MAX_ISSUE_ID_LENGTH + 1), 'https://t.test/')).toBeNull();
+    });
+
+    it('appends to a tracker url without a trailing slash', () => {
+      expect(toIssueUrl('PROJ-123', 'https://t.test/browse/PROJ-')).toBe(
+        'https://t.test/browse/PROJ-PROJ-123',
+      );
+    });
+
+    it.each(['https://t.test', 'https://t.test/', 'https://user@t.test'])(
+      'keeps the tracker host for %s',
+      (trackerUrl) => {
+        const url = toIssueUrl('@evil.test', trackerUrl);
+        expect(url && new URL(url).host).toBe('t.test');
+      },
+    );
   });
 
   describe('toIssueLabel', () => {

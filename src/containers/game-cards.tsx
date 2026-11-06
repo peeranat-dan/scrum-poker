@@ -16,9 +16,12 @@ export default function GameCards() {
   // NOTE: Lifts the card on click instead of after the vote is saved. Falls back to the
   // saved `vote` once the transition settles, so a failed vote reverts on its own.
   const [currentValue, setOptimisticValue] = useOptimistic(vote?.value);
-  const [, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const handleSelectCard = (value: number) => {
+    // NOTE: Ignore clicks until the previous vote settles so votes can't race
+    if (isPending) return;
+
     startTransition(async () => {
       setOptimisticValue(value);
       try {

@@ -85,7 +85,7 @@ export default function GameController() {
                 <PopoverContent className="border-secondary bg-secondary text-secondary-foreground">
                   {participantsWithNoVotes.length ? (
                     <>
-                      <p className="text-sm font-semibold">Person who hasn't vote</p>
+                      <p className="text-sm font-semibold">Participants who haven't voted</p>
                       <ul className="m-0 px-4 py-1 text-xs">
                         {participantsWithNoVotes.map((p) => (
                           <li key={p.id}>

@@ -48,6 +48,9 @@ function getCardColor(cards: Card[], voteValue?: number, roundStatus?: RoundStat
 const FLIP_STAGGER_MS = 20;
 const MAX_FLIP_STAGGER_MS = 100;
 
+const cardFaceClassName =
+  'absolute inset-0 flex items-center justify-center rounded-md border text-2xl shadow-md backface-hidden';
+
 export default function GameParticipants() {
   const { participants, round, cards } = useGame();
   const { participant: currentParticipant } = useParticipant();
@@ -86,7 +89,7 @@ export default function GameParticipants() {
                 {/* Front: thinking / voted */}
                 <div
                   className={cn(
-                    'absolute inset-0 flex items-center justify-center rounded-md border text-2xl shadow-md backface-hidden',
+                    cardFaceClassName,
                     'transition-[background-color,opacity] duration-200',
                     hasVoted ? 'bg-primary/20' : 'bg-accent text-accent-foreground',
                     isRevealed && 'motion-reduce:opacity-0',
@@ -104,7 +107,8 @@ export default function GameParticipants() {
                 {/* Back: revealed vote */}
                 <div
                   className={cn(
-                    'absolute inset-0 flex items-center justify-center rounded-md border bg-card text-center font-mono text-2xl font-semibold text-foreground shadow-md backface-hidden motion-safe:rotate-y-180',
+                    cardFaceClassName,
+                    'bg-card text-center font-mono font-semibold text-foreground motion-safe:rotate-y-180',
                     'transition-opacity duration-200',
                     getCardColor(cards, participant.vote, round?.status),
                     isRevealed && cards.find((c) => c.value === participant.vote)?.textColor,

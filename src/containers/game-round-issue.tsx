@@ -1,5 +1,5 @@
 import { PencilIcon, PlusIcon } from 'lucide-react';
-import { useState, type FormEvent, type KeyboardEvent } from 'react';
+import { useOptimistic, useState, useTransition, type FormEvent, type KeyboardEvent } from 'react';
 import { toast } from 'sonner';
 
 import { RoundIssue } from '@/components/round-issue';
@@ -20,20 +20,30 @@ export default function GameRoundIssue() {
   const { issueTrackerUrl } = useSession();
   const { participant } = useParticipant();
   const [isEditing, setIsEditing] = useState(false);
+  // NOTE: Keeps the typed value when saving fails so the owner doesn't have to retype it
+  const [draft, setDraft] = useState<string | null>(null);
+  const [issueId, setOptimisticIssueId] = useOptimistic(round?.issueId ?? null);
+  const [, startTransition] = useTransition();
 
-  const issueId = round?.issueId ?? null;
   const canEdit = isSessionOwner(participant);
 
-  const save = async (value: string) => {
+  const save = (value: string) => {
     setIsEditing(false);
+    setDraft(null);
 
-    if (value.trim() === (issueId ?? '')) return;
+    const nextIssueId = value.trim() || null;
+    if (nextIssueId === issueId) return;
 
-    try {
-      await updateIssueId(value);
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Failed to update issue ID');
-    }
+    startTransition(async () => {
+      setOptimisticIssueId(nextIssueId);
+      try {
+        await updateIssueId(value);
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : 'Failed to update issue ID');
+        setDraft(value);
+        setIsEditing(true);
+      }
+    });
   };
 
   // NOTE: Enter and Escape both blur the input so saving only ever happens in `onBlur`
@@ -46,6 +56,7 @@ export default function GameRoundIssue() {
     if (event.key === 'Escape') {
       event.preventDefault();
       event.currentTarget.value = issueId ?? '';
+      setDraft(null);
       event.currentTarget.blur();
     }
   };
@@ -57,13 +68,13 @@ export default function GameRoundIssue() {
           name="issueId"
           aria-label="Issue ID"
           placeholder="PROJ-123 or paste a link"
-          defaultValue={issueId ?? ''}
+          defaultValue={draft ?? issueId ?? ''}
           maxLength={MAX_ISSUE_ID_LENGTH}
           autoComplete="off"
           // oxlint-disable-next-line jsx-a11y/no-autofocus -- the input replaces the button the user just clicked
           autoFocus
           onKeyDown={handleKeyDown}
-          onBlur={(event) => void save(event.currentTarget.value)}
+          onBlur={(event) => save(event.currentTarget.value)}
           className="h-10 font-mono"
         />
       </form>
