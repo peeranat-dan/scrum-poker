@@ -6,6 +6,8 @@ export interface BaseRoundDoc {
   sessionId: string;
   status: RoundStatus;
   averageVote: number | null;
+  // NOTE: Optional because rounds created before issue ids were added do not have it
+  issueId?: string | null;
 }
 
 export type RoundDoc = Prettify<FirestoreDoc<BaseRoundDoc>>;

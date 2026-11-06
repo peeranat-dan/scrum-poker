@@ -29,6 +29,7 @@ function makeRound(overrides: Partial<Round> & Pick<Round, 'id'>): Round {
     sessionId: 's1',
     status: 'finished',
     averageVote: null,
+    issueId: null,
     createdAt: new Date(2026, 0, 1),
     updatedAt: new Date(2026, 0, 1),
     ...overrides,
@@ -148,7 +149,12 @@ describe('votes export', () => {
     it('builds header and rows ordered by round creation time', () => {
       const rounds = [
         makeRound({ id: 'r2', averageVote: 5, createdAt: new Date(2026, 0, 2) }),
-        makeRound({ id: 'r1', averageVote: 2, createdAt: new Date(2026, 0, 1) }),
+        makeRound({
+          id: 'r1',
+          averageVote: 2,
+          issueId: 'PROJ-1',
+          createdAt: new Date(2026, 0, 1),
+        }),
       ];
       const votes = [
         makeVote('r1', 'p1', 1),
@@ -167,9 +173,9 @@ describe('votes export', () => {
       expect(sheet.fileName).toBe('Sprint 1-votes.xlsx');
       expect(sheet.sheetName).toBe('Sprint 1');
       expect(sheet.rows).toEqual([
-        ['Round', 'Owner', 'Left', 'Removed', 'Average'],
-        [1, 1, 3, null, 2],
-        [2, 5, null, '-', 5],
+        ['Round', 'Issue', 'Owner', 'Left', 'Removed', 'Average'],
+        [1, 'PROJ-1', 1, 3, null, 2],
+        [2, null, 5, null, '-', 5],
       ]);
     });
 
@@ -185,8 +191,8 @@ describe('votes export', () => {
       });
 
       expect(sheet.rows).toEqual([
-        ['Round', 'Owner', 'Average'],
-        [1, 3, 3],
+        ['Round', 'Issue', 'Owner', 'Average'],
+        [1, null, 3, 3],
       ]);
     });
 
@@ -202,8 +208,8 @@ describe('votes export', () => {
       });
 
       expect(sheet.rows.slice(1)).toEqual([
-        [1, 3, null],
-        [2, '-', null],
+        [1, null, 3, null],
+        [2, null, '-', null],
       ]);
     });
 
@@ -215,7 +221,7 @@ describe('votes export', () => {
         votes: [makeVote('r1', 'p1', 2), makeVote('r1', 'p2', 3)],
       });
 
-      expect(sheet.rows.slice(1)).toEqual([[1, 'M', 'L', 2.5]]);
+      expect(sheet.rows.slice(1)).toEqual([[1, null, 'M', 'L', 2.5]]);
     });
   });
 });

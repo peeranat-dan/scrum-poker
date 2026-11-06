@@ -9,6 +9,7 @@ export async function createRound(sessionId: string) {
     sessionId,
     status: 'in-progress',
     averageVote: null,
+    issueId: null,
   });
 
   return round;

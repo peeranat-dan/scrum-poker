@@ -67,6 +67,27 @@ export default function SessionInformationForm({
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="issueTrackerUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Issue Tracker URL</FormLabel>
+              <FormControl>
+                <Input
+                  type="url"
+                  inputMode="url"
+                  placeholder="https://your-company.atlassian.net/browse/"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>
+                Optional. Issue IDs are appended to this URL to link each round to its ticket.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button type="submit" disabled={isSubmitting || !form.formState.isDirty}>
           {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
           Save

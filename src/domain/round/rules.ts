@@ -36,3 +36,16 @@ export function canRevoteRound(round: Round | null): asserts round is Round {
     throw new Error('Round is not revealed');
   }
 }
+
+/**
+ * Asserts that the round's issue id can still be changed, i.e. the round is not `finished`.
+ *
+ * @param round The round
+ */
+export function canUpdateRoundIssueId(round: Round | null): asserts round is Round {
+  assertRoundExists(round);
+
+  if (round.status === 'finished') {
+    throw new Error('Round is already finished');
+  }
+}

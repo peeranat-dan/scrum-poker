@@ -44,54 +44,85 @@ function getCardColor(cards: Card[], voteValue?: number, roundStatus?: RoundStat
   return defaultBg;
 }
 
+/** Delay between each card flip on reveal; capped so large rooms still reveal quickly */
+const FLIP_STAGGER_MS = 20;
+const MAX_FLIP_STAGGER_MS = 100;
+
+const cardFaceClassName =
+  'absolute inset-0 flex items-center justify-center rounded-md border text-2xl shadow-md backface-hidden';
+
 export default function GameParticipants() {
   const { participants, round, cards } = useGame();
   const { participant: currentParticipant } = useParticipant();
 
+  const isRevealed = round?.status === 'revealed';
+
   return (
     <ul className="no-scrollbar mx-auto my-0 flex w-full gap-2 overflow-x-auto overflow-y-hidden p-4 lg:w-fit">
-      {participants.map((participant) => (
-        <li key={participant.id} className="flex flex-col items-center gap-2">
-          <div className="max-w-[96px] truncate text-center text-sm font-semibold">
-            {participant.displayName}
-          </div>
-          <div className="relative">
-            {participant.id === currentParticipant?.id && (
-              <div className="absolute top-0 right-0 z-10">
-                <EditUserProfileButton />
-              </div>
-            )}
-            <div
-              className={cn(
-                'flex aspect-[2/3] w-24 shrink-0 items-center justify-center rounded-md border bg-card text-center font-mono text-2xl font-semibold text-foreground shadow-md',
-                'origin-[center_bottom] rotate-y-[360deg] transition-all',
-                getCardColor(cards, participant.vote, round?.status),
-                round?.status === 'revealed' &&
-                  cards.find((c) => c.value === participant.vote)?.textColor,
-                participant.vote === undefined && 'bg-accent text-accent-foreground',
-                round?.status === 'revealed' && 'rotate-y-0',
-                participant.role === 'spectator' && 'bg-muted text-muted-foreground',
-              )}
-            >
-              {(() => {
-                const { display, label, isEmoji } = getVoteDisplay(
-                  cards,
-                  participant.vote,
-                  round?.status,
-                );
-                return isEmoji ? (
-                  <>
-                    <span aria-hidden="true">{display}</span>
-                    <span className="sr-only">{label}</span>
-                  </>
-                ) : (
-                  display
-                );
-              })()}
+      {participants.map((participant, index) => {
+        const { display, label, isEmoji } = getVoteDisplay(cards, participant.vote, round?.status);
+        const hasVoted = participant.vote !== undefined;
+        // NOTE: Stagger only the reveal; flipping back for a new round happens all at once
+        const flipDelay = isRevealed ? Math.min(index * FLIP_STAGGER_MS, MAX_FLIP_STAGGER_MS) : 0;
+
+        return (
+          <li key={participant.id} className="flex flex-col items-center gap-2">
+            <div className="max-w-[96px] truncate text-center text-sm font-semibold">
+              {participant.displayName}
             </div>
-          </div>
-        </li>
-      ))}
+            <div className="relative perspective-[800px]">
+              {participant.id === currentParticipant?.id && (
+                <div className="absolute top-0 right-0 z-10">
+                  <EditUserProfileButton />
+                </div>
+              )}
+              <span className="sr-only">{label}</span>
+              <div
+                aria-hidden="true"
+                style={{ transitionDelay: `${flipDelay}ms` }}
+                className={cn(
+                  'relative aspect-[2/3] w-24 shrink-0 transform-3d',
+                  'motion-safe:transition-transform motion-safe:ease-out-strong',
+                  isRevealed ? 'duration-300 motion-safe:rotate-y-180' : 'duration-200',
+                )}
+              >
+                {/* Front: thinking / voted */}
+                <div
+                  className={cn(
+                    cardFaceClassName,
+                    'transition-[background-color,opacity] duration-200',
+                    hasVoted ? 'bg-primary/20' : 'bg-accent text-accent-foreground',
+                    isRevealed && 'motion-reduce:opacity-0',
+                  )}
+                >
+                  {!isRevealed && (
+                    <span
+                      key={display}
+                      className="transition-[opacity,scale] duration-200 ease-out-strong starting:scale-75 starting:opacity-0"
+                    >
+                      {display}
+                    </span>
+                  )}
+                </div>
+                {/* Back: revealed vote */}
+                <div
+                  className={cn(
+                    cardFaceClassName,
+                    'bg-card text-center font-mono font-semibold text-foreground motion-safe:rotate-y-180',
+                    'transition-opacity duration-200',
+                    getCardColor(cards, participant.vote, round?.status),
+                    isRevealed && cards.find((c) => c.value === participant.vote)?.textColor,
+                    !hasVoted && 'bg-accent text-accent-foreground',
+                    !isRevealed && 'motion-reduce:opacity-0',
+                  )}
+                >
+                  {isRevealed && (isEmoji ? <span>{display}</span> : display)}
+                </div>
+              </div>
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 }

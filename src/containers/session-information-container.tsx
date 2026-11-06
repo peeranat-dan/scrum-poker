@@ -9,12 +9,13 @@ import { useSession } from '@/providers/session';
 import { type SessionInformationInput, SessionInformationSchema } from '@/types/schema.types';
 
 export default function SessionInformationContainer() {
-  const { id, name, votingSystem } = useSession();
+  const { id, name, votingSystem, issueTrackerUrl } = useSession();
 
   const form = useForm<SessionInformationInput>({
     defaultValues: {
       name,
       votingSystem,
+      issueTrackerUrl: issueTrackerUrl ?? '',
     },
     resolver: zodResolver(SessionInformationSchema),
   });
@@ -26,6 +27,8 @@ export default function SessionInformationContainer() {
         id,
         name: data.name,
         votingSystem: data.votingSystem,
+        // NOTE: `||` instead of `??` so an empty url turns auto-linking off
+        issueTrackerUrl: data.issueTrackerUrl || null,
       },
       {
         onSuccess: () => {

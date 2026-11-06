@@ -22,6 +22,7 @@ export function streamSession(
           votingSystem: data.votingSystem,
           status: data.status,
           ownerId: data.ownerId,
+          issueTrackerUrl: data.issueTrackerUrl ?? null,
           createdAt: data.createdAt.toDate(),
           updatedAt: data.updatedAt.toDate(),
         });

@@ -21,6 +21,7 @@ function toSession(doc: DocumentSnapshot<SessionDoc, DocumentData>): Session {
     votingSystem: data.votingSystem,
     status: data.status,
     ownerId: data.ownerId,
+    issueTrackerUrl: data.issueTrackerUrl ?? null,
     updatedAt: data.updatedAt?.toDate(),
   });
 }
@@ -33,6 +34,7 @@ function toSessionDoc(session: Session): SessionDoc {
     votingSystem: session.votingSystem,
     status: session.status,
     ownerId: session.ownerId,
+    issueTrackerUrl: session.issueTrackerUrl,
   };
 }
 

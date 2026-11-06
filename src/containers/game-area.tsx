@@ -16,9 +16,11 @@ export default function GameArea() {
   }
 
   return (
-    <div className="flex w-full items-center justify-center gap-4">
+    <div className="flex w-full items-center justify-center gap-4 transition-[opacity,translate] duration-200 ease-out-strong starting:translate-y-4 starting:opacity-0 motion-reduce:starting:translate-y-0">
       <VotesChart />
-      <GameAverage />
+      <div className="transition-[opacity,translate] delay-[40ms] duration-200 ease-out-strong starting:translate-y-4 starting:opacity-0 motion-reduce:starting:translate-y-0">
+        <GameAverage />
+      </div>
     </div>
   );
 }

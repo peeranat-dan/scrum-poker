@@ -18,7 +18,7 @@ Session (1)
 
 A planning session where participants vote on story estimates.
 
-**Properties**: `name`, `votingSystem` (`fibonacci` | `t-shirt`), `status` (`active` | `finished`), `ownerId`
+**Properties**: `name`, `votingSystem` (`fibonacci` | `t-shirt`), `status` (`active` | `finished`), `ownerId`, `issueTrackerUrl` (optional base url, e.g. `https://example.atlassian.net/browse/`)
 
 **Lifecycle**: `active` → `finished`
 
@@ -26,7 +26,8 @@ A planning session where participants vote on story estimates.
 
 - Only `owner` or `admin` participants can manage session settings.
 - The `votingSystem` cannot be changed if votes already exist in the active round.
-- Only the `owner` can export the session votes. The export has one row per `revealed`/`finished` round and one column per non-spectator participant (including `left`/`removed`).
+- Only the `owner` can export the session votes. The export has one row per `revealed`/`finished` round (with its `issueId`) and one column per non-spectator participant (including `left`/`removed`).
+- When `issueTrackerUrl` is set, a round's `issueId` links to `issueTrackerUrl + issueId`. It must be an `http(s)` url.
 
 ---
 
@@ -54,14 +55,15 @@ A user who has joined a Session.
 
 A single voting iteration within a Session.
 
-**Properties**: `sessionId`, `status` (`in-progress` | `revealed` | `finished`), `averageVote`
+**Properties**: `sessionId`, `status` (`in-progress` | `revealed` | `finished`), `averageVote`, `issueId` (optional ticket being estimated, e.g. `PROJ-123` or a pasted link)
 
 **Lifecycle**: `in-progress` → `revealed` → `finished` → _(new round starts at `in-progress`)_
 
 **Business Rules**:
 
 - A new round can only be started when the latest round has status `revealed`.
-- Revoting is only allowed when the round status is `revealed`.
+- Revoting is only allowed when the round status is `revealed`. Revoting keeps the `issueId`.
+- Only the session `owner` can set the `issueId`, and only while the round is not `finished`. A new round starts without one.
 - `averageVote` is computed when the round status changes to `revealed`. It:
   - Excludes votes with `value < 0` (i.e. `?` and `🙅🏼` cards).
   - Excludes votes from participants who are not `active` or have role `spectator` at reveal time.

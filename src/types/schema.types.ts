@@ -14,6 +14,14 @@ const playerNameSchema = z
 
 const votingSystemSchema = z.enum(['fibonacci', 't-shirt']);
 
+const issueTrackerUrlSchema = z
+  .string()
+  .trim()
+  .refine(
+    (value) => value === '' || (/^https?:\/\//i.test(value) && URL.canParse(value)),
+    'Issue tracker URL must start with http:// or https://',
+  );
+
 export const CreateSessionSchema = z.object({
   name: sessionNameSchema,
   votingSystem: votingSystemSchema,
@@ -37,6 +45,7 @@ export type JoinSessionInput = z.infer<typeof JoinSessionSchema>;
 export const SessionInformationSchema = z.object({
   name: sessionNameSchema,
   votingSystem: votingSystemSchema,
+  issueTrackerUrl: issueTrackerUrlSchema,
 });
 
 export type SessionInformationInput = z.infer<typeof SessionInformationSchema>;

@@ -10,6 +10,7 @@ const BaseSessionSchema = z.object({
   votingSystem: votingSystemEnum,
   status: sessionStatusEnum,
   ownerId: z.string(),
+  issueTrackerUrl: z.string().nullable(),
 });
 
 export const SessionSchema = DomainEntitySchema.merge(BaseSessionSchema);

@@ -8,6 +8,7 @@ const BaseRoundSchema = z.object({
   sessionId: z.string(),
   status: z.enum(roundStatuses),
   averageVote: z.number().nullable(),
+  issueId: z.string().nullable(),
 });
 
 export const RoundSchema = DomainEntitySchema.merge(BaseRoundSchema);
