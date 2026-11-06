@@ -12,6 +12,13 @@ on:
       tag:
         type: string
         required: true
+  # Manual redeploy of an existing tag, e.g. after a failed deploy
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to deploy (e.g. 1.5.0)'
+        type: string
+        required: true
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
