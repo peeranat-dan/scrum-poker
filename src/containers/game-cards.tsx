@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { useCallback, useEffect, useOptimistic, useTransition } from 'react';
+import { startTransition, useCallback, useEffect, useOptimistic } from 'react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -16,12 +16,9 @@ export default function GameCards() {
   // NOTE: Lifts the card on click instead of after the vote is saved. Falls back to the
   // saved `vote` once the transition settles, so a failed vote reverts on its own.
   const [currentValue, setOptimisticValue] = useOptimistic(vote?.value);
-  const [isPending, startTransition] = useTransition();
 
   const handleSelectCard = (value: number) => {
-    // NOTE: Ignore clicks until the previous vote settles so votes can't race
-    if (isPending) return;
-
+    // NOTE: Each click shows right away; the vote mutation is scoped so writes run one at a time
     startTransition(async () => {
       setOptimisticValue(value);
       try {
@@ -71,7 +68,7 @@ export default function GameCards() {
         aria-label={isCardShown ? 'Hide cards' : 'Show cards'}
         className={cn(
           'transition-[translate,background-color] duration-200 ease-out-strong',
-          !isCardShown && 'translate-y-[125px]',
+          !isCardShown && 'translate-y-31.25',
         )}
       >
         {isCardShown ? <ChevronDown /> : <ChevronUp />}
@@ -79,7 +76,7 @@ export default function GameCards() {
       <ul
         className={cn(
           'no-scrollbar mx-auto my-0 flex w-full list-none items-center gap-2 overflow-x-auto p-4 px-4 transition-[translate] duration-200 ease-out-strong lg:w-fit',
-          !isCardShown && '-translate-y-[-100%]',
+          !isCardShown && 'translate-y-full',
         )}
       >
         {cards.map((card) => (
@@ -90,7 +87,7 @@ export default function GameCards() {
               aria-label={`Vote ${card.displayValue}`}
               aria-pressed={currentValue === card.value}
               className={cn(
-                'flex aspect-[2/3] w-20 shrink-0 cursor-pointer items-center justify-center rounded-md border bg-card text-center font-mono text-2xl font-semibold text-foreground shadow-md',
+                'flex aspect-2/3 w-20 shrink-0 cursor-pointer items-center justify-center rounded-md border bg-card text-center font-mono text-2xl font-semibold text-foreground shadow-md',
                 'transition-[translate,scale,box-shadow] duration-150 ease-out-strong active:scale-[0.97] motion-reduce:active:scale-100',
                 card.color,
                 card.textColor,
