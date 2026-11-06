@@ -68,7 +68,7 @@ export default function GameSettingsModal() {
       <DialogContent className="overflow-hidden p-0 md:max-h-[500px] md:max-w-[700px] lg:max-w-[800px]">
         <DialogTitle className="sr-only">Settings</DialogTitle>
         <DialogDescription className="sr-only">Customize your settings here.</DialogDescription>
-        <SidebarProvider className="items-start">
+        <SidebarProvider className="min-w-0 items-start">
           <Sidebar collapsible="none" className="hidden md:flex">
             <SidebarContent>
               <SidebarGroup>
@@ -89,7 +89,7 @@ export default function GameSettingsModal() {
               </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-          <main className="flex h-dvh flex-1 flex-col overflow-hidden md:h-[500px]">
+          <main className="flex h-dvh min-w-0 flex-1 flex-col overflow-hidden md:h-[500px]">
             <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
               <div className="flex items-center gap-2 px-4">
                 <h2 className="text-lg font-semibold">Settings</h2>
