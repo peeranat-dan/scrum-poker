@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.0
+
+### Minor Changes
+
+- [#330](https://github.com/peeranat-dan/scrum-poker/pull/330) [`dea5b2f`](https://github.com/peeranat-dan/scrum-poker/commit/dea5b2f432469e1f158f905fc0d34c03082e412c) Thanks [@peeranat-dan](https://github.com/peeranat-dan)! - Attach an issue ID to each round, shown on the poker table, linked through an optional issue tracker URL, and included in the votes export. The poker table also gets a refreshed round panel with a vote progress bar and a card flip on reveal.
+
 ## 1.4.0
 
 ### Minor Changes
