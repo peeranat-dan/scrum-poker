@@ -23,6 +23,7 @@
     "format:check": "oxfmt --check"
   },
   "dependencies": {
+    "@chanom/env": "0.2.0",
     "@chanom/utils": "0.0.2",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@fontsource-variable/noto-sans-thai": "^5.3.0",

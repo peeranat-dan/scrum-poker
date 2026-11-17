@@ -47,6 +47,16 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Write env
+        env:
+          CLIENT_ENV: ${{ secrets.DEV_CLIENT_ENV }}
+        run: |
+          if [ -n "$CLIENT_ENV" ]; then
+            echo "$CLIENT_ENV" > .env
+          else
+            # Fork PRs get no secrets: build without validating env values
+            echo "SKIP_ENV_VALIDATION=true" >> "$GITHUB_ENV"
+          fi
       - name: Run Build
         run: pnpm build
   lint:

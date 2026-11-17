@@ -11,6 +11,9 @@ importers:
 
   .:
     dependencies:
+      '@chanom/env':
+        specifier: 0.2.0
+        version: 0.2.0(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(tsx@4.19.4)(yaml@2.9.1))
       '@chanom/utils':
         specifier: 0.0.2
         version: 0.0.2
@@ -339,6 +342,14 @@ packages:
       oxfmt: 0.74.0
       oxlint: 1.89.0
       oxlint-tsgolint: 7.0.2005
+
+  '@chanom/env@0.2.0':
+    resolution: {integrity: sha512-ofPaIVyjppU8PrL7WlEBQ5xly2y4acPEbSuC6Zd6ELl9X9rLj5/k/xF9R46j9toC31bzEnZ5GaTWUG0X8pri6Q==}
+    peerDependencies:
+      vite: 8.1.0
+    peerDependenciesMeta:
+      vite:
+        optional: true
 
   '@chanom/utils@0.0.2':
     resolution: {integrity: sha512-zeN48DtrlB4aFYCYCgJH03YtIu/ghmOWziUvbNSU88HOXiRS8b31nuP6DQ/cLZYd0k8MsCUuagAgoglcFRV/lw==}
@@ -4167,6 +4178,10 @@ snapshots:
       oxfmt: 0.74.0
       oxlint: 1.89.0(oxlint-tsgolint@7.0.2005)
       oxlint-tsgolint: 7.0.2005
+
+  '@chanom/env@0.2.0(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(tsx@4.19.4)(yaml@2.9.1))':
+    optionalDependencies:
+      vite: 8.3.5(@types/node@26.6.6)(jiti@2.7.0)(tsx@4.19.4)(yaml@2.9.1)
 
   '@chanom/utils@0.0.2':
     dependencies:
