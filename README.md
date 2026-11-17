@@ -34,7 +34,7 @@ pnpm install
 
 1. Create Firebase project
 
-2. Create a `.env` file in the root directory and add the Firebase configuration to it as stated in the `.env.example` file.
+2. Create a `.env` file in the root directory and add the Firebase configuration to it as stated in the `.env.example` file. Variables are validated with [`@chanom/env`](https://github.com/peeranat-dan/chanom/tree/main/packages/env) against `src/config/env-schema.ts`, so `pnpm dev` and `pnpm build` fail fast and list every missing or malformed variable. Read env through `config` (or `env`) from `@/config`, not `import.meta.env`. Set `SKIP_ENV_VALIDATION=true` to build without real values (CI does this for fork PRs, which get no secrets).
 
 3. Start the development server:
 

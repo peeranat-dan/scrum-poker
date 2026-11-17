@@ -10,6 +10,7 @@ import { StrictMode } from 'react';
 import './index.css';
 import { createRoot } from 'react-dom/client';
 
+import { config } from './config';
 import { AuthProvider, useAuth } from './providers/auth';
 import { ThemeProvider } from './providers/theme';
 import { routeTree } from './routeTree.gen';
@@ -43,9 +44,9 @@ function App() {
   );
 }
 
-if (!import.meta.env.DEV && import.meta.env.VITE_HIGHLIGHT_PROJECT_ID) {
-  H.init(import.meta.env.VITE_HIGHLIGHT_PROJECT_ID, {
-    serviceName: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+if (!import.meta.env.DEV && config.app.highlightProjectId) {
+  H.init(config.app.highlightProjectId, {
+    serviceName: config.firebase.authDomain,
     tracingOrigins: true,
   });
 }
