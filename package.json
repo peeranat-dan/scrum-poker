@@ -66,7 +66,7 @@
     "@changesets/cli": "^3.0.3",
     "@chanom/dev-config": "^0.0.5",
     "@commitlint/cli": "^21.0.1",
-    "@commitlint/config-conventional": "^21.0.1",
+    "@commitlint/config-conventional": "^21.2.4",
     "@playwright/test": "^1.62.1",
     "@tanstack/router-plugin": "^1.168.48",
     "@types/big.js": "^6.2.2",
